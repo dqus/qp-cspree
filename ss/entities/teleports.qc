@@ -194,6 +194,17 @@ void teleport_touch()
 	teleport_effect(other.origin + v_forward*32);
 };
 
+void teleport_send()
+{
+	entity destination;
+
+	self.SendEntity = gmapn_sendentity;
+
+	destination = find(world, targetname, self.target);
+	destination.pvsflags = PVSF_IGNOREPVS;
+	destination.SendEntity = gmapn_sendentity;
+}
+
 /*
 ========================================================================
 
@@ -213,6 +224,7 @@ void trigger_teleport()
 	self.solid = SOLID_TRIGGER;		// Can be touched and walked through
 	self.movetype = MOVETYPE_NONE;
 	setmodel(self, self.model);		// set size and link into world
+	self.modelindex = 0;
 	self.model = "";
 	self.touch = teleport_touch;
 
@@ -233,4 +245,7 @@ void trigger_teleport()
 			};
 		};
 	}
-};
+
+	self.nextthink = time + 0.1;
+	self.think = teleport_send;
+}

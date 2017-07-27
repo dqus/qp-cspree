@@ -6,4 +6,12 @@ csqcsysdefs.qc
 #pragma warning disable F301	//noone cares.
 constants.qc
 
+../common/defs.qc
+
+defs/fields.qc
+defs/functions.qc
+defs/globals.qc
+
 entrypoints.qc
+
+gmapn_prediction.qc
