@@ -55,8 +55,8 @@ void gmapn_print_welcome()
 {
 	string m = "";
 
-	m = strcat(m, sprintf("\n%s %s\n", NAME, redify(VERSION)));
-	m = strcat(m, sprintf("(%s)\n", redify(DATE)));
+	m = strcat(m, sprintf("\n[ %s %s ]\n", redify(NAME), VERSION));
+	m = strcat(m, sprintf("- %s\n", redify(DATE)));
 
 	sprint(self, PRINT_HIGH, m);
 }
