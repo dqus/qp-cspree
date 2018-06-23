@@ -15,16 +15,20 @@
 "angle" "180"
 "targetname" "t1"
 "model" "*1"
+"wait" "1"
+"speed" "300"
 }
 {
 "classname" "func_door"
 "angle" "0"
 "model" "*2"
+"wait" "1"
+"speed" "300"
 }
 {
 "classname" "func_button"
 "angle" "90"
-"target" "t1"
+"target" "t11"
 "model" "*3"
 }
 {
@@ -32,8 +36,9 @@
 "targetname" "t1"
 "classname" "func_door"
 "angle" "270"
-"wait" "4"
 "model" "*4"
+"speed" "200"
+"wait" "1"
 }
 {
 "classname" "func_door"
@@ -41,8 +46,9 @@
 "angle" "90"
 "targetname" "t1"
 "lip" "0"
-"wait" "4"
 "model" "*5"
+"speed" "200"
+"wait" "1"
 }
 {
 "classname" "light"
@@ -194,7 +200,7 @@
 "light" "200"
 }
 {
-"target" "t1"
+"target" "t3"
 "angle" "90"
 "classname" "func_button"
 "model" "*8"
@@ -202,7 +208,7 @@
 {
 "speed" "200"
 "dmg" "1000"
-"targetname" "t3"
+"targetname" "t11"
 "angle" "180"
 "spawnflags" "4"
 "classname" "func_door"
@@ -394,6 +400,8 @@
 "angle" "-1"
 "classname" "func_door"
 "model" "*12"
+"spawnflags" "1"
+"dmg" "1000"
 }
 {
 "targetname" "t6"
@@ -402,6 +410,8 @@
 "speed" "200"
 "classname" "func_door"
 "model" "*13"
+"spawnflags" "1"
+"dmg" "1000"
 }
 {
 "target" "t7"
@@ -431,9 +441,8 @@
 "classname" "item_armor2"
 }
 {
-"spawnflags" "1"
 "origin" "2232 -112 -160"
-"classname" "item_rockets"
+"classname" "weapon_grenadelauncher"
 }
 {
 "angle" "180"
@@ -452,7 +461,7 @@
 }
 {
 "origin" "2584 -352 0"
-"classname" "item_spikes"
+"classname" "item_cells"
 }
 {
 "spawnflags" "1"
@@ -468,20 +477,19 @@
 "classname" "item_health"
 }
 {
-"spawnflags" "1"
 "origin" "2040 -1032 320"
-"classname" "item_rockets"
+"classname" "item_armor1"
 }
 {
 "origin" "2480 -192 0"
-"classname" "weapon_nailgun"
+"classname" "weapon_lightning"
 }
 {
 "origin" "1472 -704 160"
-"classname" "weapon_rocketlauncher"
+"classname" "weapon_grenadelauncher"
 }
 {
-"classname" "item_spikes"
+"classname" "item_cells"
 "origin" "1904 -240 0"
 }
 {
@@ -532,7 +540,6 @@
 {
 "targetname" "t10"
 "classname" "func_door"
-"spawnflags" "1"
 "angle" "270"
 "wait" "20"
 "speed" "200"
@@ -673,7 +680,7 @@
 }
 {
 "origin" "2480 -1992 96"
-"classname" "item_armorInv"
+"classname" "item_armor2"
 }
 {
 "spawnflags" "2"
@@ -689,16 +696,17 @@
 "classname" "item_health"
 }
 {
-"targetname" "t11"
+"targetname" "t10"
 "lip" "64"
 "wait" "5"
 "speed" "300"
 "angle" "-1"
 "classname" "func_door"
 "model" "*18"
+"spawnflags" "1"
 }
 {
-"target" "t11"
+"target" "t9"
 "angle" "180"
 "classname" "func_button"
 "model" "*19"
@@ -715,7 +723,7 @@
 }
 {
 "origin" "2168 -1872 0"
-"classname" "item_spikes"
+"classname" "item_cells"
 }
 {
 "angle" "90"
@@ -736,7 +744,6 @@
 "targetname" "t9"
 "speed" "200"
 "lip" "-8"
-"spawnflags" "1"
 "angle" "90"
 "classname" "func_door"
 "model" "*20"
@@ -744,13 +751,12 @@
 {
 "speed" "200"
 "lip" "-8"
-"spawnflags" "1"
 "angle" "270"
 "classname" "func_door"
 "model" "*21"
 }
 {
-"target" "t9"
+"target" "t10"
 "angle" "270"
 "classname" "func_button"
 "model" "*22"
@@ -887,11 +893,11 @@
 }
 {
 "origin" "2056 -936 16"
-"classname" "item_armor2"
+"classname" "item_armor1"
 }
 {
 "origin" "1312 -952 16"
-"classname" "item_armor2"
+"classname" "item_armor1"
 }
 {
 "speed" "75"
@@ -988,7 +994,7 @@
 }
 {
 "origin" "2056 -936 320"
-"classname" "weapon_grenadelauncher"
+"classname" "weapon_rocketlauncher"
 }
 {
 "spawnflags" "2"
@@ -1002,17 +1008,16 @@
 {
 "origin" "1520 -720 160"
 "classname" "item_rockets"
+"spawnflags" "1"
 }
 {
-"wait" "5"
-"target" "t3"
+"target" "t1"
 "angle" "0"
 "classname" "func_button"
 "model" "*32"
 }
 {
-"wait" "5"
-"target" "t3"
+"target" "t1"
 "classname" "func_button"
 "angle" "0"
 "model" "*33"

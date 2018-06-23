@@ -336,7 +336,7 @@
 "origin" "-16 -88 392"
 }
 {
-"classname" "item_armorInv"
+"classname" "item_armor2"
 "origin" "-320 480 448"
 }
 {
@@ -1073,7 +1073,7 @@
 "origin" "-688 -832 248"
 }
 {
-"classname" "weapon_rocketlauncher"
+"classname" "weapon_supershotgun"
 "origin" "-688 496 248"
 }
 {
@@ -1250,23 +1250,23 @@
 "origin" "-776 -752 448"
 }
 {
-"classname" "item_rockets"
+"classname" "item_spikes"
 "origin" "-544 0 32"
 }
 {
-"classname" "item_rockets"
+"classname" "item_spikes"
 "origin" "-544 -48 32"
 }
 {
-"classname" "weapon_rocketlauncher"
+"classname" "weapon_supershotgun"
 "origin" "-272 -416 432"
 }
 {
-"classname" "item_spikes"
+"classname" "item_rockets"
 "origin" "-260 -592 424"
 }
 {
-"classname" "item_spikes"
+"classname" "item_rockets"
 "origin" "-260 -632 424"
 }
 {
@@ -1328,7 +1328,7 @@
 "origin" "-880 -320 440"
 }
 {
-"classname" "item_armor2"
+"classname" "item_armorInv"
 "origin" "-672 -496 160"
 }
 {
@@ -1357,7 +1357,7 @@
 "origin" "-384 -864 256"
 }
 {
-"classname" "item_rockets"
+"classname" "item_shells"
 "origin" "-48 -320 432"
 }
 {

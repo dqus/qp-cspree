@@ -308,17 +308,17 @@
 "spawnflags" "2"
 }
 {
-"classname" "item_rockets"
+"classname" "item_armor1"
 "origin" "-104 568 -320"
-"spawnflags" "1"
 }
 {
-"classname" "item_spikes"
+"classname" "item_armor2"
 "origin" "-136 -528 -96"
 }
 {
-"classname" "item_shells"
+"classname" "item_spikes"
 "origin" "360 -136 -320"
+"spawnflags" "1"
 }
 {
 "classname" "item_health"
@@ -347,17 +347,14 @@
 {
 "classname" "item_health"
 "origin" "440 -1008 -120"
-"spawnflags" "1"
 }
 {
 "classname" "item_health"
 "origin" "440 -968 -120"
-"spawnflags" "1"
 }
 {
 "classname" "item_health"
 "origin" "400 -1008 -120"
-"spawnflags" "1"
 }
 {
 "classname" "item_spikes"
@@ -369,12 +366,11 @@
 "origin" "1136 -592 0"
 }
 {
-"classname" "item_shells"
+"classname" "item_health"
 "origin" "712 -864 -256"
-"spawnflags" "1"
 }
 {
-"classname" "item_spikes"
+"classname" "item_rockets"
 "origin" "984 -624 -128"
 }
 {
@@ -392,7 +388,7 @@
 "origin" "824 -848 -256"
 }
 {
-"classname" "item_spikes"
+"classname" "weapon_lightning"
 "origin" "840 -584 0"
 }
 {
@@ -435,11 +431,11 @@
 }
 {
 "origin" "88 -776 -128"
-"classname" "item_rockets"
+"classname" "item_spikes"
 }
 {
 "origin" "88 -824 -128"
-"classname" "item_shells"
+"classname" "item_spikes"
 }
 {
 "origin" "88 -872 -128"
@@ -447,23 +443,23 @@
 }
 {
 "origin" "200 -32 -128"
-"classname" "weapon_supernailgun"
+"classname" "weapon_supershotgun"
 }
 {
 "origin" "112 -432 -128"
-"classname" "weapon_grenadelauncher"
+"classname" "artifact_invisibility"
 }
 {
 "origin" "80 64 -320"
-"classname" "weapon_rocketlauncher"
+"classname" "weapon_lightning"
 }
 {
 "origin" "352 -8 -320"
-"classname" "weapon_nailgun"
+"classname" "weapon_supernailgun"
 }
 {
 "origin" "328 -1032 -128"
-"classname" "weapon_supershotgun"
+"classname" "weapon_supernailgun"
 }
 {
 "origin" "768 -880 -256"
@@ -471,7 +467,9 @@
 }
 {
 "origin" "200 72 -104"
-"classname" "item_artifact_super_damage"
+"classname" "item_health"
+"spawnflags" "2"
+"angle" "45"
 }
 {
 "light" "175"
@@ -624,7 +622,7 @@
 "mangle" "20 225 0"
 }
 {
-"classname" "weapon_lightning"
+"classname" "weapon_grenadelauncher"
 "origin" "528 -304 -128"
 }
 {

@@ -69,6 +69,7 @@
 {
 "classname" "light"
 "light" "185"
+"style" "0"
 "origin" "-416 -480 256"
 }
 {
@@ -122,8 +123,8 @@
 }
 {
 "classname" "light"
-"light" "175"
 "style" "0"
+"light" "175"
 "origin" "-208 688 224"
 }
 {
@@ -315,10 +316,10 @@
 }
 {
 "classname" "trigger_once"
-"sounds" "4"
-"message" "Impressive, most impressive!\nObi-Wan has taught you well."
-"style" "32"
 "delay" "2"
+"style" "32"
+"message" "Impressive, most impressive!\nObi-Wan has taught you well."
+"sounds" "4"
 "model" "*1"
 }
 {
@@ -354,11 +355,11 @@
 "origin" "-224 -480 24"
 }
 {
-"classname" "weapon_rocketlauncher"
+"classname" "weapon_grenadelauncher"
 "origin" "-96 -888 128"
 }
 {
-"classname" "item_armor1"
+"classname" "item_armor2"
 "origin" "-472 456 280"
 }
 {
@@ -386,8 +387,8 @@
 }
 {
 "classname" "light"
-"light" "200"
 "style" "0"
+"light" "200"
 "origin" "224 688 432"
 }
 {
@@ -425,8 +426,8 @@
 }
 {
 "classname" "light"
-"light" "175"
 "style" "0"
+"light" "175"
 "origin" "-96 608 32"
 }
 {
@@ -446,12 +447,12 @@
 {
 "classname" "item_health"
 "spawnflags" "1"
-"origin" "-64 4 0"
+"origin" "-56 440 8"
 }
 {
 "classname" "item_health"
 "spawnflags" "1"
-"origin" "-64 -36 0"
+"origin" "-56 400 8"
 }
 {
 "classname" "item_armor1"
@@ -497,12 +498,7 @@
 "origin" "312 -536 0"
 }
 {
-"classname" "item_rockets"
-"spawnflags" "1"
-"origin" "-112 -952 128"
-}
-{
-"classname" "item_shells"
+"classname" "item_spikes"
 "origin" "-504 -952 128"
 }
 {
@@ -551,16 +547,11 @@
 "origin" "-256 832 416"
 }
 {
-"classname" "item_rockets"
-"origin" "-888 -168 192"
-}
-{
 "classname" "weapon_lightning"
 "origin" "-96 624 0"
 }
 {
 "classname" "item_cells"
-"spawnflags" "1"
 "origin" "-160 608 0"
 }
 {
@@ -570,46 +561,35 @@
 }
 {
 "classname" "item_cells"
-"spawnflags" "1"
 "origin" "-64 608 0"
-}
-{
-"classname" "item_rockets"
-"origin" "-856 -168 192"
 }
 {
 "classname" "item_spikes"
 "origin" "-424 392 256"
 }
 {
-"classname" "weapon_grenadelauncher"
+"classname" "weapon_rocketlauncher"
 "origin" "-864 -64 192"
 }
 {
-"classname" "weapon_supershotgun"
+"classname" "weapon_supernailgun"
 "origin" "-256 -136 256"
 }
 {
-"classname" "item_shells"
+"classname" "item_spikes"
 "spawnflags" "1"
 "origin" "-272 -104 256"
 }
 {
-"classname" "item_health"
-"spawnflags" "2"
-"origin" "-936 -16 -64"
-}
-{
-"classname" "weapon_rocketlauncher"
+"classname" "weapon_nailgun"
 "origin" "-984 0 -64"
 }
 {
 "classname" "item_rockets"
-"spawnflags" "1"
 "origin" "-1016 -168 -64"
 }
 {
-"classname" "weapon_nailgun"
+"classname" "weapon_rocketlauncher"
 "origin" "-496 144 0"
 }
 {
@@ -628,6 +608,16 @@
 "origin" "-800 0 -32"
 }
 {
-"classname" "info_altar"
-"origin" "-96 -560 96"
+"classname" "light"
+"light" "185"
+"origin" "112 0 64"
+}
+{
+"classname" "item_health"
+"spawnflags" "2"
+"origin" "-112 -16 32"
+}
+{
+"classname" "light_flame_small_white"
+"origin" "205 1 88"
 }
