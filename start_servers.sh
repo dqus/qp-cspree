@@ -1,8 +1,12 @@
 #!/bin/sh
 
-FTEBIN="/home/andreas/quake/fteqw.sv"
-BASEDIR="/home/andreas/quake"
-MODDIR="/home/andreas/quake/cspree"
+SCRIPT="$0"
+DIR=`dirname "${SCRIPT}"`
+PARENT=`readlink -f "${DIR}"`
+
+FTEBIN="$PARENT/../fteqw.sv"
+BASEDIR="$PARENT/.."
+MODDIR="$PARENT"
 
 if [ -f $FTEBIN ]; then
 	for PORT_CFG in $MODDIR/cfgs/ports/port*.cfg; do

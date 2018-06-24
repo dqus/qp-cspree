@@ -1,5 +1,9 @@
 #!/bin/sh
 
+SCRIPT="$0"
+DIR=`dirname "${SCRIPT}"`
+PARENT=`readlink -f ${DIR}`
+
 URL=http://triptohell.info/moodles
 
 LINUX32_DIR=linux_x86
@@ -13,8 +17,8 @@ LINUX64_FTE=fteqw-sv64
 PAK_DIR=junk
 PAK_BIN=cspree.pk3
 
-QCC=./fteqcc
-FTE=../fteqw.sv
+QCC=$PARENT/fteqcc
+FTE=$PARENT/../fteqw.sv
 
 download() {
 	printf "Downloading $1..."
@@ -24,7 +28,7 @@ download() {
 		MD5="$(md5sum $3 | awk '{print $1}')"
 	fi
 
-	if wget --output-file wgetlog --server-response --timestamping ${URL}/$2/$3; then
+	if wget --output-file wgetlog --continue --tries=3 --timeout=10 --server-response --timestamping ${URL}/$2/$3; then
 		printf " Done."
 		if [ "$MD5" = "$(md5sum $3 | awk '{print $1}')" ]; then
 			printf " File is already the latest version.\n"
@@ -32,6 +36,7 @@ download() {
 		else
 			printf "\n"
 			DOWNLOAD_OK=1
+			mv $3 $PARENT
 		fi
 	else
 		printf " Failed! From wgetlog:\n"
@@ -69,7 +74,7 @@ runonce() {
 	fi
 }
 
-./stop_servers.sh
+$PARENT/stop_servers.sh
 
 if [ `getconf LONG_BIT` = "64" ]; then
 	runonce QCC ${LINUX64_DIR} ${LINUX64_QCC} ${QCC}
@@ -81,4 +86,4 @@ fi
 
 download PK3 ${PAK_DIR} ${PAK_BIN}
 
-./start_servers.sh
+$PARENT/start_servers.sh
