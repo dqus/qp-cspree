@@ -330,14 +330,14 @@
 "classname" "info_player_deathmatch"
 }
 {
-"spawnflags" "1"
 "origin" "928 -864 232"
 "classname" "item_health"
+"spawnflags" "1"
 }
 {
-"spawnflags" "1"
 "origin" "984 -864 232"
 "classname" "item_health"
+"spawnflags" "1"
 }
 {
 "spawnflags" "2"
@@ -347,24 +347,26 @@
 {
 "origin" "1696 -1160 16"
 "classname" "item_health"
+"spawnflags" "1"
 }
 {
 "origin" "1224 -608 144"
 "classname" "item_health"
+"spawnflags" "1"
 }
 {
 "origin" "1264 -344 144"
 "classname" "item_spikes"
 }
 {
-"spawnflags" "1"
 "origin" "1048 -520 16"
 "classname" "item_health"
+"spawnflags" "1"
 }
 {
-"spawnflags" "1"
 "origin" "1048 -568 16"
 "classname" "item_health"
+"spawnflags" "1"
 }
 {
 "origin" "752 -1640 16"
@@ -373,10 +375,9 @@
 {
 "spawnflags" "1"
 "origin" "456 -2048 16"
-"classname" "item_spikes"
+"classname" "item_rockets"
 }
 {
-"spawnflags" "1"
 "origin" "232 -1912 16"
 "classname" "item_health"
 }
@@ -390,7 +391,6 @@
 "model" "*3"
 }
 {
-"spawnflags" "1"
 "origin" "872 -960 -64"
 "classname" "item_health"
 }
@@ -426,7 +426,6 @@
 "classname" "item_spikes"
 }
 {
-"spawnflags" "1"
 "origin" "304 -1944 16"
 "classname" "item_health"
 }
@@ -446,7 +445,6 @@
 {
 "classname" "item_health"
 "origin" "920 -1008 -64"
-"spawnflags" "1"
 }
 {
 "classname" "light"
@@ -494,12 +492,12 @@
 }
 {
 "origin" "1224 -1088 232"
-"classname" "weapon_grenadelauncher"
+"classname" "item_armorInv"
 }
 {
 "angle" "45"
 "origin" "424 -2008 144"
-"classname" "weapon_supernailgun"
+"classname" "weapon_nailgun"
 }
 {
 "angle" "180"
@@ -507,7 +505,7 @@
 "classname" "weapon_rocketlauncher"
 }
 {
-"classname" "weapon_supernailgun"
+"classname" "weapon_grenadelauncher"
 "origin" "1392 -584 16"
 }
 {
@@ -639,7 +637,7 @@
 }
 {
 "origin" "512 -1088 -272"
-"classname" "item_artifact_invisibility"
+"classname" "item_artifact_invulnerability"
 }
 {
 "origin" "472 -1400 232"
@@ -665,6 +663,6 @@
 "model" "*6"
 }
 {
-"classname" "item_armorInv"
+"classname" "item_armor2"
 "origin" "1736 -344 144"
 }

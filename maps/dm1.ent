@@ -125,15 +125,17 @@
 {
 "angle" "-2"
 "classname" "func_door"
-"targetname" "t2"
+"targetname" "t3"
 "model" "*1"
+"spawnflags" "1"
 }
 {
 "sounds" "4"
 "angle" "-2"
 "classname" "func_door"
-"targetname" "t2"
+"targetname" "t3"
 "model" "*2"
+"spawnflags" "1"
 }
 {
 "classname" "light"
@@ -432,8 +434,7 @@
 "sounds" "4"
 "classname" "func_door"
 "angle" "180"
-"spawnflags" "1"
-"targetname" "t3"
+"targetname" "t2"
 "speed" "175"
 "wait" "8"
 "model" "*6"
@@ -469,9 +470,8 @@
 "origin" "-116 1160 -144"
 }
 {
-"classname" "item_rockets"
+"classname" "item_armor1"
 "origin" "584 856 0"
-"spawnflags" "1"
 }
 {
 "classname" "item_cells"
@@ -550,7 +550,7 @@
 }
 {
 "origin" "48 1152 0"
-"classname" "weapon_rocketlauncher"
+"classname" "weapon_grenadelauncher"
 }
 {
 "classname" "light"
@@ -601,7 +601,6 @@
 {
 "classname" "item_rockets"
 "origin" "-536 1000 0"
-"spawnflags" "1"
 }
 {
 "classname" "weapon_supershotgun"

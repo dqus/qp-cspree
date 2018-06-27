@@ -547,11 +547,11 @@
 "origin" "-256 832 416"
 }
 {
-"classname" "weapon_lightning"
+"classname" "weapon_supershotgun"
 "origin" "-96 624 0"
 }
 {
-"classname" "item_cells"
+"classname" "item_shells"
 "origin" "-160 608 0"
 }
 {
@@ -560,7 +560,7 @@
 "origin" "-584 -168 -64"
 }
 {
-"classname" "item_cells"
+"classname" "item_shells"
 "origin" "-64 608 0"
 }
 {
