@@ -359,7 +359,7 @@
 "origin" "-160 -104 16"
 }
 {
-"classname" "weapon_rocketlauncher"
+"classname" "weapon_lightning"
 "origin" "-112 -792 192"
 }
 {
@@ -368,7 +368,7 @@
 "spawnflags" "1"
 }
 {
-"classname" "weapon_lightning"
+"classname" "weapon_rocketlauncher"
 "origin" "372 -320 96"
 }
 {

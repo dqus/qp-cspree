@@ -176,6 +176,7 @@
 "classname" "func_button"
 "target" "t2"
 "model" "*5"
+"wait" "2"
 }
 {
 "classname" "light_flame_large_yellow"
@@ -435,8 +436,7 @@
 "classname" "func_door"
 "angle" "180"
 "targetname" "t2"
-"speed" "175"
-"wait" "8"
+"speed" "500"
 "model" "*6"
 }
 {
@@ -444,7 +444,7 @@
 "target" "t3"
 "angle" "-2"
 "lip" "4"
-"wait" "10"
+"wait" "3"
 "model" "*7"
 }
 {
@@ -470,7 +470,7 @@
 "origin" "-116 1160 -144"
 }
 {
-"classname" "item_armor1"
+"classname" "weapon_rocketlauncher"
 "origin" "584 856 0"
 }
 {
@@ -582,21 +582,20 @@
 "light" "200"
 }
 {
-"classname" "weapon_lightning"
+"classname" "weapon_rocketlauncher"
 "origin" "-400 1112 -144"
 }
 {
-"classname" "item_armor2"
+"classname" "item_armorInv"
 "origin" "-392 1416 0"
 }
 {
-"classname" "weapon_rocketlauncher"
+"classname" "item_armor1"
 "origin" "1088 704 48"
 }
 {
-"classname" "weapon_rocketlauncher"
+"classname" "weapon_lightning"
 "origin" "-312 1088 48"
-"angle" "180"
 }
 {
 "classname" "item_rockets"

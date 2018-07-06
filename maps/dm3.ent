@@ -772,7 +772,7 @@
 "origin" "1848 -864 -48"
 }
 {
-"classname" "weapon_supershotgun"
+"classname" "weapon_lightning"
 "origin" "1384 -40 -192"
 }
 {
@@ -873,7 +873,7 @@
 }
 {
 "origin" "1776 -656 -48"
-"classname" "weapon_lightning"
+"classname" "weapon_supershotgun"
 }
 {
 "light" "150"

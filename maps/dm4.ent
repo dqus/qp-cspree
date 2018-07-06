@@ -333,7 +333,7 @@
 "origin" "712 72 -320"
 }
 {
-"classname" "item_health"
+"classname" "item_rockets"
 "origin" "528 72 -320"
 }
 {
