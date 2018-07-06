@@ -839,3 +839,14 @@ void switchweapon(float old, float new, float maxswitch)
 	if (weaponnum(old) < weaponnum(new) && maxswitch >= weaponnum(new))
 		client_setweapon(new);
 }
+
+float countplayers()
+{
+	float players = 0;
+	entity p = world;
+
+	while ((p = find(p, classname, "player")))
+		players += 1;
+
+	return players;
+}

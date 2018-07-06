@@ -85,14 +85,9 @@ void gmapn_countdown_think()
 
 	self.frags+= 1;
 	self.nextthink = self.frags;
-	if (gmapn_serverstate == gmapn_serverstate_playing)
+	if (gmapn_serverstate == gmapn_serverstate_playing && cvar("deathmatch") > 0)
 	{
-		p = world;
-		while ((p = find(p, classname, "player")))
-		{
-			if (p.ready)
-				totalplayers++;
-		}
+		totalplayers = countplayers();
 
 		if (totalplayers < getkey(minplayers) || totalplayers < getkey(minteamsize)*2)
 		{

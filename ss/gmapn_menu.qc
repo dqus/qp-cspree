@@ -1404,12 +1404,16 @@ void gmapn_display_welcome()
 float gmapn_display_rules()
 {
 	float newkeys, keys;
+	float totalplayers;
 
 	if (time < 1)	//can do weird things on loading screens
 		return TRUE;
 
+	totalplayers = countplayers();
+
 	// display a help text when match is started
-	if (self.matchtime > max(0, time - 12))
+	// do only display this when waiting for competitors
+	if (self.matchtime > max(0, time - 12) && totalplayers < getkey(minplayers) && cvar("deathmatch") > 0)
 	{
 		gmapn_display_welcome();
 		return FALSE;
