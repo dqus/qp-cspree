@@ -2611,12 +2611,15 @@ void ClientDisconnect()
 		cvar_set("teamplay", "0");	//need to clear teamplay to rework clientside enemyskin forcing so everyone appears as a valid target.
 	}
 
-	gmapn_serverstate = gmapn_serverstate_prewar; // someone left so a game cannot start
-	entity p = world;
-	while ((p = find(p, classname, "player")))
+	if (gmapn_serverstate == gmapn_serverstate_lockready)
 	{
-		p.maxspeed = 320;
-		p.rulesel = 0;
+		gmapn_serverstate = gmapn_serverstate_prewar; // someone left so a game cannot start
+		entity p = world;
+		while ((p = find(p, classname, "player")))
+		{
+			p.maxspeed = 320;
+			p.rulesel = 0;
+		}
 	}
 
 	/* Stop match if no players are left */
