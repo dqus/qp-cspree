@@ -1,3 +1,3 @@
 #define NAME "chillingspree"
-#define VERSION "1.0"
-#define DATE "Sun 15 Jul 2018 17:49"
+#define VERSION "2.0.1"
+#define DATE "Sun 15 Jul 2018 17:53"

@@ -14,7 +14,7 @@ LINUX64_DIR=linux_amd64
 LINUX64_QCC=fteqcc64
 LINUX64_FTE=fteqw-sv64
 
-PAK_DIR=junk
+PAK_DIR=cspree
 PAK_BIN=cspree.pk3
 
 QCC=$PARENT/fteqcc
