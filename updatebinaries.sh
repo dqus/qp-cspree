@@ -4,13 +4,13 @@ SCRIPT="$0"
 DIR=`dirname "${SCRIPT}"`
 PARENT=`readlink -f ${DIR}`
 
-URL=http://triptohell.info/moodles
+URL=http://triptohell.info
 
-LINUX32_DIR=linux_x86
+LINUX32_DIR=moodles/linux_x86
 LINUX32_QCC=fteqcc32
 LINUX32_FTE=fteqw-sv32
 
-LINUX64_DIR=linux_amd64
+LINUX64_DIR=moodles/linux_amd64
 LINUX64_QCC=fteqcc64
 LINUX64_FTE=fteqw-sv64
 
