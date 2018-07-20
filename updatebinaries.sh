@@ -36,7 +36,6 @@ download() {
 		else
 			printf "\n"
 			DOWNLOAD_OK=1
-			mv $3 $PARENT
 		fi
 	else
 		printf " Failed! From wgetlog:\n"
@@ -47,7 +46,8 @@ download() {
 
 permissions() {
 	printf "Setting executable permissions for $1.\n"
-	if chmod +x $2; then
+	chmod +x $2
+	if [ $? -eq 0 ]; then
 		PERMISSIONS_OK=1
 	else
 		PERMISSIONS_OK=0
@@ -55,10 +55,13 @@ permissions() {
 }
 
 symlink() {
-	if [ -f $2 ] && [ ! -L $2 ]; then
-		printf "$2 is a regular file, answer yes to change it to a symlink.\n"
-		ln --interactive -s ${PWD}/$3 $2
-	elif [ ! -L $2 ]; then
+	if [ -f $2 ]; then
+		readlink $2
+		if [ $? -ne 0 ]; then
+			printf "$2 is a regular file, answer yes to change it to a symlink.\n"
+			ln --interactive -s ${PWD}/$3 $2
+		fi
+	else
 		printf "Creating symlink for $1.\n"
 		ln -s ${PWD}/$3 $2
 	fi
