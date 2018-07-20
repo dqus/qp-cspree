@@ -1,7 +1,8 @@
 .cvsignore
 .svn
 cfgs/ports/*.cfg
-run/*.sh
+run/port*.sh
+run/qtv*.sh
 private.cfg
 *~
 *#*#
