@@ -13,9 +13,11 @@ if [ -f $FTEBIN ]; then
 		if [ -f $PORT_CFG ]; then # a file
 			PORT=`echo $PORT_CFG | tr -d '[A-Za-z\.\/]'`
 			printf "* Starting ftesv (port %s)..." $PORT
-			PROCESS=`pgrep -f "sh .*/run_one_port.sh ${FTEBIN} ${PORT} ${BASEDIR}"`
+			PROCESS=`pgrep -f "${FTEBIN} -game cspree -port ${PORT}"`
 			if [ -z "$PROCESS" ]; then
-				if [ -z `nohup sh $MODDIR/run/run_one_port.sh $FTEBIN $PORT $BASEDIR > /dev/null 2>&1 &` ]; then
+				nohup sh $MODDIR/run/run_one_port.sh $FTEBIN $PORT $BASEDIR > /dev/null 2>&1 &
+				wait $!
+				if [ $? -eq 0 ]; then
 					echo "[OK]"
 				else
 					echo "[ERROR]"

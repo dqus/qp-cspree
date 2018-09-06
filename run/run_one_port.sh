@@ -1,5 +1,9 @@
 #!/bin/sh
 
+SCRIPT="$0"
+DIR=`dirname "${SCRIPT}"`
+PARENT=`readlink -f "${DIR}"`
+
 SERVER_BINARY=$1
 SERVER_PORT=$2
 SERVER_DIR=$3
@@ -22,12 +26,9 @@ if [ -f $SERVER_BINARY ]; then
 			CMDLINE="$SERVER_BINARY -game cspree -port $PORT -basedir $SERVER_DIR +set port $PORT"
 			LOGDIR=`dirname $SERVER_BINARY`
 			LOGFILE=$LOGDIR/cspree_${PORT}_error.log
-			$CMDLINE > /dev/null 2> $LOGFILE
-			if [ "$?" -ne 0 ]; then
-				cat crash.txt $LOGFILE signature.txt | mail -s "Quake Server crash" $USER 
-				exit 0
-			fi
+			sh $PARENT/crashcatcher.sh $CMDLINE &
 		fi
+		exit 0
 	fi
 else
 	echo "Server binary not found."
