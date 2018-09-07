@@ -114,4 +114,4 @@ clean:
 all: ../cspree/qwprogs.dat
 
 release:
-	tar Cczvf .. cspree_server.tar.gz cspree/qwprogs.dat cspree/start_servers.sh cspree/stop_servers.sh cspree/updatebinaries.sh cspree/run/crashcatcher.sh cspree/run/run_one_port.sh cspree/setup.sh cspree/winquicker.bat cspree/LICENSE cspree/README cspree/INSTALL
+	tar Cczvf .. cspree_server.tar.gz cspree/qwprogs.dat cspree/maps/ cspree/start_servers.sh cspree/stop_servers.sh cspree/updatebinaries.sh cspree/run/crashcatcher.sh cspree/run/run_one_port.sh cspree/setup.sh cspree/winquicker.bat cspree/LICENSE cspree/README cspree/INSTALL
