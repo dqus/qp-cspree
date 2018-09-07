@@ -18,6 +18,7 @@ VERSION:=$(if $(call isgittree),$(shell git diff-index --quiet HEAD -- && echo "
 QCC:=./fteqcc
 
 SRC = \
+	version.qc \
 	ss/client.qc \
 	ss/gmapn_aliasstuffer.qc \
 	ss/gmapn_anticheat.qc \
