@@ -342,8 +342,7 @@ void(entity killer, entity victim, float delta) gmapn_scorefrags =
 {
 	if (gmapn_gamemode == GM_DA)
 	{
-		if (victim != gmapn_secondchancer)
-			return; // only award points for killing the second chancer
+		return; // points are dealt on round end
 	}
 	if (gmapn_gamemode == GM_COUNTERQUAKE)
 	{
@@ -483,6 +482,11 @@ void(entity killer, entity victim, float delta) gmapn_scorefrags =
 };
 void(entity victim, float delta) gmapn_suicidefrags =
 {
+	if (gmapn_gamemode == GM_DA)
+	{
+		return;
+	}
+
 	if (gmapn_gamemode == GM_LASTMANSTANDING || gmapn_gamemode == GM_FREEZETAG)
 	{
 		gmapn_checklastplayer(victim, victim.teamname);

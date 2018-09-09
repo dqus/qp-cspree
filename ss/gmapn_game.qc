@@ -432,7 +432,19 @@ static void duelcheck()
 			for (entity e = world; (e = find(e, classname, "player")); )
 			{
 				if (e == liveplayer)
+				{
+					e.frags += 1;
 					centerprint(e, "You are victorious!");
+
+					float fragavg;
+
+					fragavg = floor(gmapn_roundslimit * 0.5);
+					if (e.frags > fragavg)
+					{
+						gmapn_game_end();
+						return;
+					}
+				}
 				else
 					centerprint(e, liveplayer.netname, " is victorious!\n", goldnmbr(ftos(liveplayer.health)), " health and ", goldnmbr(ftos(liveplayer.armorvalue)), " armor left");
 			}
@@ -872,6 +884,11 @@ void gmapn_round_start()
 			}
 		}
 
+		for (entity pack = world; pack = find(pack, classname, "backpack"); )
+		{
+			remove(pack);
+		}
+
 		self = spawn();
 		self.classname = "gmapn_round_check";
 		self.think = duelcheck;
@@ -907,6 +924,20 @@ void gmapn_round_start()
 	}
 };
 
+void gmapn_round_print(float seconds)
+{
+	for (entity e = world; (e = find(e, classname, "player")); )
+	{
+		string m = "";
+
+		if (e.frags + 1 > floor(gmapn_roundslimit * 0.5))
+			m = "Opportunity!\n\n";
+
+		m = strcat(m, sprintf(_("Round %s of %s starts in %s seconds"), goldnmbr(ftos(gmapn_roundnum + 1)), goldnmbr(ftos(gmapn_roundslimit)), goldnmbr(ftos(self.cnt))));
+		centerprint(e, m);
+	}
+}
+
 //called after intra-round breather
 void gmapn_round_restart()
 {
@@ -915,8 +946,7 @@ void gmapn_round_restart()
 
 	if (self.cnt > 0)
 	{
-		for (entity e = world; (e = find(e, classname, "player")); )
-			centerprint(e, sprintf(_("Round %s of %s starts in "), goldnmbr(ftos(gmapn_roundnum + 1)), goldnmbr(ftos(getkey(game_rounds)))), goldnmbr(ftos(self.cnt)), " seconds");
+		gmapn_round_print(self.cnt);
 		gmapn_sound(self, CHAN_VOICE, sprintf("announcer/%g.wav", self.cnt), 1, ATTN_NONE, 8);
 	}
 	else
@@ -935,6 +965,8 @@ void gmapn_round_restart()
 //called when a round has ended, gives time for a breather.
 void gmapn_round_end()
 {
+	entity e;
+
 	// applies for duel, 2on2 and tdm
 	if (game_is_tied())
 	{
@@ -942,14 +974,16 @@ void gmapn_round_end()
 		self.cnt += getkey(overtime) * 60;
 		return;
 	}
-	// FIXME: display the below when time is up, not otherwise
-/*
-	for (entity e = world ; e = find(e, classname, "player") ; )
+
+	if (!find(world, classname, "gmapn_countdown"))
 	{
-		centerprint(e, "Time's up!");
+		for (e = world ; e = find(e, classname, "player") ; )
+		{
+			centerprint(e, "Time's up!");
+		}
 	}
-*/
-	gmapn_countdown_stop();
+	else
+		gmapn_countdown_stop();
 
 	//don't fight too much
 	other = find(world, classname, "gmapn_round_check");
