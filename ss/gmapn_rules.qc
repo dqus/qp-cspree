@@ -223,7 +223,7 @@ void gmapn_apply_gamemode(float newmode)
 		cvar_set("teamplay", "0");
 		cvar_set("timelimit", "10");
 		setkey("minteamsize", "1");
-		setkey("minplayer", gmapn_ismatchless(newmode) ? "1" : "2");
+		setkey("minplayers", gmapn_ismatchless(newmode) ? "1" : "2");
 		setkey("maxplayers", gmapn_ismatchless(newmode) ? maxplayers : "2");
 		break;
 	case GM_FREEZETAG:
