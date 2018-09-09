@@ -1,7 +1,7 @@
 SHELL:=/bin/bash
 
 # Version tag for this release, should match the current tag in Git
-TAG:=2.0.2
+TAG:=2.0.3
 
 VERSION:=$(shell git rev-parse --git-dir > /dev/null 2>&1 && echo "git" || echo "release")
 
