@@ -850,6 +850,7 @@ void gmapn_rules_handleconnect()
 		{
 			gmapn_reset_stoptimer();
 			gmapn_game_start();
+			return;
 		}
 	}
 
