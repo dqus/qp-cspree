@@ -618,6 +618,44 @@ void(float saved1, float saved2, float saved3, float saved4, float scratch1, flo
 	tep.b_frags = scratch4;
 };
 
+float saved1, saved2, saved3, saved4;
+float scratch1, scratch2, scratch3, scratch4;
+
+void WaypointRead(string action)
+{
+	tokenize(action);
+	float v = stof(argv(1));
+	switch(argv(0))
+	{
+	case "scratch1": scratch1 = v; break;
+	case "scratch2": scratch2 = v; break;
+	case "scratch3": scratch3 = v; break;
+	case "scratch4": scratch4 = v; break;
+	case "saved1": saved1 = v; break;
+	case "saved2": saved2 = v; break;
+	case "saved3": saved3 = v; break;
+	case "saved4": saved4 = v;
+		LoadWaypoint(saved1, saved2, saved3, saved4, scratch1, scratch2, scratch3, scratch4);
+		break;
+	}
+}
+
+void WaypointFormat(string line)
+{
+	string s;
+	float ofs, p;
+
+	while ((p = strstrofs(line, ";", ofs)) != -1)
+	{
+		s = substring(line, ofs, p);
+		ofs = p + 1;
+		WaypointRead(s);
+	}
+
+	s = substring(line, ofs, strlen(line));
+	WaypointRead(s);
+}	
+
 float wpwcount;
 void WaypointWatch()
 {
@@ -631,27 +669,11 @@ void WaypointWatch()
 		filestream f = fopen(sprintf("maps/%s.way", mapname), FILE_READ);
 		if (f >= 0)
 		{
-			float saved1=0, saved2=0, saved3=0, saved4=0;
-			float scratch1=0, scratch2=0, scratch3=0, scratch4=0;
 			string line;
 			ClearAllWays();
 			while((line = fgets(f)))
 			{
-				tokenize(line);
-				float v = stof(argv(1));
-				switch(argv(0))
-				{
-				case "scratch1": scratch1 = v; break;
-				case "scratch2": scratch2 = v; break;
-				case "scratch3": scratch3 = v; break;
-				case "scratch4": scratch4 = v; break;
-				case "saved1": saved1 = v; break;
-				case "saved2": saved2 = v; break;
-				case "saved3": saved3 = v; break;
-				case "saved4": saved4 = v;
-					LoadWaypoint(saved1, saved2, saved3, saved4, scratch1, scratch2, scratch3, scratch4);
-					break;
-				}
+				WaypointFormat(line);
 			}
 			FixWaypoints();
 	
@@ -660,6 +682,7 @@ void WaypointWatch()
 		}
 		else
 		{
+			dprint("Didn't find a waypoint file.\n");
 			waypoint_mode = WM_DYNAMIC;
 			bot_map_load();
 		}
