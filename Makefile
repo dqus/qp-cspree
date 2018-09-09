@@ -1,7 +1,7 @@
 SHELL:=/bin/bash
 
 # Version tag for this release, should match the current tag in Git
-TAG:=1.0-beta3
+TAG:=2.0.2
 
 VERSION:=$(shell git rev-parse --git-dir > /dev/null 2>&1 && echo "git" || echo "release")
 
@@ -100,7 +100,6 @@ SRC = \
 	ss/monsters/zombie.qc
 
 ../cspree/qwprogs.dat: $(SRC)
-	#{ echo "#define VERSION \"${VERSION_NUMBER} ${VERSION}\""; echo "#define DATE \"${DATE}\""; } > version.qc
 	$(QCC)
 
 ctags: $(SRC)

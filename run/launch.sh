@@ -4,9 +4,9 @@ SCRIPT="$0"
 DIR=`dirname "${SCRIPT}"`
 PARENT=`readlink -f "${DIR}"`
 
-FTEBIN="$PARENT/../fteqw.sv"
-BASEDIR="$PARENT/.."
-MODDIR="$PARENT"
+FTEBIN="$PARENT/../fteqw-sv"
+BASEDIR="$PARENT/../.."
+MODDIR="$PARENT/.."
 
 if [ -f $FTEBIN ]; then
 	for PORT_CFG in $MODDIR/cfgs/ports/port*.cfg; do
@@ -15,7 +15,7 @@ if [ -f $FTEBIN ]; then
 			printf "* Starting ftesv (port %s)..." $PORT
 			PROCESS=`pgrep -f "${FTEBIN} -game cspree -port ${PORT}"`
 			if [ -z "$PROCESS" ]; then
-				nohup sh $MODDIR/run/run_one_port.sh $FTEBIN $PORT $BASEDIR > /dev/null 2>&1 &
+				nohup sh $MODDIR/run/run-one-port.sh $FTEBIN $PORT $BASEDIR > /dev/null 2>&1 &
 				wait $!
 				if [ $? -eq 0 ]; then
 					echo "[OK]"
