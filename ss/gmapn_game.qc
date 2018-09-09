@@ -997,19 +997,21 @@ void gmapn_round_end()
 			remove(other);
 	}
 
+	// All rounds have been played
+	if (gmapn_roundslimit == gmapn_roundnum)
+	{
+		gmapn_game_end();
+		return;
+	}
+
 	// this is a state where the players cannot shoot or be hurt
 	gmapn_serverstate = gmapn_serverstate_breather;
 
-	if (gmapn_roundslimit == gmapn_roundnum)
-		gmapn_game_end();
-	else
-	{
-		other = spawn();
-		other.classname = "gmapn_round_check";
-		other.think = gmapn_round_restart;
-		other.nextthink = time + 4;
-		other.cnt = 4;
-	}
+	other = spawn();
+	other.classname = "gmapn_round_check";
+	other.think = gmapn_round_restart;
+	other.nextthink = time + 4;
+	other.cnt = 4;
 };
 
 //called at the very start of the game
