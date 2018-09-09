@@ -26,7 +26,7 @@ if [ -f $SERVER_BINARY ]; then
 			CMDLINE="$SERVER_BINARY -game cspree -port $PORT -basedir $SERVER_DIR +set port $PORT"
 			LOGDIR=`dirname $SERVER_BINARY`
 			LOGFILE=$LOGDIR/cspree_${PORT}_error.log
-			sh $PARENT/crashcatcher.sh $CMDLINE &
+			sh $PARENT/crashcatcher.sh $CMDLINE > $LOGFILE &
 		fi
 		exit 0
 	fi
