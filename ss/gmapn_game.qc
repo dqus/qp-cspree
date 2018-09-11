@@ -278,8 +278,20 @@ static float duel_spawn_challenger()
 	return TRUE;
 };
 
+void checkfrags(float fragsum, float playercount)
+{
+	float fragavg;
+
+	fragavg = floor(gmapn_roundslimit * 0.5 * playercount);
+
+	if (fragsum > fragavg)
+		gmapn_game_end();
+}
+
 static void lastmancheck()
 {
+	float fragsum, numplayers;
+
 	self.nextthink = time + 1;
 
 	if (teamplay)
@@ -317,6 +329,20 @@ static void lastmancheck()
 				if (aliveteam == e.teamname)
 					e.frags += 1;
 			}
+
+			fragsum = 0;
+			numplayers = 0;
+			for (entity e = world; (e = find(e, classname, "player")); )
+			{
+				if (e.teamname == aliveteam)
+				{
+					fragsum += e.frags;
+					numplayers += 1;
+				}
+			}
+
+			if (gmapn_gamemode != GM_ROVER)
+				checkfrags(fragsum, numplayers);
 		}
 		else
 			bprint(PRINT_HIGH, "Round is drawn!\n");
@@ -436,14 +462,8 @@ static void duelcheck()
 					e.frags += 1;
 					centerprint(e, "You are victorious!");
 
-					float fragavg;
+					checkfrags(e.frags, 1);
 
-					fragavg = floor(gmapn_roundslimit * 0.5);
-					if (e.frags > fragavg)
-					{
-						gmapn_game_end();
-						return;
-					}
 				}
 				else
 					centerprint(e, liveplayer.netname, " is victorious!\n", goldnmbr(ftos(liveplayer.health)), " health and ", goldnmbr(ftos(liveplayer.armorvalue)), " armor left");
