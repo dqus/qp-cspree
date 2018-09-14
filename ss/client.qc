@@ -2067,7 +2067,7 @@ void client_obituary(entity targ, entity attacker)
 				else
 				{
 					logfrag (attacker, attacker);
-					attacker.frags = attacker.frags - 1;
+					gmapn_suicidefrags(targ, -1);
 					if (targ.deathtype == DT_GRENADE)
 					{
 						bprint (PRINT_MEDIUM,sprintf(_("%s tries to put the pin back in\n"), targ.netname));
