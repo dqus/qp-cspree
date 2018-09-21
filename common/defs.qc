@@ -1,0 +1,2 @@
+#define ENT_TELEPORTDEST 1
+#define ENT_TELEPORTER 2

@@ -13,6 +13,8 @@ defs/fields.qc               // Entity fields declarations
 defs/functions.qc            // Functions declarations
 defs/globals.qc              // Global variables declarations
 
+../common/defs.qc
+
 gmapn_keys.qc
 
 waypoints/map_dm1.qc
@@ -36,6 +38,7 @@ frikbot/bot_ed.qc
 gmapn_subs.qc
 gmapn_portals.qc
 gmapn_hazards.qc
+gmapn_csqc.qc
 
 models/player.qc
 

@@ -1,8 +1,13 @@
+void CSQC_Init(float apilevel, string enginename, float engineversion)
+{
+	deltalisten("progs/player.mdl", gmapn_playerupdate, 0);
+}
+
 /**
 	CSQC_UpdateView, in a nutshell, runs each frame and renders pretty much everything you see.
 */
 
-void(float width, float height, float menushown) CSQC_UpdateView =
+void CSQC_UpdateView(float width, float height, float menushown)
 {
 	clearscene(); //wipe the scene, and apply the default rendering values.
 
@@ -10,6 +15,9 @@ void(float width, float height, float menushown) CSQC_UpdateView =
 	setviewprop(VF_MIN_Y, 0);   //set the top of the view
 	setviewprop(VF_SIZE_X, width);   //set how wide the view is (full width)
 	setviewprop(VF_SIZE_Y, height); //set how high the view is (full height)
+
+	setviewprop(VF_ORIGIN, gmapn_playerorigin + [0,0,getstatf(STAT_VIEWHEIGHT)]);
+	setviewprop(VF_ANGLES, view_angles);
 	
 	setviewprop(VF_DRAWENGINESBAR, TRUE);	//enable the engine's normal sbar (or ezhud or whatever).
 	setviewprop(VF_DRAWCROSSHAIR, TRUE);	//crosshair should be visible too.
@@ -34,3 +42,62 @@ void(float width, float height, float menushown) CSQC_UpdateView =
 	}
 };
 
+void CSQC_Ent_Update(float isnew)
+{
+	float enttype = readbyte();
+
+	print("entupdate\n");
+	switch (enttype)
+	{
+	case ENT_TELEPORTDEST:
+		
+		setmodelindex(self, readshort());
+
+		self.origin_x = readcoord();
+		self.origin_y = readcoord();
+		self.origin_z = readcoord();
+		setorigin(self, self.origin);
+
+		self.angles_x = readangle();
+		self.angles_y = readangle();
+		self.angles_z = readangle();
+
+		self.classname = "gmapn_teleportdest";
+		self.drawmask = MASK_ENGINE;
+
+		print("destination!\n");
+
+		break;
+		
+	case ENT_TELEPORTER:
+
+		setmodelindex(self, readshort());
+		
+		self.origin_x = readcoord();
+		self.origin_y = readcoord();
+		self.origin_z = readcoord();
+		setorigin(self, self.origin);
+
+		self.targetnum = readentitynum();
+
+		self.classname = "gmapn_teleporter";
+		self.drawmask = MASK_ENGINE;
+
+		self.modelindex = 0;
+		self.model = "";
+		gmapn_init_teleport();
+			
+		break;
+
+	default:
+
+		error(sprintf("Unknown entity type: %s", ftos(enttype)));
+
+		break;
+	}
+}
+
+void CSQC_Ent_Remove()
+{
+	remove(self);
+}

@@ -19,11 +19,14 @@ QCC:=./fteqcc
 
 SRC = \
 	version.qc \
+	common/defs.qc \
+	ss/progs.src \
 	ss/client.qc \
 	ss/gmapn_aliasstuffer.qc \
 	ss/gmapn_anticheat.qc \
 	ss/gmapn_config.qc \
 	ss/gmapn_countdown.qc \
+	ss/gmapn_csqc.qc \
 	ss/gmapn_disconnected.qc \
 	ss/gmapn_game.qc \
 	ss/gmapn_help.qc \
@@ -97,7 +100,15 @@ SRC = \
 	ss/monsters/soldier.qc \
 	ss/monsters/tarbaby.qc \
 	ss/monsters/wizard.qc \
-	ss/monsters/zombie.qc
+	ss/monsters/zombie.qc \
+	cs/progs.src \
+	cs/constants.qc \
+	cs/csqcsysdefs.qc \
+	cs/entrypoints.qc \
+	cs/defs/fields.qc \
+	cs/defs/functions.qc \
+	cs/defs/globals.qc \
+	cs/gmapn_prediction.qc
 
 ../cspree/qwprogs.dat: $(SRC)
 	$(QCC)
@@ -109,7 +120,7 @@ etags: $(SRC)
 	etags $^
 
 clean:
-	rm -f qwprogs.dat qwprogs.lno
+	rm -f csprogs.dat csprogs.lno qwprogs.dat qwprogs.lno
 
 all: ../cspree/qwprogs.dat
 
