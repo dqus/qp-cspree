@@ -77,8 +77,6 @@ runonce() {
 	fi
 }
 
-$PARENT/stop_servers.sh
-
 if [ `getconf LONG_BIT` = "64" ]; then
 	runonce QCC ${LINUX64_DIR} ${LINUX64_QCC} ${QCC}
 	runonce FTE ${LINUX64_DIR} ${LINUX64_FTE} ${FTE}
@@ -88,5 +86,3 @@ else
 fi
 
 download PK3 ${PAK_DIR} ${PAK_BIN}
-
-$PARENT/start_servers.sh
