@@ -453,7 +453,7 @@ static void duelcheck()
 
 			return; // so the round doesn't end
 		}
-		else if (liveplayers == 1)
+		else if (liveplayers == 1 && liveplayer != gmapn_secondchancer)
 		{
 			for (entity e = world; (e = find(e, classname, "player")); )
 			{
@@ -904,7 +904,7 @@ void gmapn_round_start()
 			}
 		}
 
-		for (entity pack = world; pack = find(pack, classname, "backpack"); )
+		for (entity pack = world; (pack = find(pack, classname, "backpack")); )
 		{
 			remove(pack);
 		}
@@ -997,7 +997,7 @@ void gmapn_round_end()
 
 	if (!find(world, classname, "gmapn_countdown"))
 	{
-		for (e = world ; e = find(e, classname, "player") ; )
+		for (e = world ; (e = find(e, classname, "player")) ; )
 		{
 			centerprint(e, "Time's up!");
 		}

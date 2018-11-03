@@ -500,7 +500,7 @@ string gmapn_menu_matchstats(float keys)
 			if (whichpack(demoname, FALSE))
 				stuffcmd(self, sprintf("toggleconsole;download \"%s\"\n", demoname));
 			else
-				stuffcmd(self, sprintf("toggleconsole;echo Demo was deleted\n", demoname));
+				stuffcmd(self, "toggleconsole;echo Demo was deleted\n");
 		}
 	}
 	if (keys & 8)

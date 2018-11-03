@@ -572,13 +572,13 @@ void cmd_writeconfig()
 	if (e)
 	{
 		bprintln(PRINT_HIGH, vtos(e.origin));
-		fputs(f, sprintf("info_altar %g %g %g\n", ftos(e.origin_x), ftos(e.origin_y), ftos(e.origin_z)));
+		fputs(f, sprintf("info_altar %s %s %s\n", ftos(e.origin_x), ftos(e.origin_y), ftos(e.origin_z)));
 	}
 
 	e = find(world, classname, "info_controlpoint");
 	while (e)
 	{
-		fputs(f, sprintf("info_controlpoint %g %g %g\n", ftos(e.origin_x), ftos(e.origin_y), ftos(e.origin_z)));
+		fputs(f, sprintf("info_controlpoint %s %s %s\n", ftos(e.origin_x), ftos(e.origin_y), ftos(e.origin_z)));
 		e = find(e, classname, "info_controlpoint");
 	}
 	fclose(f);
