@@ -18,7 +18,7 @@ PAK_DIR=cspree
 PAK_BIN=cspree.pk3
 
 QCC=$PARENT/fteqcc
-FTE=$PARENT/../fteqw.sv
+FTE=$PARENT/fteqw-sv
 
 download() {
 	printf "Downloading $1..."
@@ -32,7 +32,7 @@ download() {
 		printf " Done."
 		if [ "$MD5" = "$(md5sum $3 | awk '{print $1}')" ]; then
 			printf " File is already the latest version.\n"
-			DOWNLOAD_OK=0
+			DOWNLOAD_OK=1
 		else
 			printf "\n"
 			DOWNLOAD_OK=1
