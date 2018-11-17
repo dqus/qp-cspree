@@ -239,7 +239,7 @@ void getkey_reset()
 	//map-mode-specific settings...
 	getkey_parseconfig(sprintf("cfgs/maps/%s/%s.conf", mapname, modename));
 
-	gmapn_update_defaults_mod();
+	gmapn_update_defaults_rules();
 };
 
 /*

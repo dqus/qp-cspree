@@ -31,7 +31,7 @@ void gmapn_config_update()
 	if (stof(infokey(world, "gmapn_config_version")) == gmapn_config_version)
 	{
 		gmapn_init_entities();
-		gmapn_update_defaults_mod();
+		gmapn_update_defaults_rules();
 		remove(self);
 		return;
 	}
@@ -79,7 +79,7 @@ void gmapn_config_load()
 	getkey_parseconfig(str);
 
 	if (gmapn_config_version == 0)
-		gmapn_update_defaults_srv();
+		gmapn_update_defaults_start();
 	
 	gmapn_config_version+= 1;
 	if (gmapn_config_version == 65536)

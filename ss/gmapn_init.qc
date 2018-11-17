@@ -248,46 +248,32 @@ void gmapn_init_entities()
 /*
   Updates on every rulechange.
 */
-void gmapn_update_defaults_mod()
+void gmapn_update_defaults_rules()
 {
-	dbgprintln("=== gmapn_update_defaults_mod() ===");
+	dbgprintln("=== gmapn_update_defaults_rules() ===");
 
-	forceinfokey(world, "gmapn_game_loadout", ftos(getkey(game_loadout)));
-	forceinfokey(world, "gmapn_game_rounds", ftos(getkey(game_rounds)));
-	forceinfokey(world, "gmapn_minplayers", ftos(getkey(minplayers)));
-	forceinfokey(world, "gmapn_maxplayers", ftos(getkey(maxplayers)));
-	forceinfokey(world, "gmapn_powerups_enabled", ftos(getkey(powerups_enabled)));
-	forceinfokey(world, "gmapn_deathmatch", ftos(cvar("deathmatch")));
-	forceinfokey(world, "gmapn_timelimit", ftos(cvar("timelimit")));
-	/*
-	default_game_loadout = getkey(game_loadout);
-	default_game_rounds = getkey(game_rounds);
-	default_minplayers = getkey(minplayers);
-	default_maxplayers = getkey(maxplayers);
-	default_powerups_enabled = getkey(powerups_enabled);
-	default_deathmatch = cvar("deathmatch");
-	default_timelimit = cvar("timelimit");
-	*/
+	cvar_set("init_loadout", ftos(getkey(game_loadout)));
+	cvar_set("init_rounds", ftos(getkey(game_rounds)));
+	cvar_set("init_minplayers", ftos(getkey(minplayers)));
+	cvar_set("init_maxplayers", ftos(getkey(maxplayers)));
+	cvar_set("init_powerups_enabled", ftos(getkey(powerups_enabled)));
+	cvar_set("init_deathmatch", ftos(cvar("deathmatch")));
+	cvar_set("init_timelimit", ftos(cvar("timelimit")));
 }
 
 /*
   Used for saving settings on server start that should be treated as default.
 */
-void gmapn_update_defaults_srv()
+void gmapn_update_defaults_start()
 {
-	dbgprintln("=== gmapn_update_defaults_srv() ===");
+	dbgprintln("=== gmapn_update_defaults_start() ===");
 
-	if (infokey(world, "gmapn_spawn_mode") == "")
-		forceinfokey(world, "gmapn_spawn_mode", ftos(getkey(spawn_mode)));
-	if (infokey(world, "gmapn_game_botskill") == "")
-		forceinfokey(world, "gmapn_game_botskill", ftos(getkey(game_botskill)));
-	if (infokey(world, "gmapn_antilag") == "")
-		forceinfokey(world, "gmapn_antilag", ftos(cvar("sv_antilag")));
-	if (infokey(world, "gmapn_minping") == "")
-		forceinfokey(world, "gmapn_minping", ftos(cvar("sv_minping")));
-	/*
-	default_game_botskill = getkey(game_botskill);
-	default_antilag = cvar("sv_antilag");
-	default_minping = cvar("sv_minping");
-	*/
+	if (cvar("initialized") == 0)
+	{
+		cvar_set("init_spawn_mode", ftos(getkey(spawn_mode)));
+		cvar_set("init_botskill", ftos(getkey(game_botskill)));
+		cvar_set("init_antilag", ftos(cvar("sv_antilag")));
+		cvar_set("init_minping", ftos(cvar("sv_minping")));
+		cvar_set("initialized", "1");
+	}
 }

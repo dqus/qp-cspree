@@ -1159,75 +1159,67 @@ string gmapn_menu_addentry(string name, string sep, string value)
 
 string gmapn_menu_countdown()
 {
-	string str, litem, ritem, set[64];
+	string str, litem, ritem;
 	int i;
+	string options_names[] = {
+
+		menu_loadout(MENU_TITLE),
+		menu_dmm(MENU_TITLE),
+		menu_time(MENU_TITLE),
+		menu_powerups(MENU_TITLE),
+		menu_spawnmode(MENU_TITLE),
+		menu_botskill(MENU_TITLE),
+		menu_rounds(MENU_TITLE),
+		menu_antilag(MENU_TITLE),
+		menu_minping(MENU_TITLE)
+
+	};
+	string options_keys[] = {
+
+		"init_loadout",
+		"init_deathmatch",
+		"init_timelimit",
+		"init_powerups_enabled",
+		"init_spawn_mode",
+		"init_botskill",
+		"init_rounds",
+		"init_antilag",
+		"init_minping"
+
+	};
+	float options_current[] = {
+
+		getkey(game_loadout),
+		cvar("deathmatch"),
+		cvar("timelimit"),
+		getkey(powerups_enabled),
+		getkey(spawn_mode),
+		getkey(game_botskill),
+		getkey(game_rounds),
+		cvar("sv_antilag"),
+		cvar("sv_minping")
+
+	};
 
 	str = "";
 	litem = "";
 	ritem = "";
 
-	for (i = 0; i < set.length; i++)
+	for (i = 0; i < 256; i++)
 	{
-		set[i] = "";
-	}
+		if (i >= options_names.length || i >= options_keys.length || i >= options_current.length)
+			break;
 
-	if (getkey(game_loadout) && getkey(game_loadout) != stof(infokey(world, "gmapn_game_loadout")))
-	{
-		set[0] = "Loadout";
-	}
-
-	if (cvar("deathmatch") && cvar("deathmatch") != stof(infokey(world, "gmapn_deathmatch")))
-	{
-		set[1] = "Deathmatch";
-	}
-
-	if (cvar("timelimit") && cvar("timelimit") != stof(infokey(world, "gmapn_timelimit")))
-	{
-		set[2] = "Timelimit";
-	}
-
-	if (getkey(powerups_enabled) && getkey(powerups_enabled) != stof(infokey(world, "gmapn_powerups_enabled")))
-	{
-		set[3] = "Powerups";
-	}
-
-	if (getkey(spawn_mode) != stof(infokey(world, "gmapn_spawn_mode")))
-	{
-		set[4] = "Spawn Mode";
-	}
-
-	if (getkey(game_botskill) && getkey(game_botskill) != stof(infokey(world, "gmapn_game_botskill")))
-	{
-		set[5] = "Bot Skill";
-	}
-
-	if (getkey(game_rounds) && getkey(game_rounds) != stof(infokey(world, "gmapn_game_rounds")))
-	{
-		set[6] = "Game Rounds";
-	}
-
-	if (cvar("sv_antilag") && cvar("sv_antilag") != stof(infokey(world, "gmapn_antilag")))
-	{
-		set[7] = "Lag Compensation";
-	}
-
-	if (cvar("sv_minping") && cvar("sv_minping") != stof(infokey(world, "gmapn_minping")))
-	{
-		set[8] = "Min Ping";
-	}
-
-	for (i = 0; i < set.length; i++)
-	{
-		if (set[i] != "")
+		if (options_current[i] != cvar(options_keys[i]))
 		{
 			if (litem == "")
 			{
-				litem = set[i];
+				litem = options_names[i];
 			}
 			else if (ritem == "")
 			{
-				ritem = set[i];
-				str = strcat(str, gmapn_menu_addentry(litem, "   ", ritem));
+				ritem = options_names[i];
+				str = strcat(str, gmapn_menu_addentry(litem, "	 ", ritem));
 				litem = ritem = "";
 			}
 		}
