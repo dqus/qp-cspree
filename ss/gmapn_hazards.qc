@@ -140,7 +140,8 @@ void hazard_axehit(vector org, vector dir)
 				gmapn_impact(trace_ent, self, damage, push);
 			}
 
-			gmapn_sound(self, CHAN_WEAPON, "player/axhit1.wav", 1, ATTN_NORM, 0);
+			if (trace_ent.classname == "player")
+				gmapn_sound(self, CHAN_WEAPON, "player/axhit1.wav", 1, ATTN_NORM, 0);
 		}
 	}
 };
