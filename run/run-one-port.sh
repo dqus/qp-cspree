@@ -2,7 +2,8 @@
 
 SCRIPT="$0"
 DIR=`dirname "${SCRIPT}"`
-PARENT=`readlink -f "${DIR}"`
+CWD=`readlink -f "${DIR}"`
+LOGDIR=$CWD/../logs
 
 SERVER_BINARY=$1
 SERVER_PORT=$2
@@ -24,9 +25,8 @@ if [ -f $SERVER_BINARY ]; then
 				SERVER_BINARY=./$SERVER_BINARY
 			fi
 			CMDLINE="$SERVER_BINARY -game cspree -port $PORT -basedir $SERVER_DIR +set port $PORT"
-			LOGDIR=`dirname $SERVER_BINARY`
-			LOGFILE=$LOGDIR/cspree_${PORT}_error.log
-			sh $PARENT/crashcatcher.sh $CMDLINE > $LOGFILE &
+			LOGFILE=$LOGDIR/cspree_${PORT}.log
+			sh $CWD/crashcatcher.sh $CMDLINE > $LOGFILE 2>&1 &
 		fi
 		exit 0
 	fi
