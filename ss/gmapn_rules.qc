@@ -246,7 +246,7 @@ void gmapn_apply_gamemode(float newmode)
 		setkey("maxplayers", gmapn_ismatchless(newmode) ? maxplayers : "8");
 		break;
 	case GM_COOP:
-		if (getkey(game_lockrules) == 1 || gmapn_serverstate == gmapn_serverstate_playing)
+		if (gmapn_serverstate == gmapn_serverstate_playing)
 			cvar_set("coop", "1");
 
 		break;
