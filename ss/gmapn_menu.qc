@@ -1465,8 +1465,10 @@ float gmapn_display_rules()
 	{
 		if (self.menutime < time - 3)
 		{
-			self.movetime = time + 3;
-			centerprint(self, sprintf("Type %s to bind ENTER\n\nPress ENTER to show the menu", redify(".menu bind")));
+			if (self.movetime < time)
+				centerprint(self, sprintf("Type %s to bind ENTER\n\nPress ENTER to show the menu", redify(".menu bind")));
+			else
+				centerprint(self, "");
 			return FALSE;
 		}
 	}
