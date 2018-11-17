@@ -201,7 +201,7 @@ void cmd_ready()
 
 		if (gmapn_serverstate != gmapn_serverstate_forcestart && playersready >= playersneeded)
 		{
-			if (cvar("teamplay") && !cvar("coop") && !getkey(game_botskill))
+			if (cvar("teamplay") && !cvar("coop") && gmapn_gamemode != GM_COOP && !getkey(game_botskill))
 			{
 				if (count_red < getkey(minteamsize))
 				{
