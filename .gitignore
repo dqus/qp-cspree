@@ -8,10 +8,10 @@ private.cfg
 *#*#
 fteqcc*
 qwprogs.*
+csprogs.*
 fteqw*
 TAGS
 crash.log
-port*.log
 wgetlog
 cspree.pk3
 gmapn.pk3
@@ -19,4 +19,4 @@ qtv.bin
 qtv.log
 qtv-src
 qwfwd
-cspree*.log
+logs
