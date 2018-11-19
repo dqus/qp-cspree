@@ -953,6 +953,8 @@ void hazard_laser(vector org, vector dir, float vel)
 	newmis.owner = self;
 	newmis.solid = SOLID_BBOX;
 	newmis.touch = hazard_laser_touch;
+
+	dir = normalize(dir);
 	newmis.velocity = dir * vel;
 
 	setorigin(newmis, org);

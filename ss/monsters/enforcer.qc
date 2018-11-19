@@ -104,7 +104,8 @@ void enforcer_fire()
 	
 	org = self.origin + v_forward * 30 + v_right * 8.5 + '0 0 16';
 
-	LaunchLaser(org, self.enemy.origin - self.origin);
+	hazard_laser(org, self.enemy.origin - self.origin, 600);
+	//LaunchLaser(org, self.enemy.origin - self.origin);
 };
 
 //============================================================================
