@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SERVER_BINARY_MATCH="fteqw.sv"
+SERVER_BINARY_MATCH="fte*sv"
 GREP="ps -ef | grep -v 'grep' | grep '${SERVER_BINARY_MATCH}' | awk '{print \$1}' | xargs echo"
 GREP="pgrep ${SERVER_BINARY_MATCH}"
 

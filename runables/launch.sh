@@ -1,12 +1,12 @@
 #!/bin/sh
 
-SCRIPT="$0"
-DIR=`dirname "${SCRIPT}"`
-PARENT=`readlink -f "${DIR}"`
+if [ -z $GAMEDIR ]; then
+	GAMEDIR=`readlink -f ~/quake`
+fi
 
-FTEBIN="$PARENT/../fteqw-sv"
-BASEDIR="$PARENT/../.."
-MODDIR="$PARENT/.."
+FTEBIN="$GAMEDIR/ftesv"
+BASEDIR="$GAMEDIR"
+MODDIR="$GAMEDIR/cspree"
 
 if [ -f $FTEBIN ]; then
 	for PORT_CFG in $MODDIR/cfgs/ports/port*.cfg; do
