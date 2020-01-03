@@ -1,7 +1,5 @@
 .cvsignore
 .svn
-repositories/*
-binaries/*
 *~
 *#*#
 TAGS
