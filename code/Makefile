@@ -104,8 +104,8 @@ CSFILES = \
 default: all
 
 ../binaries/fteqcc:
-	$(MAKE) -C "../repositories/fteqw-code/engine/qclib" qcc
-	cp "../repositories/fteqw-code/engine/qclib/fteqcc.bin" ../binaries/$(QCC)
+	$(MAKE) -C "../repositories/fteqw-code/engine" qcc-rel
+	cp "../repositories/fteqw-code/engine/release/fteqcc" ../binaries/$(QCC)
 
 ../binaries/ftesv:
 	$(MAKE) -C "../repositories/fteqw-code/engine" sv-rel
