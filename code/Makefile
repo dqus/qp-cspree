@@ -111,10 +111,10 @@ default: all
 	$(MAKE) -C "../repositories/fteqw-code/engine" sv-rel
 	cp "../repositories/fteqw-code/engine/release/fteqw-sv" ../binaries/ftesv
 
-../binaries/csprogs.dat: $(CSFILES)
+../binaries/csprogs.dat: ../binaries/fteqcc version.qc $(CSFILES)
 	cd csqc && ../../binaries/$(QCC)
 
-../binaries/qwprogs.dat: $(SSFILES)
+../binaries/qwprogs.dat: ../binaries/fteqcc version.qc $(SSFILES)
 	../binaries/$(QCC)
 
 NAME:="chillingspree"
@@ -162,8 +162,9 @@ etags: $(SRC)
 
 clean:
 	rm -f ../binaries/* version.qc
+	$(MAKE) -C "../repositories/fteqw-code/engine" clean
 
-all: ../binaries/fteqcc version.qc ../binaries/qwprogs.dat ../binaries/csprogs.dat ../binaries/ftesv package
+all: ../binaries/qwprogs.dat ../binaries/csprogs.dat ../binaries/ftesv package
 
 DESTDIR=~/quake
 install: all
