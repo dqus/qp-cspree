@@ -103,19 +103,19 @@ CSFILES = \
 
 default: all
 
-../binaries/fteqcc:
+../code/fteqcc:
 	$(MAKE) -C "../repositories/fteqw-code/engine" qcc-rel
-	cp "../repositories/fteqw-code/engine/release/fteqcc" ../binaries/$(QCC)
+	cp "../repositories/fteqw-code/engine/release/fteqcc" ../code/$(QCC)
 
-../binaries/ftesv:
+../ftesv:
 	$(MAKE) -C "../repositories/fteqw-code/engine" sv-rel
-	cp "../repositories/fteqw-code/engine/release/fteqw-sv" ../binaries/ftesv
+	cp "../repositories/fteqw-code/engine/release/fteqw-sv" ../ftesv
 
-../binaries/csprogs.dat: ../binaries/fteqcc version.qc $(CSFILES)
-	cd csqc && ../../binaries/$(QCC)
+../csprogs.dat: ../code/fteqcc version.qc $(CSFILES)
+	cd csqc && ../../code/$(QCC)
 
-../binaries/qwprogs.dat: ../binaries/fteqcc version.qc $(SSFILES)
-	../binaries/$(QCC)
+../qwprogs.dat: ../code/fteqcc version.qc $(SSFILES)
+	../code/$(QCC)
 
 NAME:="chillingspree"
 
@@ -145,9 +145,9 @@ version.qc:
 ../binaries/fte-particles.pk3: ../packaging/particles/*.cfg
 	cd ../packaging && zip -r ../binaries/fte-particles.pk3 particles/*.cfg
 
-CFGS := $(shell find ../packaging/cfgs -name '*.conf')
-../binaries/default-rules.pk3: $(CFGS)
-	cd ../packaging && zip -r ../binaries/default-rules.pk3 cfgs
+#CFGS := $(shell find ../packaging/cfgs -name '*.conf')
+#../binaries/default-rules.pk3: $(CFGS)
+#	cd ../packaging && zip -r ../binaries/default-rules.pk3 cfgs
 
 ../binaries/server-configs.pk3: ../packaging/ftesrv.cfg ../packaging/server.cfg
 	cd ../packaging && zip ../binaries/server-configs.pk3 ftesrv.cfg server.cfg
@@ -161,16 +161,17 @@ etags: $(SRC)
 	etags $^
 
 clean:
-	rm -f ../binaries/* version.qc
+	rm -f ../qwprogs.dat ../qwprogs.lno ../csprogs.dat ../csprogs.lno ../code/fteqcc ../ftesv version.qc
 	$(MAKE) -C "../repositories/fteqw-code/engine" clean
 
-all: ../binaries/qwprogs.dat ../binaries/csprogs.dat ../binaries/ftesv package
+all: ../qwprogs.dat ../csprogs.dat ../ftesv
 
 DESTDIR=~/quake
 install: all
 	mkdir -p $(DESTDIR)/cspree
-	cp ../binaries/*.dat ../binaries/*.pk3 $(DESTDIR)/cspree
-	cp ../binaries/ftesv $(DESTDIR)
+	cp ../qwprogs.dat $(DESTDIR)/cspree
+	cp ../csprogs.dat $(DESTDIR)/cspree
+	cp ../ftesv $(DESTDIR)
 
 release:
 	tar Cczvf .. chillingspree-server.tar.gz cspree/qwprogs.dat cspree/maps/ cspree/run/launch.sh cspree/run/terminate.sh cspree/updatebinaries.sh cspree/run/crashcatcher.sh cspree/run/run-one-port.sh cspree/setup.sh cspree/winquicker.bat cspree/LICENSE cspree/README cspree/INSTALL cspree/run/crash.txt cspree/run/signature.txt cspree/locs/

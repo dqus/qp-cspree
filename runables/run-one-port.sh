@@ -3,11 +3,12 @@
 SCRIPT="$0"
 DIR=`dirname "${SCRIPT}"`
 CWD=`readlink -f "${DIR}"`
-LOGDIR=$CWD/../logs
-
+LOGDIR=$CWD/logs
 SERVER_BINARY=$1
 SERVER_PORT=$2
 SERVER_DIR=$3
+
+mkdir -p $LOGDIR
 
 if [ -z $SERVER_BINARY ] || [ -z $SERVER_PORT ] || [ -z $SERVER_DIR ]; then
 	printf "Usage: %s <engine binary> <server port> <basedir>\n" $0
@@ -26,7 +27,7 @@ if [ -f $SERVER_BINARY ]; then
 			fi
 			CMDLINE="$SERVER_BINARY -game cspree -port $PORT -basedir $SERVER_DIR +set port $PORT"
 			LOGFILE=$LOGDIR/cspree_${PORT}.log
-			sh $CWD/crashcatcher.sh $CMDLINE > $LOGFILE 2>&1 &
+			sh $CWD/resources/crashcatcher.sh $CMDLINE > $LOGFILE 2>&1 &
 		fi
 		exit 0
 	fi

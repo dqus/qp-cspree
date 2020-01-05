@@ -1,0 +1,14 @@
+// Custom text to show in server browsers
+set g_info_hostname "testing grounds"
+
+// Optional custom information about location of server
+set g_info_country  "Sweden"
+set g_info_state    ""
+set g_info_city     "Lund"
+
+// Optional forced game mode for this port
+set g_game_botskill "0"
+set g_game_mode "coop"
+set g_game_lockrules "0"
+
+alias startmap_dm "map e5m1"
