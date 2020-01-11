@@ -14,7 +14,8 @@ MODDIR=`readlink -f "$GAMEDIR"`
 if [ -f $FTEBIN ]; then
 	for PORT_CFG in $MODDIR/cfgs/ports/port*.cfg; do
 		if [ -f $PORT_CFG ]; then # a file
-			PORT=`echo $PORT_CFG | tr -d '[A-Za-z\.\/]'`
+			PORT_FILE=`basename ${PORT_CFG}`
+			PORT=`echo $PORT_FILE | sed 's/[^0-9]*//g'`
 			printf "* Starting ftesv (port %s)..." $PORT
 			PROCESS=`pgrep -f "${FTEBIN} -game cspree -port ${PORT}"`
 			if [ -z "$PROCESS" ]; then
