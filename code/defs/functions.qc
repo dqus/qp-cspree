@@ -48,13 +48,6 @@ void(float flag) client_setweapon;
 void(entity player) gmapn_aliasstuffer_start;
 
 /*
- * gmapn_anticheat.qc
- */
-
-.float angles_previous;
-void() gmapn_detect_fast_angles;
-
-/*
  * gmapn_config.qc
  */
 

@@ -8,7 +8,6 @@ SSFILES = \
 	progs.src \
 	client.qc \
 	gmapn_aliasstuffer.qc \
-	gmapn_anticheat.qc \
 	gmapn_config.qc \
 	gmapn_countdown.qc \
 	gmapn_csqc.qc \

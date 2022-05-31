@@ -2341,9 +2341,6 @@ void PlayerPostThink()
 
 	client_powerups();
 
-	gmapn_detect_fast_angles();
-
-
 	if (self.teaminfo_update < time)
 	{
 		client_update_teaminfo();
