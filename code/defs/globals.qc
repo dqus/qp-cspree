@@ -76,15 +76,9 @@ float gmapn_serverstate;
 
 float gmapn_recording;
 
-float gmapn_gametype_ffa = 0;
-float gmapn_gametype_1on1 = 1;
-float gmapn_gametype_2on2 = 2;
-float gmapn_gametype_3on3 = 3;
-float gmapn_gametype_4on4 = 4;
-
 float gmapn_roundnum;
 
-float gmapn_gamemode;
+game_mode_t game_mode;
 
 int gmapn_coop_respawntokens;
 entity gmapn_secondchancer; // for duel arena's "second chance"

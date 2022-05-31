@@ -76,7 +76,7 @@ void gmapn_map_pool_init()
 	gmapn_maplist = buf_create();
 
 	//each game mode may have its own private map pool
-	gmapn_map_pool_parse(sprintf("cfgs/maps/%s.pool", gmapn_gamemodetostring(gmapn_gamemode)));
+	gmapn_map_pool_parse(sprintf("cfgs/maps/%s.pool", gmapn_gamemodetostring(game_mode)));
 
 	//fixme: various modes should be grouped for their own pools.
 	if (!buf_getsize(gmapn_maplist))

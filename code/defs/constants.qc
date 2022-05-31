@@ -458,7 +458,7 @@ enum
 	STAT_TEAMSCORES_BLUE,
 };
 
-enum
+typedef enum
 {
 	//non-team games
 	GM_FFA,			//non-team deathmatch
@@ -480,7 +480,7 @@ enum
 	GM_HIDENSEEK,		// one team hides, another tries to find them
 	GM_COUNTERQUAKE,
 	GM_MODES
-};
+} game_mode_t;
 
 enum
 {

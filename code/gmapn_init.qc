@@ -28,7 +28,7 @@
  * @author Mark Olsen
  * @brief All of the algorithms called by worldspawn at some point.
  *
- * Loads the appropriate configs for the current gamemode and sets up the environment vars.
+ * Loads the appropriate configs for the current game_mode and sets up the environment vars.
  */
 
 /**
@@ -36,14 +36,14 @@
  */
 void gmapn_init()
 {
-	string hostname, geo_city, geo_state, geo_country, gamemode;
+	string hostname, geo_city, geo_state, geo_country, modename;
 
 	dbgprintln("=== gmapn_init() ===");
-	gmapn_gamemode = gmapn_gamemodefromstring(getkey(game_mode));
-	if (gmapn_gamemode < 0)
+	game_mode = gmapn_gamemodefromstring(getkey(game_mode));
+	if (game_mode < 0)
 		gmapn_apply_gamemode(GM_FFA);
 	else
-		gmapn_apply_gamemode(gmapn_gamemode);
+		gmapn_apply_gamemode(game_mode);
 
 	gmapn_config_load();
 
@@ -68,9 +68,9 @@ void gmapn_init()
 	geo_country = getkey(info_country);
 	geo_state = getkey(info_state);
 	if (getkey(game_lockrules) > 0)
-		gamemode = gmapn_gamemodefullname(gmapn_gamemode);
+		modename = gmapn_gamemodefullname(game_mode);
 	else
-		gamemode = "various";
+		modename = "various";
 
 	localcmd("serverinfo hostname \"");
 
@@ -78,7 +78,7 @@ void gmapn_init()
 	{
 		localcmd(hostname);
 		localcmd(" ");
-		localcmd(gamemode);
+		localcmd(modename);
 	}
 	else
 	{
@@ -128,7 +128,7 @@ void gmapn_init()
 	{
 		globalstat(STAT_MATCHSTARTTIME,		EV_FLOAT, "gmapn_matchstarttimems");	//dimman wanted match start times, this should be compatible with his fork of ezquake.
 		clientstat(STAT_READY,			EV_FLOAT, ready);
-		globalstat(STAT_GAMEMODE,		EV_FLOAT, "gmapn_gamemode");
+		globalstat(STAT_GAMEMODE,		EV_FLOAT, "game_mode");
 		globalstat(STAT_CURROUND,		EV_FLOAT, "gmapn_roundnum");
 		globalstat(STAT_MAXROUND,		EV_FLOAT, "gmapn_roundslimit");
 		globalstat(STAT_TEAMSCORES_RED,		EV_FLOAT, "gmapn_teamscores_red");
@@ -142,7 +142,7 @@ void gmapn_init()
 
 	vote_in_progress = FALSE;
 
-	if (getkey(game_lockrules) > 0 && gmapn_ismatchless(gmapn_gamemode))
+	if (getkey(game_lockrules) > 0 && gmapn_ismatchless(game_mode))
 	{
 		// enable the flag so the first connect will start a new game instantly
 		serverflags |= SV_MATCHLESS;
@@ -191,7 +191,7 @@ void gmapn_detectserver()
 
 void gmapn_init_test()
 {
-	int rnd = floor(random()*GM_MODES);
+	game_mode_t rnd = floor(random()*GM_MODES);
 	setkey("game_botskill", "3");
 	gmapn_apply_gamemode(rnd);
 	gmapn_game_beginpregamecountdown(10);
@@ -238,10 +238,10 @@ void gmapn_init_entities()
 	deathmatch = cvar("deathmatch");
 	gmapn_powerups_setitems();
 
-	ctf_enableflags(gmapn_gamemode == GM_CTF);
+	ctf_enableflags(game_mode == GM_CTF);
 
 	// to stop servers from idling in matchless mode
-	if ((serverflags & SV_MATCHLESS) && gmapn_ismatchless(gmapn_gamemode))
+	if ((serverflags & SV_MATCHLESS) && gmapn_ismatchless(game_mode))
 		gmapn_reset_starttimer();
 }
 

@@ -53,7 +53,7 @@ static string menu_readyteam(float op)
 	{
 		if (self.ready)
 			return "You are ready!";
-		if (gmapn_gamemodeneedsteam(gmapn_gamemode))
+		if (gmapn_gamemodeneedsteam(game_mode))
 		{
 			string t = self.teamname;
 			if (t != "red" && t != "blue")
@@ -63,7 +63,7 @@ static string menu_readyteam(float op)
 	}
 	if (op == MENU_LEFT)
 	{
-		if (gmapn_gamemodeneedsteam(gmapn_gamemode))
+		if (gmapn_gamemodeneedsteam(game_mode))
 		{
 			if (self.ready && self.teamname != "red")
 				cmd_break();
@@ -78,7 +78,7 @@ static string menu_readyteam(float op)
 	}
 	else if (op == MENU_RIGHT)
 	{
-		if (gmapn_gamemodeneedsteam(gmapn_gamemode))
+		if (gmapn_gamemodeneedsteam(game_mode))
 		{
 			if (self.ready && self.teamname != "blue")
 				cmd_break();
@@ -152,7 +152,7 @@ static string menu_mapvote(float op)
 
 		self.mapsel = 0; // place marker on first map in the list
 
-		if (uri_get(URL_MAPLIST(getkey(staturl), gmapn_gamemode, cvar("deathmatch")), URI_GET_MAPLIST) == 1)
+		if (uri_get(URL_MAPLIST(getkey(staturl), game_mode, cvar("deathmatch")), URI_GET_MAPLIST) == 1)
 		{
 			self.mapquery = -1;
 		}
@@ -194,11 +194,11 @@ static string menu_gamemode(float op)
 		return "Game Type";
 	else if (op == MENU_VALUE)
 	{
-		return gmapn_gamemodefullname(gmapn_gamemode);
+		return gmapn_gamemodefullname(game_mode);
 	}
 	else if (op == MENU_LEFT)
 	{
-		float mode = gmapn_gamemode;
+		game_mode_t mode = game_mode;
 		while (--mode >= 0)
 		{
 			if (gmapn_gamemode_allowed(mode))
@@ -210,7 +210,7 @@ static string menu_gamemode(float op)
 	}
 	else if (op == MENU_RIGHT)
 	{
-		mode = gmapn_gamemode;
+		mode = game_mode;
 		while (++mode < GM_MODES)
 		{
 			if (gmapn_gamemode_allowed(mode))
@@ -222,9 +222,9 @@ static string menu_gamemode(float op)
 	}
 	else if (op == MENU_CLIENTCMD)
 	{
-		float nmode = gmapn_gamemodefromstring(gmapn_menuarg);
-		if (nmode >= 0)
-			gmapn_apply_gamemode(nmode);
+		mode = gmapn_gamemodefromstring(gmapn_menuarg);
+		if (mode >= 0)
+			gmapn_apply_gamemode(mode);
 	}
 	return 0;
 };
@@ -233,7 +233,7 @@ static string menu_gameskill(float op)
 {
 	float val;
 
-	if (gmapn_gamemode != GM_COOP)
+	if (game_mode != GM_COOP)
 		return 0;
 
 	if (op == MENU_TITLE)
@@ -266,7 +266,7 @@ static string menu_dmm(float op)
 {
 	float val;
 
-	if (gmapn_gamemode == GM_COOP && !cvar("deathmatch"))
+	if (game_mode == GM_COOP && !cvar("deathmatch"))
 		return 0;
 
 	if (op == MENU_TITLE)
@@ -277,7 +277,7 @@ static string menu_dmm(float op)
 	}
 	else if (op == MENU_LEFT)
 	{
-		val = max((gmapn_gamemode == GM_COOP)?0:1, cvar("deathmatch")-1);
+		val = max((game_mode == GM_COOP)?0:1, cvar("deathmatch")-1);
 		if (val == 2)
 			val -= 1; // skip dmm2
 		cvar_set("deathmatch", ftos(val));
@@ -327,7 +327,7 @@ static string menu_loadout(float op)
 
 static string menu_minplayers(float op)
 {
-	float teams = gmapn_gamemodeneedsteam(gmapn_gamemode);
+	float teams = gmapn_gamemodeneedsteam(game_mode);
 	float cur;
 
 	if (teams)
@@ -384,7 +384,7 @@ static string menu_minplayers(float op)
 
 static string menu_maxplayers(float op)
 {
-	float teams = gmapn_gamemodeneedsteam(gmapn_gamemode);
+	float teams = gmapn_gamemodeneedsteam(game_mode);
 	float cur;
 
 	if (teams)
@@ -482,7 +482,7 @@ static string menu_rounds(float op)
 
 static string menu_powerups(float op)
 {
-	if (gmapn_gamemode == GM_COOP && getkey(powerups_enabled))
+	if (game_mode == GM_COOP && getkey(powerups_enabled))
 		return 0;
 
 	if (op == MENU_TITLE)
@@ -772,11 +772,11 @@ string gmapn_menu_rules_describe(float rulesel)
 	if (rules_desc[bound(0, rulesel, rules_desc.length)] == "")
 	{
 		string matchless;
-		if (gmapn_ismatchless(gmapn_gamemode))
+		if (gmapn_ismatchless(game_mode))
 			matchless = brackets(redify("MATCHLESS"));
 		else
 			matchless = "";
-		return sprintf("%s%s%s", gamemode_desc[bound(0, gmapn_gamemode, gamemode_desc.length-1)], "\n", matchless);
+		return sprintf("%s%s%s", gamemode_desc[bound(0, game_mode, gamemode_desc.length-1)], "\n", matchless);
 	}
 	else
 		return rules_desc[bound(0, rulesel, rules_desc.length)];
@@ -950,7 +950,7 @@ string gmapn_menu_misc(float keys)
 
 	if (gmapn_serverstate != gmapn_serverstate_countdown)
 	{
-		m = gmapn_menu_waitingfor(gmapn_gamemodeneedsteam(gmapn_gamemode));
+		m = gmapn_menu_waitingfor(gmapn_gamemodeneedsteam(game_mode));
 		m = strcat(m, "\n\n");
 	}
 
@@ -986,7 +986,7 @@ string gmapn_menu_ready(float keys)
 {
 	string m = "";
 
-	if (gmapn_gamemodeneedsteam(gmapn_gamemode))
+	if (gmapn_gamemodeneedsteam(game_mode))
 	{
 		int rows = 4;
 		string left, right;
@@ -1057,7 +1057,7 @@ string gmapn_menu_rules(float keys)
 		gmapn_evaluategamemaster();
 
 	//use gmapn_gamemaster instead of getkey(game_lockrules), because we might have/be a vip
-	if (getkey(game_lockrules)>0 && !gmapn_gamemodeneedsteam(gmapn_gamemode))
+	if (getkey(game_lockrules)>0 && !gmapn_gamemodeneedsteam(game_mode))
 	{
 		self.rulesel = -1;
 		keys = KEY_NONE;
@@ -1099,7 +1099,7 @@ string gmapn_menu_rules(float keys)
 
 	if (gmapn_serverstate != gmapn_serverstate_countdown)
 	{
-		m = gmapn_menu_waitingfor(gmapn_gamemodeneedsteam(gmapn_gamemode));
+		m = gmapn_menu_waitingfor(gmapn_gamemodeneedsteam(game_mode));
 		m = strcat(m, "\n\n");
 	}
 
@@ -1237,7 +1237,7 @@ string gmapn_menu_countdown()
 		str = strcat("\n\n\n\n", str);
 	}
 
-	str = strcat(sprintf("%s starts in %s\n", redify(gmapn_gamemodefullname(gmapn_gamemode)), goldnmbr(ftos(ceil((gmapn_matchstarttimems/1000) - time)))), str);
+	str = strcat(sprintf("%s starts in %s\n", redify(gmapn_gamemodefullname(game_mode)), goldnmbr(ftos(ceil((gmapn_matchstarttimems/1000) - time)))), str);
 	return str;
 }
 
@@ -1279,7 +1279,7 @@ void gmapn_menu_any(float keys)
 	//use gmapn_gamemaster instead of getkey(game_lockrules), because we might have/be a vip
 	if (!self.ready && time>5)
 	{
-		if (getkey(game_lockrules)>0 && !gmapn_gamemodeneedsteam(gmapn_gamemode))
+		if (getkey(game_lockrules)>0 && !gmapn_gamemodeneedsteam(game_mode))
 			cmd_ready();
 	}
 
@@ -1329,7 +1329,7 @@ void gmapn_display_welcome()
 	filestream helpfile = -1;
 	string msg = "";
 
-	switch (gmapn_gamemode)
+	switch (game_mode)
 	{
 	case GM_DOMINATION:
 
@@ -1377,7 +1377,7 @@ void gmapn_display_welcome()
 		string s;
 
 		// title of MOTD is the current game mode
-		msg = strcat("\b", gmapn_gamemodefullname(gmapn_gamemode), "\n\n");
+		msg = strcat("\b", gmapn_gamemodefullname(game_mode), "\n\n");
 
 		while ((s = fgets(helpfile)))
 		{
@@ -1477,7 +1477,7 @@ float gmapn_display_rules()
 	}
 	else if (gmapn_serverstate == gmapn_serverstate_playing)
 	{
-		if (gmapn_gamemode == GM_FREEZETAG)
+		if (game_mode == GM_FREEZETAG)
 		{
 			if (self.viewingrules < time && self.deadflag)
 			{
@@ -1486,7 +1486,7 @@ float gmapn_display_rules()
 			}
 		}
 
-		if (gmapn_gamemode == GM_HEADHUNTER)
+		if (game_mode == GM_HEADHUNTER)
 		{
 			if (self.viewingrules < time && self.ammo_heads > 0)
 			{

@@ -996,7 +996,7 @@ void client_spawn(float sameplace)
 			player_death(); // freeze instantly in freeze tag
 	}
 
-	if (gmapn_gamemode == GM_HEADHUNTER && gmapn_serverstate == gmapn_serverstate_playing)
+	if (game_mode == GM_HEADHUNTER && gmapn_serverstate == gmapn_serverstate_playing)
 		showpic("hc", sprintf("gfx/num_%g", bound(0, self.ammo_heads, 9)), 0, 0, 0, self);
 };
 
@@ -1888,17 +1888,17 @@ void PlayerDeathThink()
 	}
 
 	 //last man standing does not allow respawning, nor do duel arena.	FIXME: make spectator
-	if (gmapn_gamemode == GM_LASTMANSTANDING)
+	if (game_mode == GM_LASTMANSTANDING)
 	{
 		//client_setspectator(self);
 		centerprint(self, "Unable to spectate due to client bugs...");
 		return;
 	}
-	if (gmapn_gamemode == GM_DA)
+	if (game_mode == GM_DA)
 		return;
-	if (gmapn_gamemode == GM_FREEZETAG && self.watertype != CONTENT_LAVA && self.watertype != CONTENT_SLIME && self.maxspeed == 0)
+	if (game_mode == GM_FREEZETAG && self.watertype != CONTENT_LAVA && self.watertype != CONTENT_SLIME && self.maxspeed == 0)
 	return;	//in freezetag, players can't respawn themselves, but rather are respawned by other players (unless they died or were knocked into lava/slime/void).
-	if (gmapn_gamemode == GM_HIDENSEEK)
+	if (game_mode == GM_HIDENSEEK)
 	{
 		if (self.teamname == gmapn_team_hiders)
 			self.found = TRUE; //don't message anything if killed by lava or something
@@ -1908,7 +1908,7 @@ void PlayerDeathThink()
 	if (time < self.death_finished && !self.button2 && !self.button1 && !self.button0)
 		return;
 
-	if (gmapn_gamemode == GM_COOP && gmapn_coop_respawntokens >= 0)
+	if (game_mode == GM_COOP && gmapn_coop_respawntokens >= 0)
 	{
 		if (!gmapn_coop_respawntokens)
 		{
@@ -2361,7 +2361,7 @@ void PlayerPostThink()
 		}
 	}
 
-	if (gmapn_gamemode == GM_FREEZETAG)
+	if (game_mode == GM_FREEZETAG)
 	{
 		if (self.thawplayer)
 		{
@@ -2387,7 +2387,7 @@ void PlayerPostThink()
 			}
 		}
 	}
-	else if (gmapn_gamemode == GM_DOMINATION)
+	else if (game_mode == GM_DOMINATION)
 	{
 		if (self.thawplayer)
 		{
@@ -2571,7 +2571,7 @@ void ClientDisconnect()
 		bprint(PRINT_HIGH, sprintf(_("%s left the game\n"), self.netname));
 	}
 
-	if (gmapn_gamemode == GM_CTF || gmapn_gamemode == GM_1FCTF)
+	if (game_mode == GM_CTF || game_mode == GM_1FCTF)
 		ctf_player_died();
 
 	gmapn_sound(self, CHAN_BODY, "player/tornoff2.wav", 1, ATTN_NONE, 0);

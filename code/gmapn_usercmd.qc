@@ -91,7 +91,7 @@ void cmd_ready()
 
 		if (cvar("teamplay"))
 		{
-			if (gmapn_gamemode == GM_COOP)
+			if (game_mode == GM_COOP)
 				forceinfokey(self, "team", (self.teamname="coop"));
 			else if (self.teamname == "")
 			{
@@ -125,7 +125,7 @@ void cmd_ready()
 			player = find(player, classname, "player");
 		}
 
-		switch(gmapn_gamemode)
+		switch(game_mode)
 		{
 		case GM_DUEL:
 		case GM_2ON2:
@@ -145,7 +145,7 @@ void cmd_ready()
 			break;
 		}
 
-		switch(gmapn_gamemode)
+		switch(game_mode)
 		{
 		case GM_TDEATHMATCH:
 		case GM_2ON2:
@@ -201,7 +201,7 @@ void cmd_ready()
 
 		if (gmapn_serverstate != gmapn_serverstate_forcestart && playersready >= playersneeded)
 		{
-			if (cvar("teamplay") && !cvar("coop") && gmapn_gamemode != GM_COOP && !getkey(game_botskill))
+			if (cvar("teamplay") && !cvar("coop") && game_mode != GM_COOP && !getkey(game_botskill))
 			{
 				if (count_red < getkey(minteamsize))
 				{
@@ -717,7 +717,7 @@ float gmapn_handle_usercmd(float argc)
 		}
 		else
 		{
-			float newmode = gmapn_gamemodefromstring(argv(1));
+			game_mode_t newmode = gmapn_gamemodefromstring(argv(1));
 
 			if (newmode < 0 || newmode >= GM_MODES)
 				return 1;

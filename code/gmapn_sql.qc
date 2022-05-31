@@ -239,7 +239,7 @@ void gmapn_sql_logmatch()
 	}
 
 	sqlopenquery(gmapn_sql_matchlogdb, sqlerroronerror, 0, "BEGIN TRANSACTION;");
-	sqlopenquery(gmapn_sql_matchlogdb, sqlerroronerror, 0, sprintf("INSERT INTO match (matchtype, map, demname) VALUES (%g, '%s', '%s');", gmapn_gamemode, sqlescape(gmapn_sql_matchlogdb, mapname), sqlescape(gmapn_sql_matchlogdb, gmapn_demoname)));
+	sqlopenquery(gmapn_sql_matchlogdb, sqlerroronerror, 0, sprintf("INSERT INTO match (matchtype, map, demname) VALUES (%g, '%s', '%s');", game_mode, sqlescape(gmapn_sql_matchlogdb, mapname), sqlescape(gmapn_sql_matchlogdb, gmapn_demoname)));
 	sqlopenquery(gmapn_sql_matchlogdb, gmapn_sql_populatematch, 0, "SELECT seq FROM SQLITE_SEQUENCE WHERE name='match';");
 };
 
@@ -426,7 +426,7 @@ void gmapn_menu_mapvote_sql()
 		sqlclosequery(gmapn_sql_matchlogdb, self.mapquery);
 	
 	self.mapquery = sqlopenquery(gmapn_sql_matchlogdb, gmapn_menu_populatemaps_sql, SQL_TYPE_PERSISTANT, sprintf(
-								"SELECT match.map, COUNT(*) FROM match WHERE match.matchtype == %f GROUP BY match.map ORDER BY COUNT(*) DESC", gmapn_gamemode
+								"SELECT match.map, COUNT(*) FROM match WHERE match.matchtype == %f GROUP BY match.map ORDER BY COUNT(*) DESC", game_mode
 								));
 }
 
@@ -473,7 +473,7 @@ string gmapn_menu_matchstats(float keys)
 //	float matchid = sqlreadfloat(gmapn_sql_matchlogdb, self.matchlistquery, m, 0);
 	string date = sqlreadfield(gmapn_sql_matchlogdb, self.matchlistquery, m, 1);
 	string demoname = sqlreadfield(gmapn_sql_matchlogdb, self.matchlistquery, m, 2);
-	float matchtype = sqlreadfloat(gmapn_sql_matchlogdb, self.matchlistquery, m, 3);
+	game_mode_t matchtype = sqlreadfloat(gmapn_sql_matchlogdb, self.matchlistquery, m, 3);
 	string matchmapname = sqlreadfield(gmapn_sql_matchlogdb, self.matchlistquery, m, 4);
 
 	if (demoname)
@@ -549,7 +549,7 @@ string gmapn_menu_matchlist(float keys)
 //		float matchid = sqlreadfloat(gmapn_sql_matchlogdb, self.matchlistquery, m, 0);
 		string date = sqlreadfield(gmapn_sql_matchlogdb, self.matchlistquery, m, 1);
 //		string demoname = sqlreadfield(gmapn_sql_matchlogdb, self.matchlistquery, m, 2);
-		float matchtype = sqlreadfloat(gmapn_sql_matchlogdb, self.matchlistquery, m, 3);
+		game_mode_t matchtype = sqlreadfloat(gmapn_sql_matchlogdb, self.matchlistquery, m, 3);
 		string matchmapname = sqlreadfield(gmapn_sql_matchlogdb, self.matchlistquery, m, 4);
 
 		string l = sprintf("%s %s on %s\n", date, gmapn_gamemodefullname(matchtype), matchmapname);

@@ -482,7 +482,7 @@ void player_gibbed()
 	self.movetype = MOVETYPE_BOUNCE;
 	self.flags -= self.flags&FL_ONGROUND;
 	self.solid = SOLID_TRIGGER;
-	if (gmapn_gamemode == GM_HEADHUNTER)
+	if (game_mode == GM_HEADHUNTER)
 		self.touch = player_headhunter_touch;
 	setmodel(self, "progs/h_player.mdl");
 	self.view_ofs = '0 0 8';
@@ -501,10 +501,10 @@ void player_death()
 {
 	float rnd;
 
-	if (gmapn_gamemode == GM_CTF || gmapn_gamemode == GM_1FCTF)
+	if (game_mode == GM_CTF || game_mode == GM_1FCTF)
 		ctf_player_died();
 
-	if (gmapn_gamemode == GM_FREEZETAG)
+	if (game_mode == GM_FREEZETAG)
 	{
 		if (self.deathtype == DT_TELEFRAG || self.deathtype == DT_TELEFRAG_PENT || self.deathtype == DT_TELEFRAG_PENT_BOTH)
 		{
@@ -555,7 +555,7 @@ void player_death()
 
 		player_gibbed();
 	}
-	else if (self.health < getkey(game_gibthreshhold) || gmapn_gamemode == GM_HEADHUNTER)
+	else if (self.health < getkey(game_gibthreshhold) || game_mode == GM_HEADHUNTER)
 	{	//headhunter always gibs, so that heads can be collected.
 		rnd = floor(random() * 2);
 		if (rnd < 1)

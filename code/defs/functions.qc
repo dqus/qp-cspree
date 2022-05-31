@@ -165,11 +165,11 @@ void() gmapn_mute;
 /*
  * gmapn_rules.qc
 */
-float(float m) gmapn_ismatchless;
-float(string m) gmapn_gamemodefromstring;
-string(float m) gmapn_gamemodetostring;
-string(float m) gmapn_gamemodefullname;
-float(float m) gmapn_gamemode_rounds;
+float(game_mode_t m) gmapn_ismatchless;
+game_mode_t(string m) gmapn_gamemodefromstring;
+string(game_mode_t m) gmapn_gamemodetostring;
+string(game_mode_t m) gmapn_gamemodefullname;
+float(game_mode_t m) gmapn_gamemode_rounds;
 void() gmapn_rules_cliententered;
 void() gmapn_rules_handleconnect;
 void() gmapn_evaluategamemaster;

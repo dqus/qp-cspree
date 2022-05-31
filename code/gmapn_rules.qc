@@ -1,5 +1,5 @@
 //matchless modes persist over map changes until enough people 'break'.
-float gmapn_ismatchless(float m)
+float gmapn_ismatchless(game_mode_t m)
 {
 	switch(m)
 	{
@@ -24,7 +24,7 @@ float gmapn_ismatchless(float m)
 	}
 };
 
-float gmapn_gamemodeneedsteam(float m)
+float gmapn_gamemodeneedsteam(game_mode_t m)
 {
 	switch(m)
 	{
@@ -48,7 +48,7 @@ float gmapn_gamemodeneedsteam(float m)
 	}
 };
 
-string gmapn_gamemodetostring(float m)
+string gmapn_gamemodetostring(game_mode_t m)
 {
 	switch(m)
 	{
@@ -71,7 +71,7 @@ string gmapn_gamemodetostring(float m)
 	case GM_COUNTERQUAKE:		return "csqw";
 	}
 };
-string gmapn_gamemodefullname(float m)
+string gmapn_gamemodefullname(game_mode_t m)
 {
 	switch(m)
 	{
@@ -95,7 +95,7 @@ string gmapn_gamemodefullname(float m)
 	}
 };
 
-float gmapn_gamemodefromstring(string m)
+game_mode_t gmapn_gamemodefromstring(string m)
 {
 	if (m == "0")
 		return 0;	//whichever that is
@@ -142,7 +142,7 @@ float gmapn_gamemodefromstring(string m)
 
 #ifndef CSQC
 
-float gmapn_gamemode_rounds(float m)
+float gmapn_gamemode_rounds(game_mode_t m)
 {
 	if (m == GM_DA)
 		return getkey(game_rounds);
@@ -154,7 +154,7 @@ float gmapn_gamemode_rounds(float m)
 };
 
 
-float gmapn_gamemode_allowed(float mode)
+float gmapn_gamemode_allowed(game_mode_t mode)
 {
 	float modes = tokenize(getkey(allowedmodes));
 
@@ -205,13 +205,13 @@ void gmapn_updatemaxclients()
 	cvar_set("maxspectators", ftos(lim - max));
 };
 
-void gmapn_apply_gamemode(float newmode)
+void gmapn_apply_gamemode(game_mode_t newmode)
 {
 	const string maxplayers = "24";
 
 	setkey("game_mode", gmapn_gamemodetostring(newmode));
-	gmapn_gamemode = newmode;
-	switch(gmapn_gamemode)
+	game_mode = newmode;
+	switch(game_mode)
 	{
 	case GM_FFA:
 	case GM_KING:	//initially off, at least.
@@ -345,11 +345,11 @@ void gmapn_checklastplayer(entity ignore, string theteam)
 
 void(entity killer, entity victim, float delta) gmapn_scorefrags =
 {
-	if (gmapn_gamemode == GM_DA)
+	if (game_mode == GM_DA)
 	{
 		return; // points are dealt on round end
 	}
-	if (gmapn_gamemode == GM_COUNTERQUAKE)
+	if (game_mode == GM_COUNTERQUAKE)
 	{
 		if (victim.classname == "player")
 		{
@@ -402,7 +402,7 @@ void(entity killer, entity victim, float delta) gmapn_scorefrags =
 			bprint(PRINT_HIGH, killer.netname, " kills a monster\n");
 		}
 	}
-	if (gmapn_gamemode == GM_ROVER)
+	if (game_mode == GM_ROVER)
 	{	//victims are moved over to the killer's team
 		bprint(PRINT_HIGH, victim.netname, " was killed by ", killer.netname, "\n");
 		victim.teamname = killer.teamname;
@@ -410,7 +410,7 @@ void(entity killer, entity victim, float delta) gmapn_scorefrags =
 		forceinfokey(victim, "topcolor", infokey(killer, "topcolor"));
 		forceinfokey(victim, "bottomcolor", infokey(killer, "bottomcolor"));
 	}
-	if (gmapn_gamemode == GM_KING)
+	if (game_mode == GM_KING)
 	{
 		if (!gmapn_monarchofthemound || (victim == gmapn_monarchofthemound && killer != gmapn_monarchofthemound))
 		{
@@ -428,7 +428,7 @@ void(entity killer, entity victim, float delta) gmapn_scorefrags =
 		if (killer != gmapn_monarchofthemound)
 			return;
 	}
-	if (gmapn_gamemode == GM_DOMINATION)
+	if (game_mode == GM_DOMINATION)
 	{
 		//extra points if the killer is near a control point.
 		for (entity e = world; (e = find(e, classname, "info_controlpoint")); )
@@ -446,7 +446,7 @@ void(entity killer, entity victim, float delta) gmapn_scorefrags =
 			}
 		}
 	}
-	if (gmapn_gamemode == GM_CTF)
+	if (game_mode == GM_CTF)
 	{
 		//extra points if the killer is near a control point.
 		for (entity e = world; (e = find(e, classname, "info_controlpoint")); )
@@ -464,9 +464,9 @@ void(entity killer, entity victim, float delta) gmapn_scorefrags =
 			}
 		}
 	}
-	if (gmapn_gamemode == GM_HEADHUNTER)
+	if (game_mode == GM_HEADHUNTER)
 		return;	//headhunter only awards frags when you capture the heads.
-/*	if (gmapn_gamemode == GM_HIDENSEEK)
+/*	if (game_mode == GM_HIDENSEEK)
 	{
 		if (victim.teamname == gmapn_team_hiders && victim.found == FALSE && killer != world && killer != victim)
 		{
@@ -476,7 +476,7 @@ void(entity killer, entity victim, float delta) gmapn_scorefrags =
 
 		return; //only award frags if all hidden players are killed
 		}*/
-	if (gmapn_gamemode == GM_LASTMANSTANDING || gmapn_gamemode == GM_FREEZETAG)
+	if (game_mode == GM_LASTMANSTANDING || game_mode == GM_FREEZETAG)
 	{
 		gmapn_checklastplayer(victim, victim.teamname);
 		return;	//LMS awards points per-round rather than per-kill, so no points are rewarded here. FT is basically LMS+respawns
@@ -487,12 +487,12 @@ void(entity killer, entity victim, float delta) gmapn_scorefrags =
 };
 void(entity victim, float delta) gmapn_suicidefrags =
 {
-	if (gmapn_gamemode == GM_DA)
+	if (game_mode == GM_DA)
 	{
 		return;
 	}
 
-	if (gmapn_gamemode == GM_LASTMANSTANDING || gmapn_gamemode == GM_FREEZETAG)
+	if (game_mode == GM_LASTMANSTANDING || game_mode == GM_FREEZETAG)
 	{
 		gmapn_checklastplayer(victim, victim.teamname);
 		return;	//LMS doesn't care too much about idiots
@@ -503,7 +503,7 @@ void(entity victim, float delta) gmapn_suicidefrags =
 };
 void(entity killer, entity victim, float delta) gmapn_teamkillfrags =
 {
-	if (gmapn_gamemode == GM_LASTMANSTANDING || gmapn_gamemode == GM_FREEZETAG)
+	if (game_mode == GM_LASTMANSTANDING || game_mode == GM_FREEZETAG)
 	{
 		gmapn_checklastplayer(victim, victim.teamname);
 		return;	//should probably disable team damage.
@@ -804,7 +804,7 @@ void gmapn_rules_cliententered()
 	while ((p = find(p, classname, "player")))
 		pcount++;
 
-	int playersneeded = (gmapn_gamemodeneedsteam(gmapn_gamemode) ? getkey(minteamsize)*2 : getkey(minplayers));
+	int playersneeded = (gmapn_gamemodeneedsteam(game_mode) ? getkey(minteamsize)*2 : getkey(minplayers));
 
 	playersneeded = max(2,playersneeded);
 	if (pcount >= playersneeded)
@@ -839,12 +839,12 @@ void gmapn_rules_handleconnect()
 	}
 
 	// if not spectating initialize some server settings
-	if (self.classname == "player" && (serverflags & SV_MATCHLESS) && gmapn_ismatchless(gmapn_gamemode))
+	if (self.classname == "player" && (serverflags & SV_MATCHLESS) && gmapn_ismatchless(game_mode))
 	{
 		// ready up on matchless games automatically
 		self.ready = TRUE;
 
-		if (gmapn_gamemode == GM_HEADHUNTER)
+		if (game_mode == GM_HEADHUNTER)
 		{
 			stuffcmd(self, "cl_gibFilter 0\n");
 			sprint(self, PRINT_HIGH, redify("The server turns your gib filter off\n"));
@@ -867,7 +867,7 @@ void gmapn_rules_handleconnect()
 	if (gmapn_serverstate != gmapn_serverstate_playing)
 		return;
 
-	switch(gmapn_gamemode)
+	switch(game_mode)
 	{
 	case GM_KING:	//joining players become plebs
 		gmapn_setteamandcolour(self, "pleb", 3, 3);

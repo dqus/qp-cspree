@@ -225,7 +225,7 @@ void getkey_writeconfig(string cfgname)
 void getkey_reset()
 {
 	//determine the current mode name
-	string modename = gmapn_gamemodetostring(gmapn_gamemode);
+	string modename = gmapn_gamemodetostring(game_mode);
 
 	//global defaults
 	getkey_parseconfig("cfgs/rules/default.conf");

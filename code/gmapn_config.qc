@@ -41,27 +41,16 @@ void gmapn_config_update()
 
 void gmapn_config_load()
 {
-	string gametype;
+	dbgprintln("=== gmapn_config_load() ===");
+
+	string g_game_mode = getkey(game_mode);
 	string str;
 	entity e;
-
-	dbgprintln("=== gmapn_config_load() ===");
-/*
-	if (stof(infokey(world, "gmapn_gametype")) == gmapn_gametype_ffa)
-		gametype = "ffa";
-	else if (stof(infokey(world, "gmapn_gametype")) == gmapn_gametype_1on1)
-		gametype = "1on1";
-	else if (stof(infokey(world, "gmapn_gametype")) == gmapn_gametype_2on2)
-		gametype = "2on2";
-	else
-		gametype = "4on4";
-*/
-	gametype = getkey(game_mode);
 
 	//localcmd("exec configs/default.cfg\n");
 	getkey_parseconfig("cfgs/default.conf");
 
-	str = strcat("cfgs/rules/", gametype);
+	str = strcat("cfgs/rules/", g_game_mode);
 	str = strcat(str, ".conf");
 	//localcmd(str);
 	getkey_parseconfig(str);
@@ -73,7 +62,7 @@ void gmapn_config_load()
 
 	str = strcat("cfgs/maps/", mapname);
 	str = strcat(str, "/");
-	str = strcat(str, gametype);
+	str = strcat(str, g_game_mode);
 	str = strcat(str, ".conf");
 	//localcmd(str);
 	getkey_parseconfig(str);
@@ -89,7 +78,7 @@ void gmapn_config_load()
 	str = strcat(str, "\n");
 	localcmd(str);
 
-	localcmd(strcat("serverinfo config ", gametype, "\n"));
+	localcmd(strcat("serverinfo config ", g_game_mode, "\n"));
 
 	gmapn_serverstate = gmapn_serverstate_prewar;
 

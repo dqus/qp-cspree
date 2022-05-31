@@ -86,7 +86,7 @@ void gmapn_record_demo()
 
 	recordstr = strcat(getkey(game_mode), "_");
 
-	switch (gmapn_gamemode)
+	switch (game_mode)
 	{
 	case GM_DUEL:
 		e = find(world, classname, "player");
@@ -323,7 +323,7 @@ static void lastmancheck()
 					centerprint(e, "Team ", aliveteam, " wins the round!");
 			}
 
-			if (gmapn_gamemode != GM_ROVER)
+			if (game_mode != GM_ROVER)
 			for (entity e = world; (e = find(e, classname, "player")); )
 			{
 				if (aliveteam == e.teamname)
@@ -341,7 +341,7 @@ static void lastmancheck()
 				}
 			}
 
-			if (gmapn_gamemode != GM_ROVER)
+			if (game_mode != GM_ROVER)
 				checkfrags(fragsum, numplayers);
 		}
 		else
@@ -487,7 +487,7 @@ float game_is_tied()
 
 	side1 = side2 = 0;
 
-	if (gmapn_gamemode == GM_DUEL)
+	if (game_mode == GM_DUEL)
 	{
 		entity e;
 		e = find(world, classname, "player");
@@ -499,7 +499,7 @@ float game_is_tied()
 				side2 = e.frags;
 		}
 	}
-	else if (gmapn_gamemode == GM_2ON2 || gmapn_gamemode == GM_TDEATHMATCH)
+	else if (game_mode == GM_2ON2 || game_mode == GM_TDEATHMATCH)
 	{
 		side1 = gmapn_teamscores_red;
 		side2 = gmapn_teamscores_blue;
@@ -718,10 +718,10 @@ void gmapn_round_start()
 	gmapn_coop_respawntokens = getkey(coop_respawntokens);
 
 	//rover re-randomizes teams on EVERY round restart
-	if (gmapn_gamemode == GM_ROVER)
+	if (game_mode == GM_ROVER)
 		gmapn_randomize_playerteams();
 
-	if (gmapn_gamemode == GM_KING)
+	if (game_mode == GM_KING)
 	{	//in king of the hill, everyone starts equal until someone dies.
 		//fixme: should we maybe pick a player randomly instead?
 		for (e = world; (e = find(e, classname, "player")); )
@@ -734,7 +734,7 @@ void gmapn_round_start()
 	}
 
 	//duel arena don't allow respawns until the end of the round.
-	if (gmapn_gamemode == GM_DA)
+	if (game_mode == GM_DA)
 	{
 		float liveplayers = 0;
 		float totalplayers = 0;
@@ -784,7 +784,7 @@ void gmapn_round_start()
 			}
 		}
 	}
-	else if (gmapn_gamemode == GM_HIDENSEEK)
+	else if (game_mode == GM_HIDENSEEK)
 	{
 		float rnd = floor(random() * 2); // FIXME: alternate between teams
 		if (gmapn_roundnum == 1)
@@ -881,14 +881,14 @@ void gmapn_round_start()
 			stuffcmd(e, "bf 1 1 1 0.5 0.5\n");	//flashy!
 		}
 	}
-	if (gmapn_gamemode == GM_HIDENSEEK)
+	if (game_mode == GM_HIDENSEEK)
 	{
 		self = spawn();
 		self.classname = "gmapn_round_check";
 		self.think = gmapn_hideandseek_check;
 		self.nextthink = max(5,time);
 	}
-	if (gmapn_gamemode == GM_DA)
+	if (game_mode == GM_DA)
 	{
 		entity mh = world;
 
@@ -915,7 +915,7 @@ void gmapn_round_start()
 		self.cnt = TRUE;	//will try to spawn players when possible.
 		self.nextthink = max(1,time);	//how long does it take for people to change maps? should we wait while there are still people (down)loading?
 	}
-	if (gmapn_gamemode == GM_LASTMANSTANDING || gmapn_gamemode == GM_FREEZETAG || gmapn_gamemode == GM_ROVER)
+	if (game_mode == GM_LASTMANSTANDING || game_mode == GM_FREEZETAG || game_mode == GM_ROVER)
 	{
 		self = spawn();
 		self.classname = "gmapn_round_check";
@@ -927,14 +927,14 @@ void gmapn_round_start()
 		bprint(PRINT_HIGH, sprintf("Round %g of %g!\n", gmapn_roundnum, gmapn_roundslimit));
 
 	// ezquake bug hack
-	if (gmapn_gamemode == GM_LASTMANSTANDING)
+	if (game_mode == GM_LASTMANSTANDING)
 	{
 		for (e = world; (e = find(e, classname, "player")); )
 			stuffcmd(e, "skins\n");
 	}
 
 	// unfreeze all players
-	if (gmapn_gamemode == GM_FREEZETAG)
+	if (game_mode == GM_FREEZETAG)
 	{
 		e = world;
 		while ((e = find(e, classname, "player")))
@@ -1010,7 +1010,7 @@ void gmapn_round_end()
 	if (other)
 		remove(other);
 
-	if (gmapn_gamemode == GM_HIDENSEEK)
+	if (game_mode == GM_HIDENSEEK)
 	{
 		other = find(world, classname, "item_documents");
 		if (other)
@@ -1049,10 +1049,10 @@ void gmapn_game_start()
 	teamplay = cvar("teamplay");
 	deathmatch = cvar("deathmatch");
 
-	if (gmapn_gamemode == GM_COOP)
+	if (game_mode == GM_COOP)
 		teamplay = TRUE;
 
-	if (gmapn_ismatchless(gmapn_gamemode))
+	if (gmapn_ismatchless(game_mode))
 		serverflags |= SV_MATCHLESS;
 	else
 		serverflags &= ~SV_MATCHLESS;
@@ -1073,10 +1073,10 @@ void gmapn_game_start()
 		centerprint(self, "");
 
 	localcmd("serverinfo status playing\n");
-	if (gmapn_ismatchless(gmapn_gamemode))
-		bprint(PRINT_MEDIUM, _("The game has begun - "), gmapn_gamemodefullname(gmapn_gamemode), "\n");
+	if (gmapn_ismatchless(game_mode))
+		bprint(PRINT_MEDIUM, _("The game has begun - "), gmapn_gamemodefullname(game_mode), "\n");
 	else
-		bprint(PRINT_MEDIUM, _("The match has begun - "), gmapn_gamemodefullname(gmapn_gamemode), "\n");
+		bprint(PRINT_MEDIUM, _("The match has begun - "), gmapn_gamemodefullname(game_mode), "\n");
 
 	gmapn_serverstate = gmapn_serverstate_playing;
 
@@ -1094,8 +1094,8 @@ void gmapn_game_start()
 		}
 	}
 
-	gmapn_roundslimit = gmapn_gamemode_rounds(gmapn_gamemode);
-	if (gmapn_gamemode == GM_DA)
+	gmapn_roundslimit = gmapn_gamemode_rounds(game_mode);
+	if (game_mode == GM_DA)
 	{
 		gmapn_roundslimit = getkey(game_rounds);
 		for (self = world; (self = find(self, classname, "player")); )
@@ -1124,22 +1124,22 @@ void gmapn_game_start()
 		gmapn_round_start();
 	}
 
-	if (gmapn_gamemode == GM_FREEZETAG)
+	if (game_mode == GM_FREEZETAG)
 		precache_sound("player/frozen1.wav");
-	if (gmapn_gamemode == GM_DOMINATION)
+	if (game_mode == GM_DOMINATION)
 		domination_startup();
-	if (gmapn_gamemode == GM_HEADHUNTER)
+	if (game_mode == GM_HEADHUNTER)
 	{
 		headhunter_startup();
 		stuffcmd(self, "cl_gibFilter 0\n");
 	}
-	if (gmapn_gamemode == GM_CTF)
+	if (game_mode == GM_CTF)
 		ctf_enableflags(TRUE);
 
-	if ((gmapn_gamemode == GM_COOP) != coop || (coop && skill != cvar("skill")))
+	if ((game_mode == GM_COOP) != coop || (coop && skill != cvar("skill")))
 	{
-		cvar_set("coop", ftos(gmapn_gamemode == GM_COOP));
-		if (gmapn_gamemode == GM_COOP)
+		cvar_set("coop", ftos(game_mode == GM_COOP));
+		if (game_mode == GM_COOP)
 			cvar_set("deathmatch", "");
 		serverflags = SV_MATCHLESS;	//also clears out any runes.
 		changelevel(mapname);
