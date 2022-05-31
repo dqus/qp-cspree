@@ -1053,8 +1053,6 @@ string gmapn_menu_ready(float keys)
 
 string gmapn_menu_rules(float keys)
 {
-	int i;
-
 	if (!gmapn_gamemaster)
 		gmapn_evaluategamemaster();
 
@@ -1105,7 +1103,7 @@ string gmapn_menu_rules(float keys)
 		m = strcat(m, "\n\n");
 	}
 
-	for (; i < rules.length; i++)
+	for (int i = 0; i < rules.length; i++)
 	{
 		string t, mid, v;
 
@@ -1515,7 +1513,8 @@ float gmapn_display_rules()
 	if (!keys && self.viewingrules > time)
 		return TRUE;
 
-	if (keys & ~0 == keys)
+	// FIXME: what the hell is going on here? Isn't it always true?
+	if ((keys & ~0) == keys)
 		self.menutime = time; // pressed key holds the menu visible
 	self.viewingrules = time + 0.25;
 

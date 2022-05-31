@@ -150,8 +150,8 @@ void item_respawn_all()
 void item_pickup(float respawn_time, string tint)
 {
 	string str;
-	string w;
-	string a;
+	string w = "";
+	string a = "";
 
 	if (gmapn_serverstate != gmapn_serverstate_playing)
 		return;

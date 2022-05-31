@@ -643,7 +643,7 @@ void WaypointRead(string action)
 void WaypointFormat(string line)
 {
 	string s;
-	float ofs, p;
+	float ofs = 0, p;
 
 	while ((p = strstrofs(line, ";", ofs)) != -1)
 	{

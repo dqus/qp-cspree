@@ -490,7 +490,7 @@ float botCheckForStep(vector dir)
 void BruteForceStep(vector dir)
 {
 	vector currentorigin;
-	float currentflags, i, len;
+	float currentflags, i = 0, len;
 
 	currentorigin = self.origin;
 	currentflags = self.flags;

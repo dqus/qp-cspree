@@ -315,7 +315,7 @@ float gmapn_impact(entity victim, entity inflictor, float damage, float push)
 	float  hthdmg;
 	float  pentmod;
 	float  quadmod;
-	float  reflect;
+	float  reflect = 0;
 	vector vel;
 	vector dir;
 

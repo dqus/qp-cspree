@@ -721,7 +721,7 @@ void hazard_lightning(vector org, vector dir)
 {
 	float  damage;
 	float  f;
-	float  push;
+	float  push = 0;
 	float portals = 3;
 	float isshambler = self.classname == "monster_shambler";
 

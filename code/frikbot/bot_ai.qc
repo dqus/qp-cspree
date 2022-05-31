@@ -721,7 +721,7 @@ float priority_for_thing(entity thing)
 
 void bot_look_for_crap(float scope)
 {
-	entity foe, best;
+	entity foe, best = __NULL__;
 	float thatp, bestp, dist;
 
 	if (scope == 1)

@@ -248,7 +248,7 @@ Pick a weapon based on range / ammo
 
 void bot_weapon_switch(float brange)
 {
-	local	float	it, flag, pulse;
+	local	float	it, flag, pulse = 0;
 	vector v;
 
 	it = self.items & 127;
