@@ -1524,17 +1524,3 @@ float gmapn_display_rules()
 
 	return TRUE;
 };
-
-void Cmd_mkey_s(string s)
-{
-	self.csqcactive = TRUE;
-
-	if (s == "u")
-		gmapn_menu_any(KEY_UP);
-	else if (s == "d")
-		gmapn_menu_any(KEY_DOWN);
-	else if (s == "r")
-		gmapn_menu_any(KEY_RIGHT);
-	else if (s == "l")
-		gmapn_menu_any(KEY_LEFT);
-};
