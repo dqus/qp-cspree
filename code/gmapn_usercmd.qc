@@ -954,7 +954,8 @@ float gmapn_handle_usercmd(float argc)
 	}
 	if (cmd == "writeconfig")
 	{
-		cmd_writeconfig();
+//	FIXME: should be limited to the admin of the server.
+//		cmd_writeconfig();
 		return 1;
 	}
 	if (cmd == "menu")
