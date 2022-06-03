@@ -1,9 +1,14 @@
-../../csprogs.dat
+#pragma target fte
+#pragma progs_dat "../../csprogs.dat"
+//#pragma autoproto
+
+#pragma warning disable F210
+
+#includelist
 
 ../version.qc
 
 csqcsysdefs.qc
-#pragma warning disable F301	//noone cares.
 constants.qc
 
 ../common/defs.qc
@@ -15,3 +20,5 @@ defs/globals.qc
 entrypoints.qc
 
 gmapn_prediction.qc
+
+#endlist
