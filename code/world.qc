@@ -34,8 +34,6 @@ void main()
 	//this function is required to exist for the progs crc. but its not required to contain anything as it is never called.
 };
 
-entity	lastspawn;
-
 //=======================
 /*QUAKED worldspawn (0 0 0) ?
 Only used for the world entity.
@@ -56,7 +54,6 @@ void worldspawn()
 	self.nextthink = time + 0.4; //FIXME: what is the minimum time to wait? anything over 0.4 will cause coop to bork and 0 will skip monsters appearing
 	self.think = gmapn_init;
 
-	lastspawn = world;
 	InitBodyQue();
 
 	// Hardcoded gravity setting on Ziggurath Vertigo
