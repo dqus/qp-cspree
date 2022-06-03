@@ -248,7 +248,7 @@ void item_pickup(float respawn_time, string tint)
 	}
 };
 
-void setitem(float nodrop = FALSE)
+void setitem_ex(float nodrop)
 {
 	vector localcenter;
 	vector offset;
@@ -307,11 +307,10 @@ void setitem(float nodrop = FALSE)
 	}
 };
 
-
-
-
-
-
+void setitem()
+{
+	setitem_ex(FALSE);
+};
 
 //======================================================================
 // sigils

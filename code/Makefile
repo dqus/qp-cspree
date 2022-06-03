@@ -42,7 +42,6 @@ SSFILES = \
 	defs/fteextensions.qc \
 	defs/functions.qc \
 	defs/globals.qc \
-	defs/system.qc \
 	entities/ammo.qc \
 	entities/armor.qc \
 	entities/buttons.qc \

@@ -600,22 +600,22 @@ Waypoint Loading from file
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 */
-void(float saved1, float saved2, float saved3, float saved4, float scratch1, float scratch2, float scratch3, float scratch4) LoadWaypoint = 
+void(float _saved1, float _saved2, float _saved3, float _saved4, float _scratch1, float _scratch2, float _scratch3, float _scratch4) LoadWaypoint = 
 {
 	vector org;
 	entity tep;
 	float r;
-	org = [saved1, saved2, saved3];
+	org = [_saved1, _saved2, _saved3];
 	
 	tep = make_waypoint(org);
 
-	r = saved4;
+	r = _saved4;
 
 	tep.b_aiflags = floor(r / 4);
-	tep.b_pants = scratch1;
-	tep.b_skill = scratch2;
-	tep.b_shirt = scratch3;
-	tep.b_frags = scratch4;
+	tep.b_pants = _scratch1;
+	tep.b_skill = _scratch2;
+	tep.b_shirt = _scratch3;
+	tep.b_frags = _scratch4;
 };
 
 float saved1, saved2, saved3, saved4;

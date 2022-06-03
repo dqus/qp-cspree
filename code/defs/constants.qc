@@ -24,6 +24,9 @@
 
 */
 
+// Disabled, since portal gun crashes FTE and overall code is quite experimental.
+//#define HAVE_PORTALS
+
 /* MOD INFO */
 // Name is the shortened variant
 // Version is always git when laying in the repo, do change it on release
@@ -441,9 +444,6 @@ float  SP_WEIGHT				= 0.5;
 #define DMM_LIMITED 5
 #define DMM_MIDAIR	6
 #define DMM_INSTAGIB	7
-
-#define HAVE_PORTALS
-
 
 enum
 {
