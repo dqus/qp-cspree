@@ -88,23 +88,3 @@ void gmapn_config_load()
 	e.think = gmapn_config_update;
 	e.health = gmapn_config_version;
 };
-
-void gmapn_config_exec(string cfg)
-{
-	filestream fs = fopen(cfg, FILE_READ);
-	string line;
-	
-	if (fs < 0)
-	{
-		dprint("couldn't exec config ");
-		dprint(cfg);
-		dprint("\n");
-		return;
-	}
-
-	while ((line = fgets(fs)))
-	{
-		localcmd(line);
-		localcmd("\n");
-	}
-}

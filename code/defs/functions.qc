@@ -52,7 +52,6 @@ void(entity player) gmapn_aliasstuffer_start;
  */
 
 void() gmapn_config_load;
-void(string cfg) gmapn_config_exec;
 
 /*
  * gmapn_countdown.qc
