@@ -3,7 +3,6 @@
 #define MENU_LEFT 2
 #define MENU_RIGHT 3
 #define MENU_ISNONADMIN 4
-#define MENU_CLIENTCMD 5
 
 #define KEY_NONE 0
 #define KEY_UP 1
@@ -23,7 +22,6 @@ string gmapn_menu_maplist(float keys);
 
 .float oldmkeys;
 .float maps[11]; // list of maps displayed. randomizedish per player. FIXME: should probably just make this a string array, or tokens string.
-string gmapn_menuarg;
 
 entity gmapn_gamemaster;	//this is the player who is currently nominated to be the leader.
 entity gmapn_monarchofthemound;	//this player is currently the king, the only player that rewards frags.
@@ -183,8 +181,6 @@ static string menu_time(float op)
 		cvar_set("timelimit", ftos(max(3, val-((val>=15)?5:1))));
 	else if (op == MENU_RIGHT)
 		cvar_set("timelimit", ftos(min(30, val+((val>=10)?5:1))));
-	else if (op == MENU_CLIENTCMD)
-		cvar_set("timelimit", ftos(bound(3, stof(gmapn_menuarg), 30)));
 	return 0;
 };
 
@@ -219,12 +215,6 @@ static string menu_gamemode(float op)
 				break;
 			}
 		}
-	}
-	else if (op == MENU_CLIENTCMD)
-	{
-		mode = gmapn_gamemodefromstring(gmapn_menuarg);
-		if (mode >= 0)
-			gmapn_apply_gamemode(mode);
 	}
 	return 0;
 };
