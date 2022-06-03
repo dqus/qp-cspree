@@ -51,6 +51,7 @@ void(entity player) gmapn_aliasstuffer_start;
  * gmapn_config.qc
  */
 
+#define parseconfig(...) getkey_parseconfig(sprintf(__VA_ARGS__))
 void() gmapn_config_load;
 
 /*

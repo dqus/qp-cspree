@@ -44,28 +44,11 @@ void gmapn_config_load()
 	dbgprintln("=== gmapn_config_load() ===");
 
 	string g_game_mode = getkey(game_mode);
-	string str;
-	entity e;
 
-	//localcmd("exec configs/default.cfg\n");
-	getkey_parseconfig("cfgs/default.conf");
-
-	str = strcat("cfgs/rules/", g_game_mode);
-	str = strcat(str, ".conf");
-	//localcmd(str);
-	getkey_parseconfig(str);
-
-	str = strcat("cfgs/maps/", mapname);
-	str = strcat(str, "/default.conf");
-	//localcmd(str);
-	getkey_parseconfig(str);
-
-	str = strcat("cfgs/maps/", mapname);
-	str = strcat(str, "/");
-	str = strcat(str, g_game_mode);
-	str = strcat(str, ".conf");
-	//localcmd(str);
-	getkey_parseconfig(str);
+	parseconfig("cfgs/default.conf");
+	parseconfig("cfgs/rules/%s.conf", g_game_mode);
+	parseconfig("cfgs/maps/%s/default.conf", mapname);
+	parseconfig("cfgs/maps/%s/%s.conf", mapname, g_game_mode);
 
 	if (gmapn_config_version == 0)
 		gmapn_update_defaults_start();
@@ -74,16 +57,13 @@ void gmapn_config_load()
 	if (gmapn_config_version == 65536)
 		gmapn_config_version = 0;
 
-	str = strcat("localinfo gmapn_config_version ", ftos(gmapn_config_version));
-	str = strcat(str, "\n");
-	localcmd(str);
-
-	localcmd(strcat("serverinfo config ", g_game_mode, "\n"));
+	localcmd("localinfo gmapn_config_version ", ftos(gmapn_config_version), "\n");
+	localcmd("serverinfo config ", g_game_mode, "\n");
 
 	gmapn_serverstate = gmapn_serverstate_prewar;
 
 	/* We need to wait for the server to actually load the config... */
-	e = spawn();
+	entity e = spawn();
 	e.nextthink = time + 0.001;
 	e.think = gmapn_config_update;
 	e.health = gmapn_config_version;
