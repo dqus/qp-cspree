@@ -131,32 +131,15 @@ version.qc:
 	echo "#define VERSION \"$(VERSION)-$(TYPE)\"" >> version.qc
 	echo "#define DATE \"$(DATE)\"" >> version.qc
 
-../binaries/flintheart-locs.pk3: ../packaging/locs/*.loc
-	cd ../packaging && zip -r ../binaries/flintheart-locs.pk3 locs/*.loc
+PAK_SRC = \
+	../locs \
+	../maps \
+	../particles \
+	../progs \
+	../sound
 
-../binaries/map-remakes.pk3: ../packaging/maps/*.ent
-	cd ../packaging && zip -r ../binaries/map-remakes.pk3 maps/*.ent
-
-../binaries/frikbot-waypoints.pk3: ../packaging/maps/*.way
-	cd ../packaging && zip -r ../binaries/frikbot-waypoints.pk3 maps/*.way
-
-../binaries/fte-particles.pk3: ../packaging/particles/*.cfg
-	cd ../packaging && zip -r ../binaries/fte-particles.pk3 particles/*.cfg
-
-#CFGS := $(shell find ../packaging/cfgs -name '*.conf')
-#../binaries/default-rules.pk3: $(CFGS)
-#	cd ../packaging && zip -r ../binaries/default-rules.pk3 cfgs
-
-../binaries/server-configs.pk3: ../packaging/ftesrv.cfg ../packaging/server.cfg
-	cd ../packaging && zip ../binaries/server-configs.pk3 ftesrv.cfg server.cfg
-
-package: ../binaries/flintheart-locs.pk3 ../binaries/map-remakes.pk3 ../binaries/frikbot-waypoints.pk3 ../binaries/fte-particles.pk3 ../binaries/default-rules.pk3 ../binaries/server-configs.pk3
-
-ctags: $(SRC)
-	ctags $^
-
-etags: $(SRC)
-	etags $^
+../qp.pk3: $(PAK_SRC)
+	cd .. && rm -f qp.pk3 && zip -r qp.pk3 $(patsubst ../%,%,$(PAK_SRC))
 
 clean:
 	rm -f ../qwprogs.dat ../qwprogs.lno ../csprogs.dat ../csprogs.lno ../code/fteqcc ../ftesv version.qc
