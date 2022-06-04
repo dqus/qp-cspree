@@ -89,7 +89,7 @@ void ctf_flag_return()
 		self.owner.thawplayer = world;
 		setattachment(self, world, "");
 	}
-	self.traileffectnum = particleeffectnum(strcat("gmapn.tr_flag_", self.teamname));
+	self.traileffectnum = particleeffectnum(strcat("ctf.tr_flag_", self.teamname));
 	self.owner = world;
 	self.cnt = FALSE;
 	self.movetype = MOVETYPE_TOSS;
@@ -108,7 +108,7 @@ void() ctf_player_died =
 		other.solid = SOLID_TRIGGER;
 		other.cnt = FALSE;
 		
-		other.traileffectnum = particleeffectnum(strcat("gmapn.tr_flag_", other.teamname));
+		other.traileffectnum = particleeffectnum(strcat("ctf.tr_flag_", other.teamname));
 		self.traileffectnum = 0;
 		setattachment(other, world, "");
 		other.owner = world;
@@ -213,7 +213,7 @@ void item_flag()
 	droptofloor();	//hopefully noone will place one of these on a train or anything silly like that
 	self.finaldest = self.origin;	//place to return to when dropped in lava etc
 
-	self.traileffectnum = particleeffectnum(strcat("gmapn.tr_flag_", self.teamname));
+	self.traileffectnum = particleeffectnum(strcat("ctf.tr_flag_", self.teamname));
 };
 void item_flag_team1()
 {

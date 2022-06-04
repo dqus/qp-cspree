@@ -222,8 +222,8 @@ void worldspawn()
 	precache_sound("rune/rune2.wav");
 	precache_sound("rune/rune3.wav");
 	precache_sound("rune/rune4.wav");
-	particleeffectnum("gmapn.tr_flag_red");
-	particleeffectnum("gmapn.tr_flag_blue");
+	particleeffectnum("ctf.tr_flag_red");
+	particleeffectnum("ctf.tr_flag_blue");
 
 	// announcer for duel arena and such modes
 	precache_sound("announcer/1.wav");
