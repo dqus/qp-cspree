@@ -181,7 +181,8 @@ void player_setweapon()
 	{
 		self.currentammo = 0;
 		self.weaponmodel = "progs/v_star.mdl";
-		vwep = "progs/w_star.mdl";
+//		vwep = "progs/w_star.mdl";
+		vwep = "-";
 	}
 	else if (self.weapon == IT_COILGUN)
 	{

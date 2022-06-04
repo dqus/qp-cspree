@@ -98,7 +98,7 @@ void worldspawn()
 	precache_vwep_model ("progs/w_rock2.mdl");
 	precache_vwep_model ("progs/w_light.mdl");
 	precache_vwep_model ("progs/w_coil.mdl");
-	precache_vwep_model ("progs/w_star.mdl");
+//	precache_vwep_model ("progs/w_star.mdl");
 	precache_vwep_model ("-");
 
 	precache_sound("buttons/switch02.wav"); //countdown sound
