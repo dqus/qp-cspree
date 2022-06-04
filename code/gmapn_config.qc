@@ -23,22 +23,6 @@
 
 */
 
-/* Ugly, ugly, ugly */
-float gmapn_config_version;
-
-void gmapn_config_update()
-{
-	if (stof(infokey(world, "gmapn_config_version")) == gmapn_config_version)
-	{
-		gmapn_init_entities();
-		gmapn_update_defaults_rules();
-		remove(self);
-		return;
-	}
-
-	self.nextthink = time + 0.001;
-};
-
 void gmapn_config_load()
 {
 	dbgprintln("=== gmapn_config_load() ===");
@@ -50,21 +34,13 @@ void gmapn_config_load()
 	parseconfig("cfgs/maps/%s/default.conf", mapname);
 	parseconfig("cfgs/maps/%s/%s.conf", mapname, g_game_mode);
 
-	if (gmapn_config_version == 0)
+	if (framecount == 1)
 		gmapn_update_defaults_start();
 	
-	gmapn_config_version+= 1;
-	if (gmapn_config_version == 65536)
-		gmapn_config_version = 0;
-
-	localcmd("localinfo gmapn_config_version ", ftos(gmapn_config_version), "\n");
 	localcmd("serverinfo config ", g_game_mode, "\n");
 
 	gmapn_serverstate = gmapn_serverstate_prewar;
 
-	/* We need to wait for the server to actually load the config... */
-	entity e = spawn();
-	e.nextthink = time + 0.001;
-	e.think = gmapn_config_update;
-	e.health = gmapn_config_version;
+	gmapn_init_entities();
+	gmapn_update_defaults_rules();
 };

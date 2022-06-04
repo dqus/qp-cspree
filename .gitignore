@@ -3,7 +3,8 @@
 *~
 *#*#
 TAGS
-qwprogs.*
-csprogs.*
+/qwprogs.*
+/csprogs.*
 ftesv
-sqlite
+/sqlite
+/*qccore.txt

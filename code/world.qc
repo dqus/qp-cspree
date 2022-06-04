@@ -51,8 +51,6 @@ void worldspawn()
 	dbgprintln("=== worldspawn() ===");
 	gmapn_readconfig();
 	BotInit();
-	self.nextthink = time + 0.4; //FIXME: what is the minimum time to wait? anything over 0.4 will cause coop to bork and 0 will skip monsters appearing
-	self.think = gmapn_init;
 
 	InitBodyQue();
 
@@ -253,12 +251,9 @@ void worldspawn()
 //
 // Setup light animation tables. 'a' is total darkness, 'z' is maxbright.
 //
-
 	gmapn_lightstyle_reset();
-	//gmapn_init();
 
-	//world.nextthink = time + 0.5;
-	//world.think = gmapn_init_entities;
+	gmapn_init();
 
 	//make sure some data is downloaded to clients.
 //	whichpack("data/test.mnu", TRUE);
