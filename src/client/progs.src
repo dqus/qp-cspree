@@ -7,10 +7,9 @@
 
 #includelist
 
-../version.qc
-
-../common/fteextensions.qc
-../common/defs.qc
+../shared/version.qc
+../shared/fteextensions.qc
+../shared/defs.qc
 
 defs/fields.qc
 defs/functions.qc
