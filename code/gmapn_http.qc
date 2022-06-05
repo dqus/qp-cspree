@@ -1,4 +1,4 @@
-void URI_Get_Callback(float reqid, float responsecode, string resourcebody)
+void URI_Get_Callback(float reqid, float responsecode, string resourcebody, int resourcebytes)
 {
 	if (responsecode != 0)
 	{

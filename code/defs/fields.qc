@@ -160,6 +160,8 @@ noref .string wad;
 //							G M A P N	F I E L D S							 //
 ///////////////////////////////////////////////////////////////////////////////
 
+.float items2; // FIXME: ctf related, for some reason removed from fteextensions.qc.
+
 .float	latency;
 .float	ready;
 .float rulesel;	//main option on the menu

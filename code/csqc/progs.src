@@ -1,16 +1,15 @@
 #pragma target fte
 #pragma progs_dat "../../csprogs.dat"
 //#pragma autoproto
-
 #pragma warning disable F210
+
+#define CSQC
 
 #includelist
 
 ../version.qc
 
-csqcsysdefs.qc
-constants.qc
-
+../common/fteextensions.qc
 ../common/defs.qc
 
 defs/fields.qc

@@ -255,8 +255,8 @@ void worldspawn()
 
 	gmapn_init();
 
-	//make sure some data is downloaded to clients.
-//	whichpack("data/test.mnu", TRUE);
+	// Make sure pak files downloaded by clients.
+//	whichpack("progs/vwplayer.mdl", WP_REFERENCEPACKAGE);
 };
 
 void StartFrame()
