@@ -1,3 +1,6 @@
+// URL is a shortened link to the project page
+const string URL     = "https://bit.ly/3zj5FcD";
+
 enum
 {
 	STAT_ACTIVEWEAPON = 10,

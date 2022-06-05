@@ -1,13 +1,10 @@
 .PHONY: all
-all:
+all: build qp.pk3
+
+.PHONY: build
+build:
 	$(MAKE) -C src
 
-PAK_SRC = \
-	locs \
-	maps \
-	particles \
-	progs \
-	sound
-
-qp.pk3: $(PAK_SRC)
-	rm -f qp.pk3 && zip -r qp.pk3 $^
+# Create package with all files required by mod.
+qp.pk3: qp.pk3dir
+	rm -f $@ && cd $^ && zip -1 -r ../$@ .

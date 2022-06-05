@@ -1,10 +1,4 @@
-.cvsignore
-.svn
-*~
-*#*#
-TAGS
+/qp.pk3
 /demos
-/qwprogs.*
-/csprogs.*
 /sqlite
 /*qccore.txt

@@ -1,5 +1,5 @@
 #pragma target fte
-#pragma progs_dat "../../csprogs.dat"
+#pragma progs_dat "../../qp.pk3dir/csprogs.dat"
 //#pragma autoproto
 #pragma warning disable F210
 

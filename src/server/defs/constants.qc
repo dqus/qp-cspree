@@ -27,12 +27,6 @@
 // Disabled, since portal gun crashes FTE and overall code is quite experimental.
 //#define HAVE_PORTALS
 
-/* MOD INFO */
-// Name is the shortened variant
-// Version is always git when laying in the repo, do change it on release
-// URL is a shortened link to the project page
-const string URL     = "https://git.io/vSGFe";
-
 ///////////////////////////////////////////////////////////////////////////////
 //                       Q U A K E   C O N S T A N T S                       //
 ///////////////////////////////////////////////////////////////////////////////
