@@ -207,6 +207,8 @@ float getkey_parseconfig(string cfgname)
 	return FALSE;
 };
 
+#define parseconfig(...) getkey_parseconfig(sprintf(__VA_ARGS__))
+
 void getkey_writeconfig(string cfgname)
 {
 	filestream f = fopen(cfgname, FILE_WRITE);
@@ -228,17 +230,37 @@ void getkey_reset()
 	string modename = gmapn_gamemodetostring(game_mode);
 
 	//global defaults
-	getkey_parseconfig("cfgs/rules/default.conf");
-
+	parseconfig("cfgs/rules/default.conf");
 	//mode-specific overrides
-	if (!getkey_parseconfig(sprintf("cfgs/rules/%s.conf", modename)))
-		dprint(sprintf("could not read cfgs/rules/%s.conf\n", modename));
-
+	parseconfig("cfgs/rules/%s.conf", modename);
 	//map-specific overrides
-	getkey_parseconfig(sprintf("cfgs/maps/%s/default.conf", mapname));
+	parseconfig("cfgs/maps/%s/default.conf", mapname);
 	//map-mode-specific settings...
-	getkey_parseconfig(sprintf("cfgs/maps/%s/%s.conf", mapname, modename));
+	parseconfig("cfgs/maps/%s/%s.conf", mapname, modename);
 
+	gmapn_update_defaults_rules();
+};
+
+// FIXME: merge with getkey_reset()
+void gmapn_config_load()
+{
+	dbgprintln("=== gmapn_config_load() ===");
+
+	string g_game_mode = getkey(game_mode);
+
+	parseconfig("cfgs/rules/default.conf");
+	parseconfig("cfgs/rules/%s.conf", g_game_mode);
+	parseconfig("cfgs/maps/%s/default.conf", mapname);
+	parseconfig("cfgs/maps/%s/%s.conf", mapname, g_game_mode);
+
+	if (framecount == 1)
+		gmapn_update_defaults_start();
+
+	localcmd("serverinfo config ", g_game_mode, "\n");
+
+	gmapn_serverstate = gmapn_serverstate_prewar;
+
+	gmapn_init_entities();
 	gmapn_update_defaults_rules();
 };
 

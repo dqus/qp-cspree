@@ -62,7 +62,6 @@ spectate.qc
 world.qc
 
 gmapn_aliasstuffer.qc
-gmapn_config.qc
 gmapn_countdown.qc
 gmapn_disconnected.qc
 gmapn_game.qc
