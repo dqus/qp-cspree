@@ -1,6 +1,14 @@
 // URL is a shortened link to the project page
 const string URL     = "https://bit.ly/3zj5FcD";
 
+typedef enum
+{
+	true = 1,
+	false = 0,
+	TRUE = 1,
+	FALSE = 0
+} bool;
+
 enum
 {
 	STAT_ACTIVEWEAPON = 10,
