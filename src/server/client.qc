@@ -1691,7 +1691,7 @@ void client_pack_throw()
 	pack.touch = client_pack_touch;
 
 	pack.nextthink = time + 60*2;
-	pack.think = (void()){remove(self);};
+	pack.think = self_destruct;
 
 	if (deathmatch < 4)
 		pack.noise = "weapons/lock4.wav";
