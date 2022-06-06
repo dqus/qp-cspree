@@ -55,3 +55,67 @@ void gmapn_reset_stoptimer()
 
 	remove(e);
 };
+
+void gmapn_reset_entities(string classnamestr)
+{
+	entity oself = self;
+	entity e;
+
+	e = find(world, classname, classnamestr);
+
+	while (e)
+	{
+		if (classnamestr == "func_button")
+		{
+			self = e;
+			button_reset();
+			self = oself;
+		}
+		else if (classnamestr == "func_door")
+		{
+			self = e;
+			door_reset();
+			self = oself;
+		}
+		else if (classnamestr == "func_door_secret")
+		{
+			self = e;
+			door_secret_reset();
+			self = oself;
+		}
+		else if (classnamestr == "func_plat")
+		{
+			self = e;
+			plat_reset();
+			self = oself;
+		}
+		else if (classnamestr == "func_train")
+		{
+			self = e;
+			train_reset();
+			self = oself;
+		}
+		else if (classnamestr == "trigger_counter"
+			  || classnamestr == "trigger_once"
+			  || classnamestr == "trigger_onlyregistered")
+		{
+			self = e;
+			trigger_reset();
+			self = oself;
+		}
+		else if (classnamestr == "info_controlpoint")
+		{
+			self = e;
+			controlpoint_reset();
+			self = oself;
+		}
+		else // items
+		{
+			e.model = e.mdl;
+			e.nextthink = 0;
+			e.solid = SOLID_TRIGGER;
+		}
+
+		e = find(e, classname, classnamestr);
+	}
+};

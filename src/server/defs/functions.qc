@@ -126,13 +126,6 @@ void() gmapn_mapvote_removevote;
 void(string mapstr) gmapn_mapvote_addvote;
 
 /*
- * gmapn_misc.qc
- */
-
-void(string classnamestr) gmapn_reset_entities;
-void(entity source, vector destination) gmapn_telefrag_check;
-
-/*
  * gmapn_powerups.qc
  */
 
@@ -189,6 +182,7 @@ void(entity player, string team, float topcolour, float mottomcolour) gmapn_sett
 
 void() gmapn_reset_starttimer;
 void() gmapn_reset_stoptimer;
+void(string classnamestr) gmapn_reset_entities;
 
 /*
  * gmapn_rpickup.qc
@@ -273,6 +267,7 @@ void() plat_reset;
  */
 
 void() trigger_teleport;
+void(entity source, vector destination) gmapn_telefrag_check;
 
 /*
  * entities/trains.qc
@@ -313,3 +308,9 @@ void() FoundTarget;
 #define URL_MAPLIST(url, mode, dmm) strcat(url, "maplist?mode=", gmapn_gamemodetostring(mode), "&dmm=", ftos(dmm))
 
 #define SUB_Remove self_destruct
+
+void bprintln(float level, string s) { bprint(level, s, "\n"); };
+void sprintln(entity client, float level, string s) { sprint(client, level, s, "\n"); };
+void dprintln(string s) { dprint(s, "\n"); };
+void dbgprint(string s) { if (cvar("developer")) dprint("DEBUG: ", s); };
+void dbgprintln(string s) {	dbgprint(strcat(s, "\n")); };

@@ -205,6 +205,79 @@ void teleport_send()
 	destination.SendEntity = gmapn_sendentity;
 }
 
+void gmapn_telefrag_check(entity source, vector destination)
+{
+	entity oldself; /* Yikes, Id Software suck */
+	entity p;
+	entity p2;
+
+	entity teledeath;
+
+	vector tmin;
+	vector pmin;
+
+	tmin = destination + source.mins;
+
+	oldself = self;
+
+	p = find(world, classname, "player");
+	while(p)
+	{
+		if (p.netname != "" && p != source && p.health > 0 && p.solid != SOLID_NOT)
+		{
+			pmin = p.origin + p.mins;
+
+			if (pmin_x + p.size_x > tmin_x && pmin_x < tmin_x + source.size_x
+			 && pmin_y + p.size_y > tmin_y && pmin_y < tmin_y + source.size_y
+			 && pmin_z + p.size_z > tmin_z && pmin_z < tmin_z + source.size_z)
+			{
+				teledeath = spawn();
+				teledeath.movetype = MOVETYPE_NONE;
+				teledeath.solid = SOLID_NOT;
+				//teledeath.nextthink = time + 0.01;
+				//teledeath.think = func_null;
+
+				self = teledeath;
+
+				p2 = source;
+				if (deathmatch != 4 && p.pent_finished > time && p2.pent_finished > time)
+				{
+					//teledeath.deathtype = DT_TELEFRAG_PENT_BOTH;
+
+					p.pent_finished = 0;
+					p2.pent_finished = 0;
+
+					p.deathtype = DT_TELEFRAG_PENT_BOTH;
+					p2.deathtype = DT_TELEFRAG_PENT_BOTH;
+
+					teledeath.owner = p2;
+					gmapn_kill(p, teledeath.owner);
+					teledeath.owner = p;
+					gmapn_kill(p2, teledeath.owner);
+				}
+				else if (deathmatch != 4 && p.pent_finished > time)
+				{
+					//teledeath.deathtype = DT_TELEFRAG_PENT;
+					teledeath.owner = p;
+					p2.deathtype = DT_TELEFRAG_PENT;
+					gmapn_kill(p2, teledeath.owner);
+				}
+				else
+				{
+					//teledeath.deathtype = DT_TELEFRAG;
+					teledeath.owner = p2;
+					p.deathtype = DT_TELEFRAG;
+					gmapn_kill(p, teledeath.owner);
+				}
+			}
+		}
+
+		p = find(p, classname, "player");
+	}
+
+	self = oldself;
+};
+
 /*
 ========================================================================
 
