@@ -1,6 +1,6 @@
 #pragma target fte
 #pragma progs_dat "../../qp.pk3dir/qwprogs.dat"
-#pragma autoproto
+//#pragma autoproto // kinda broken in fteqcc
 
 #pragma warning disable F326 // FIXME: Frik bots warnings.
 
