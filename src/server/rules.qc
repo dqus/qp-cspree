@@ -416,13 +416,13 @@ void(entity killer, entity victim, float delta) gmapn_scorefrags =
 		{
 			if (gmapn_monarchofthemound)
 			{
-				gmapn_setteamandcolour(gmapn_monarchofthemound, "pleb", 3, 3);
+				client_setteamandcolour(gmapn_monarchofthemound, "pleb", 3, 3);
 			}
 			else
 				cvar_set("teamplay", "1");	//now that we actually have different teams, we need to enable teamplay so that skin forcing works.
 			gmapn_monarchofthemound = killer;
 			bprint(PRINT_HIGH, gmapn_monarchofthemound.netname, " is now the king!\n");
-			gmapn_setteamandcolour(gmapn_monarchofthemound, "king", 13, 13);
+			client_setteamandcolour(gmapn_monarchofthemound, "king", 13, 13);
 		}
 		//only the king is allowed to get points from killing.
 		if (killer != gmapn_monarchofthemound)
@@ -761,9 +761,9 @@ void gmapn_rules_autojointeam()
 	if (coop)	//just force their team to coop in coop.
 		forceinfokey(self, "team", (self.teamname = "coop"));
 	else if (self.teamname == "red")
-		gmapn_setteamandcolour(self, "red", 4, 4);
+		client_setteamandcolour(self, "red", 4, 4);
 	else if (self.teamname == "blue")
-		gmapn_setteamandcolour(self, "blue", 13, 13);
+		client_setteamandcolour(self, "blue", 13, 13);
 	else
 	{
 		//count existing players
@@ -787,9 +787,9 @@ void gmapn_rules_autojointeam()
 
 		//and put them on the smaller team
 		if (red < blue)
-			gmapn_setteamandcolour(self, "red", 4, 4);
+			client_setteamandcolour(self, "red", 4, 4);
 		else
-			gmapn_setteamandcolour(self, "blue", 13, 13);
+			client_setteamandcolour(self, "blue", 13, 13);
 	}
 };
 
@@ -870,7 +870,7 @@ void gmapn_rules_handleconnect()
 	switch(game_mode)
 	{
 	case GM_KING:	//joining players become plebs
-		gmapn_setteamandcolour(self, "pleb", 3, 3);
+		client_setteamandcolour(self, "pleb", 3, 3);
 		break;
 	case GM_ROVER:	//don't need to bother with teams. that'll be handled when spec-players are pulled in for the new round.
 		dospec = 1;

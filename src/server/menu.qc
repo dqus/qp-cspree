@@ -67,7 +67,7 @@ static string menu_readyteam(float op)
 				cmd_break();
 			else
 			{
-				gmapn_setteamandcolour(self, "red", 4, 4);
+				client_setteamandcolour(self, "red", 4, 4);
 				cmd_ready();
 			}
 		}
@@ -82,7 +82,7 @@ static string menu_readyteam(float op)
 				cmd_break();
 			else
 			{
-				gmapn_setteamandcolour(self, "blue", 13, 13);
+				client_setteamandcolour(self, "blue", 13, 13);
 				cmd_ready();
 			}
 		}

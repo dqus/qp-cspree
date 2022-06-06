@@ -973,3 +973,91 @@ float gmapn_handle_usercmd(float argc)
 	}
 	return 0;
 };
+
+void SV_ParseClientCommand(string str)
+{
+	float numargs;
+
+	numargs = tokenize(str);
+	if (numargs < 1)
+		return;
+
+	// When spectating you need to use say_game to talk to everyone during a game
+	if (gmapn_serverstate == gmapn_serverstate_playing && self.classname != "player" && argv(0) == "say")
+	{
+		if (substring(argv(1), 0, 8) != "say_game")
+		{
+			str = substring(str, 3, strlen(str));
+			str = strcat("say_team", str);
+		}
+		else if (substring(argv(1), 0, 8) == "say_game")
+		{
+			if (substring(str, 4, 1) == "\"")
+			{
+				// ezquake
+				str = substring(str, 14, strlen(str) - 15);
+			}
+			else
+			{
+				// fodquake
+				str = substring(str, 13, strlen(str));
+			}
+
+			str = strcat("say ", str);
+		}
+	}
+
+	if (gmapn_serverstate == gmapn_serverstate_prewar && self.classname == "player")
+	{
+		if (argv(0) == "say")
+		{
+			string s1, s2;
+
+			if (numargs < 3)
+			{
+				numargs = tokenize(argv(1));
+				s1 = argv(0);
+				s2 = argv(1);
+			}
+			else
+			{
+				s1 = argv(1);
+				s2 = argv(2);
+			}
+			dprint(s1, " ", s2, "\n");
+			if (s1 == ".menu" && s2 == "bind")
+			{
+				stuffcmd(self, "bind enter cmd menu show\n");
+				return;
+			}
+		}
+	}
+
+	// FIXME: uncomment when LASTMANSTANDING spectating is working
+
+	/* if (argv(0) == "ptrack" && infokey(self, INFOKEY_P_SPECTATOR) == "2") */
+	/* { */
+	/*	entity tracking = world, newtarget; */
+
+	/*	while ((tracking = find(tracking, classname, "player"))) */
+	/*	{ */
+	/*		if (infokey(tracking, INFOKEY_P_USERID) == argv(1) || tracking == world) */
+	/*			break; */
+	/*	} */
+
+	/*	newtarget = tracking; */
+	/*	while (self.teamname != newtarget.teamname || stof(infokey(newtarget, INFOKEY_P_SPECTATOR))) */
+	/*	{ */
+	/*		newtarget = find(newtarget, classname, "player"); */
+	/*		if (newtarget == tracking) */
+	/*			break; */
+	/*	} */
+
+	/*	str = argv(0); */
+	/*	str = strcat(str, " "); */
+	/*	str = strcat(str, infokey(newtarget, INFOKEY_P_USERID)); */
+	/* } */
+
+	if (gmapn_handle_usercmd(numargs) == 0)
+		clientcommand(self, str);
+};

@@ -40,6 +40,7 @@ float(float theweapon) client_weaponokay;
 void(entity player) client_setsemispectator;
 void(entity player) client_clearsemispectator;
 void(float flag) client_setweapon;
+void(entity player, string team, float topcolour, float mottomcolour) client_setteamandcolour;
 
 /*
  * gmapn_aliasstuffer.qc
@@ -169,12 +170,6 @@ void() domination_startup;
 void() headhunter_startup;
 void() ctf_player_died;	//player died/disconnected. chucks the flag away.
 void(float flagstate) ctf_enableflags;
-
-/*
- * gmapn_qsg.qc
- */
-
-void(entity player, string team, float topcolour, float mottomcolour) gmapn_setteamandcolour;
 
 /*
  * gmapn_reset.qc

@@ -114,7 +114,7 @@ float gmapn_reconnected_player(entity reconnected_player)
 
 	reconnected_player.frags = matchedplayer.frags;
 	//reconnected_player.teamname = matchedplayer.teamname;
-	//gmapn_setteamandcolour(reconnected_player, matchedplayer.teamname, matchedplayer.topcolor, matchedplayer.bottomcolor);
+	//client_setteamandcolour(reconnected_player, matchedplayer.teamname, matchedplayer.topcolor, matchedplayer.bottomcolor);
 
 	reconnected_player.stats_kills = matchedplayer.stats_kills;
 	reconnected_player.stats_deaths = matchedplayer.stats_deaths;

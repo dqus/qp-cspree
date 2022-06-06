@@ -63,7 +63,7 @@ void gmapn_rpickup_assignplayerstoteam(string teamname, float teamcolour, float 
 			{
 				if (playernum == 0)
 				{
-					gmapn_setteamandcolour(player, teamname, teamcolour, teamcolour);
+					client_setteamandcolour(player, teamname, teamcolour, teamcolour);
 					player.vote_rpickup = 0;
 					break;
 				}

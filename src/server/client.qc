@@ -282,6 +282,14 @@ void execute_changelevel()
 =============================================================================
 */
 
+void client_setteamandcolour(entity player, string teamstr, float topcolour, float bottomcolour)
+{
+	player.teamname = teamstr;
+	forceinfokey(player, "team", teamstr);
+	forceinfokey(player, "topcolor", ftos(topcolour));
+	forceinfokey(player, "bottomcolor", ftos(bottomcolour));
+};
+
 //void() set_suicide_frame;
 void(entity ent) CopyToBodyQue;
 

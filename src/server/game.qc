@@ -229,12 +229,12 @@ static void gmapn_randomize_playerteams()
 	{
 		if (alt++ & 1)
 		{
-			gmapn_setteamandcolour(player, "red", 4, 4);
+			client_setteamandcolour(player, "red", 4, 4);
 			centerprint(player, "You are now on RED team");
 		}
 		else
 		{
-			gmapn_setteamandcolour(player, "blue", 13, 13);
+			client_setteamandcolour(player, "blue", 13, 13);
 			centerprint(player, "You are now on BLUE team");
 		}
 	}
@@ -726,7 +726,7 @@ void gmapn_round_start()
 		//fixme: should we maybe pick a player randomly instead?
 		for (e = world; (e = find(e, classname, "player")); )
 		{
-			gmapn_setteamandcolour(e, "pleb", 3, 3);
+			client_setteamandcolour(e, "pleb", 3, 3);
 		}
 		//clear teamplay, so that skin forcing doesn't break things.
 		cvar_set("teamplay", "0");
