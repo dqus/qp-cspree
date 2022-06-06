@@ -17,6 +17,6 @@ defs/globals.qc
 
 entrypoints.qc
 
-gmapn_prediction.qc
+prediction.qc
 
 #endlist

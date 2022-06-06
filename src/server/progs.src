@@ -18,7 +18,7 @@ defs/fields.qc				 // Entity fields declarations
 defs/functions.qc			 // Functions declarations
 defs/globals.qc				 // Global variables declarations
 
-gmapn_keys.qc
+keys.qc
 
 waypoints/map_dm1.qc
 waypoints/map_dm2.qc
@@ -35,10 +35,10 @@ frikbot/bot_phys.qc
 frikbot/bot_move.qc
 frikbot/bot_ed.qc
 
-gmapn_subs.qc
-gmapn_portals.qc
-gmapn_hazards.qc
-gmapn_csqc.qc
+subs.qc
+portals.qc
+hazards.qc
+csqc.qc
 
 models/player.qc
 
@@ -59,35 +59,33 @@ entities/weapons.qc
 entities/teleports.qc
 entities/quake3.qc
 
-
 client.qc
 spectate.qc
 world.qc
 
-gmapn_aliasstuffer.qc
-gmapn_countdown.qc
-gmapn_disconnected.qc
-gmapn_game.qc
-gmapn_help.qc
-gmapn_rules.qc
-gmapn_rules_ctf.qc
-gmapn_menu.qc
-gmapn_init.qc
-gmapn_sql.qc
-gmapn_latency.qc
-gmapn_lightstyle.qc
-gmapn_mapvote.qc
-gmapn_misc.qc
-gmapn_powerups.qc
-gmapn_reset.qc
-gmapn_rpickup.qc
-gmapn_stats.qc
-gmapn_qsg.qc
-gmapn_usercmd.qc
-gmapn_vote.qc
-gmapn_votefuncs.qc
-
-gmapn_http.qc
+aliasstuffer.qc
+countdown.qc
+disconnected.qc
+game.qc
+help.qc
+rules.qc
+rules_ctf.qc
+menu.qc
+init.qc
+sql.qc
+latency.qc
+lightstyle.qc
+mapvote.qc
+misc.qc
+powerups.qc
+reset.qc
+rpickup.qc
+stats.qc
+qsg.qc
+usercmd.qc
+vote.qc
+votefuncs.qc
+http.qc
 
 //for coop
 monsters/ai.qc
