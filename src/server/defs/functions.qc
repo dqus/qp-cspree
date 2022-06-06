@@ -32,6 +32,8 @@
  * client.qc
  */
 
+#define client_printf(client, lv, ...) sprint(client, lv, sprintf(__VA_ARGS__))
+
 void(entity targ, entity attacker) client_obituary;
 void() client_pack_throw;
 void(float sameplace) client_spawn;

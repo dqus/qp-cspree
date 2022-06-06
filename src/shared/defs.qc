@@ -24,3 +24,6 @@ enum
 
 #define ENT_TELEPORTDEST 1
 #define ENT_TELEPORTER 2
+
+// Helpers.
+#define printf(...) print(sprintf(__VA_ARGS__))
