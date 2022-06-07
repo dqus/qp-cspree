@@ -173,6 +173,8 @@ void() headhunter_startup;
 void() ctf_player_died;	//player died/disconnected. chucks the flag away.
 void(float flagstate) ctf_enableflags;
 
+void() gmapn_updatemaxclients;
+
 /*
  * gmapn_reset.qc
  */
@@ -310,4 +312,5 @@ void bprintln(float level, string s) { bprint(level, s, "\n"); };
 void sprintln(entity client, float level, string s) { sprint(client, level, s, "\n"); };
 void dprintln(string s) { dprint(s, "\n"); };
 void dbgprint(string s) { if (cvar("developer")) dprint("DEBUG: ", s); };
+#define dbgprintf(...) dbgprint(sprintf(__VA_ARGS__))
 void dbgprintln(string s) {	dbgprint(strcat(s, "\n")); };

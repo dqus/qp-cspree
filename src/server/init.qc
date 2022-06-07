@@ -40,15 +40,7 @@ void gmapn_init()
 
 	dbgprintln("=== gmapn_init() ===");
 	game_mode = gmapn_gamemodefromstring(getkey(game_mode));
-	if (game_mode < 0)
-		gmapn_apply_gamemode(GM_FFA);
-	else
-		gmapn_apply_gamemode(game_mode);
-
-	gmapn_config_load();
-
-	coop = cvar("coop");
-	skill = cvar("skill");	//should only be used in coop.
+	gmapn_apply_gamemode(game_mode);
 
 	gmapn_detectserver();
 
@@ -120,9 +112,6 @@ void gmapn_init()
 	localcmd(" - ");
 	localcmd(NAME);
 	localcmd("\"\n");
-
-	// Configure map pool
-	gmapn_map_pool_init();
 
 	if (gmapn_qsg_has_ext_csqc)
 	{
@@ -235,7 +224,6 @@ void gmapn_init_entities()
 		gmapn_powerups_enable();
 	}
 
-	deathmatch = cvar("deathmatch");
 	gmapn_powerups_setitems();
 
 	ctf_enableflags(game_mode == GM_CTF);

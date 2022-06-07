@@ -97,9 +97,7 @@ string gmapn_gamemodefullname(game_mode_t m)
 
 game_mode_t gmapn_gamemodefromstring(string m)
 {
-	if (m == "0")
-		return 0;	//whichever that is
-	else if (m == "ffa")
+	if (m == "ffa")
 		return GM_FFA;
 	else if (m == "deathmatch" || m == "tdm" || m == "4on4")
 		return GM_TDEATHMATCH;
@@ -132,12 +130,7 @@ game_mode_t gmapn_gamemodefromstring(string m)
 	else if (m == "csqw")
 		return GM_COUNTERQUAKE;
 	else
-	{
-		float r = stof(m);
-		if (r == 0)
-			return -1;
-		return r;
-	}
+		return GM_FFA;
 };
 
 #ifndef CSQC
@@ -211,6 +204,9 @@ void gmapn_apply_gamemode(game_mode_t newmode)
 
 	setkey("game_mode", gmapn_gamemodetostring(newmode));
 	game_mode = newmode;
+
+	cvar_set("coop", "0");
+
 	switch(game_mode)
 	{
 	case GM_FFA:
@@ -246,9 +242,8 @@ void gmapn_apply_gamemode(game_mode_t newmode)
 		setkey("maxplayers", gmapn_ismatchless(newmode) ? maxplayers : "8");
 		break;
 	case GM_COOP:
-		if (gmapn_serverstate == gmapn_serverstate_playing)
-			cvar_set("coop", "1");
-
+		// FIXME: what about deathmatch, teamplay and such?
+		cvar_set("coop", "1");
 		break;
 	default:	//other game modes
 		cvar_set("deathmatch", "3");
@@ -260,10 +255,7 @@ void gmapn_apply_gamemode(game_mode_t newmode)
 		break;
 	}
 
-	getkey_reset();
-	gmapn_powerups_setitems();
-	gmapn_updatemaxclients();
-	gmapn_map_pool_init();
+	gmapn_config_load();
 };
 
 void gmapn_evaluategamemaster()

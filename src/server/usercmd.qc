@@ -725,8 +725,6 @@ float gmapn_handle_usercmd(float argc)
 			if (gmapn_serverstate == gmapn_serverstate_prewar)
 			{
 				gmapn_apply_gamemode(newmode);
-				gmapn_config_load();
-				gmapn_updatemaxclients();
 				bprint(PRINT_HIGH, self.netname, " activated ", gmapn_gamemodetostring(newmode), " config.\n");
 				}
 			else

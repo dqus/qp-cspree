@@ -224,10 +224,13 @@ void getkey_writeconfig(string cfgname)
 	fclose(f);
 };
 
-void getkey_reset()
+void gmapn_config_load()
 {
-	//determine the current mode name
-	string modename = gmapn_gamemodetostring(game_mode);
+	dbgprintln("=== gmapn_config_load() ===");
+
+	string modename = getkey(game_mode);
+
+	gmapn_serverstate = gmapn_serverstate_prewar; // FIXME: is it proper place???
 
 	//global defaults
 	parseconfig("cfgs/rules/default.conf");
@@ -238,30 +241,21 @@ void getkey_reset()
 	//map-mode-specific settings...
 	parseconfig("cfgs/maps/%s/%s.conf", mapname, modename);
 
-	gmapn_update_defaults_rules();
-};
-
-// FIXME: merge with getkey_reset()
-void gmapn_config_load()
-{
-	dbgprintln("=== gmapn_config_load() ===");
-
-	string g_game_mode = getkey(game_mode);
-
-	parseconfig("cfgs/rules/default.conf");
-	parseconfig("cfgs/rules/%s.conf", g_game_mode);
-	parseconfig("cfgs/maps/%s/default.conf", mapname);
-	parseconfig("cfgs/maps/%s/%s.conf", mapname, g_game_mode);
-
 	if (framecount == 1)
 		gmapn_update_defaults_start();
 
-	localcmd("serverinfo config ", g_game_mode, "\n");
+	localcmd("serverinfo config ", modename, "\n");
 
-	gmapn_serverstate = gmapn_serverstate_prewar;
+	deathmatch = cvar("deathmatch");
+	coop = cvar("coop");
+	skill = coop ? cvar("skill") : 0; // Skill is valid only in coop mode.
 
 	gmapn_init_entities();
-	gmapn_update_defaults_rules();
+
+	gmapn_update_defaults_rules(); // FIXME: should it be movedcloser to gmapn_update_defaults_start ?
+
+	gmapn_updatemaxclients(); // FIXME: not sure if it should be here.
+	gmapn_map_pool_init();
 };
 
 /*
