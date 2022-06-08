@@ -133,8 +133,6 @@ game_mode_t gmapn_gamemodefromstring(string m)
 		return GM_FFA;
 };
 
-#ifndef CSQC
-
 float gmapn_gamemode_rounds(game_mode_t m)
 {
 	if (m == GM_DA)
@@ -858,5 +856,3 @@ void gmapn_rules_handleconnect()
 
 	self.matchtime = time;
 };
-
-#endif
