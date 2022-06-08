@@ -174,6 +174,7 @@ void() ctf_player_died;	//player died/disconnected. chucks the flag away.
 void(float flagstate) ctf_enableflags;
 
 void() gmapn_updatemaxclients;
+void() update_basic_rules;
 
 /*
  * gmapn_reset.qc

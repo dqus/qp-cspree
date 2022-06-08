@@ -185,75 +185,34 @@ string gmapn_nextmap()
 	return nextmaprotate;
 }
 
+void update_basic_rules()
+{
+//	fraglimit = cvar("fraglimit")
+	timelimit = cvar("timelimit")*60;
+	deathmatch = cvar("deathmatch");
+	teamplay = cvar("teamplay");
+	coop = cvar("coop");
+	skill = coop ? cvar("skill") : 0; // Skill is valid only in coop mode.
+}
+
 void gmapn_updatemaxclients()
 {
 	float lim = getkey(game_clientlimit);
 	float max;
 	//enforce maxclients primarily so that extra players can't join mid-game and ruin it.
-	if (cvar("teamplay"))
+	if (teamplay && coop == 0)
 		max = getkey(maxteamsize) * 2;
 	else
 		max = getkey(maxplayers);
-	cvar_set("maxclients", ftos(min(lim,max)));
-	cvar_set("maxspectators", ftos(lim - max));
+	max = bound(0, max, lim);
+	cvar_setf("maxclients", max);
+	cvar_setf("maxspectators", lim - max);
 };
 
 void gmapn_apply_gamemode(game_mode_t newmode)
 {
-	const string maxplayers = "24";
-
 	setkey("game_mode", gmapn_gamemodetostring(newmode));
 	game_mode = newmode;
-
-	cvar_set("coop", "0");
-
-	switch(game_mode)
-	{
-	case GM_FFA:
-	case GM_KING:	//initially off, at least.
-	case GM_DA:
-	case GM_HEADHUNTER:
-	case GM_COUNTERQUAKE:
-	case GM_DUEL:
-		cvar_set("deathmatch", "3");
-		cvar_set("teamplay", "0");
-		cvar_set("timelimit", "10");
-		setkey("minteamsize", "1");
-		setkey("minplayers", gmapn_ismatchless(newmode) ? "1" : "2");
-		setkey("maxplayers", gmapn_ismatchless(newmode) ? maxplayers : "2");
-		break;
-	case GM_FREEZETAG:
-	case GM_LASTMANSTANDING:
-	case GM_HIDENSEEK:
-	case GM_2ON2:
-		cvar_set("deathmatch", "3");
-		cvar_set("teamplay", "2");
-		cvar_set("timelimit", "10");
-		setkey("minteamsize", "2");
-		setkey("minplayers", gmapn_ismatchless(newmode) ? "1" : "4");
-		setkey("maxplayers", gmapn_ismatchless(newmode) ? maxplayers : "4");
-		break;
-	case GM_TDEATHMATCH:
-		cvar_set("deathmatch", "1");
-		cvar_set("teamplay", "2");
-		cvar_set("timelimit", "20");
-		setkey("minteamsize", "3");
-		setkey("minplayers", "6");
-		setkey("maxplayers", gmapn_ismatchless(newmode) ? maxplayers : "8");
-		break;
-	case GM_COOP:
-		// FIXME: what about deathmatch, teamplay and such?
-		cvar_set("coop", "1");
-		break;
-	default:	//other game modes
-		cvar_set("deathmatch", "3");
-		cvar_set("teamplay", "1");
-		cvar_set("timelimit", "10");
-		setkey("minteamsize", "1");
-		setkey("minplayers", "2");
-		setkey("maxplayers", maxplayers);
-		break;
-	}
 
 	gmapn_config_load();
 };

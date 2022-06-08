@@ -246,9 +246,7 @@ void gmapn_config_load()
 
 	localcmd("serverinfo config ", modename, "\n");
 
-	deathmatch = cvar("deathmatch");
-	coop = cvar("coop");
-	skill = coop ? cvar("skill") : 0; // Skill is valid only in coop mode.
+	update_basic_rules();
 
 	gmapn_init_entities();
 

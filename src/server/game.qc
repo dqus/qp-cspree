@@ -1045,9 +1045,7 @@ void gmapn_game_start()
 
 	oldself = self;
 
-	timelimit = cvar("timelimit")*60;
-	teamplay = cvar("teamplay");
-	deathmatch = cvar("deathmatch");
+	update_basic_rules();
 
 	if (game_mode == GM_COOP)
 		teamplay = TRUE;
