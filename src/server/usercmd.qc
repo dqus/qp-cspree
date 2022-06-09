@@ -182,7 +182,7 @@ void cmd_ready()
 			bprint(PRINT_HIGH, self.netname, redify(_(" is ready")));
 
 			// clan information
-			if (cvar("teamplay") && !cvar("coop"))
+			if (teamplay && coop == 0)
 				bprint(PRINT_HIGH, " ", chr2str(0x90), self.teamname, chr2str(0x91));
 
 			if (playersready < playersneeded)
@@ -201,7 +201,7 @@ void cmd_ready()
 
 		if (gmapn_serverstate != gmapn_serverstate_forcestart && playersready >= playersneeded)
 		{
-			if (cvar("teamplay") && !cvar("coop") && game_mode != GM_COOP && !getkey(game_botskill))
+			if (teamplay && coop == 0 && !getkey(game_botskill))
 			{
 				if (count_red < getkey(minteamsize))
 				{
@@ -787,43 +787,40 @@ float gmapn_handle_usercmd(float argc)
 		{
 			sprint(self, PRINT_HIGH, "Usage: /cmd dmm [1-6]\n");
 		}
+		else if (gmapn_serverstate != gmapn_serverstate_prewar)
+		{
+			sprint(self, PRINT_HIGH, "Cannot change deathmatch while game is in progress.\n");
+		}
+		else if (coop)
+		{
+			sprint(self, PRINT_HIGH, "Cannot change deathmatch while coop is active.\n");
+		}
 		else
 		{
-			if (gmapn_serverstate == gmapn_serverstate_prewar)
+			dmm = floor(stof(argv(1)));
+			if (dmm >= 1 && dmm <= 7 && dmm == stof(argv(1)))
 			{
-				dmm = floor(stof(argv(1)));
-				if (dmm >= 1 && dmm <= 7 && dmm == stof(argv(1)))
+				tempstr = ftos(dmm);
+				if (cvar("deathmatch") != dmm)
 				{
-					tempstr = ftos(dmm);
-					if (cvar("deathmatch") != dmm)
-					{
-						if (dmm == DMM_INSTAGIB)
-							bprint(PRINT_HIGH, self.netname, " changes deathmatch to instagib.\n");
-						else if (dmm == DMM_MIDAIR)
-							bprint(PRINT_HIGH, self.netname, " changes deathmatch to midair.\n");
-						else
-							bprint(PRINT_HIGH, self.netname, " changes deathmatch to ", tempstr, ".\n");
-						cvar_set("deathmatch", tempstr);
-						if (dmm)	//make sure coop is set so the server is always multiplayer.
-							cvar_set("coop", "0");
-						else
-							cvar_set("coop", "1");
-
-						gmapn_powerups_setitems();
-					}
+					if (dmm == DMM_INSTAGIB)
+						bprint(PRINT_HIGH, self.netname, " changes deathmatch to instagib.\n");
+					else if (dmm == DMM_MIDAIR)
+						bprint(PRINT_HIGH, self.netname, " changes deathmatch to midair.\n");
 					else
-					{
-						sprint(self, PRINT_HIGH, "Deathmatch is already ", tempstr, ".\n");
-					}
+						bprint(PRINT_HIGH, self.netname, " changes deathmatch to ", tempstr, ".\n");
+					cvar_set("deathmatch", tempstr);
+
+					gmapn_powerups_setitems();
 				}
 				else
 				{
-					sprint(self, PRINT_HIGH, "Invalid deathmatch mode. Valid modes are 1 to 7.\n");
+					sprint(self, PRINT_HIGH, "Deathmatch is already ", tempstr, ".\n");
 				}
 			}
 			else
 			{
-				sprint(self, PRINT_HIGH, "Cannot change deathmatch while game is in progress.\n");
+				sprint(self, PRINT_HIGH, "Invalid deathmatch mode. Valid modes are 1 to 7.\n");
 			}
 		}
 

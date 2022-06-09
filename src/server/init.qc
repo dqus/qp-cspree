@@ -145,6 +145,10 @@ void gmapn_init()
 		test.think = gmapn_init_test;
 		test.nextthink = time + 0.1;
 	}
+
+	// Remember coop/skill variables so if they changed somehow we would have to reload map.
+	initial_coop = coop;
+	initial_skill = skill;
 };
 
 void gmapn_detectserver()

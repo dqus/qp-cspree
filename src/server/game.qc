@@ -1129,11 +1129,9 @@ void gmapn_game_start()
 	if (game_mode == GM_CTF)
 		ctf_enableflags(TRUE);
 
-	if ((game_mode == GM_COOP) != coop || (coop && skill != cvar("skill")))
+	// coop/skill change requires map reload.
+	if (initial_coop != coop || initial_skill != skill)
 	{
-		cvar_set("coop", ftos(game_mode == GM_COOP));
-		if (game_mode == GM_COOP)
-			cvar_set("deathmatch", "");
 		serverflags = SV_MATCHLESS;	//also clears out any runes.
 		changelevel(mapname);
 	}

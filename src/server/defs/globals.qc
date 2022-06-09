@@ -43,7 +43,9 @@ float	timelimit;
 //float	fraglimit;
 float	deathmatch;
 float	coop;
+float	initial_coop; // Initialise once at map load so we can detect if coop changed by user/configs/etc.
 float	skill;	//mostly so monsters can spam stuff on nightmare.
+float	initial_skill; // Initialise once at map load so we can detect if skill changed by user/configs/etc.
 
 string	nextmap;	//for coop.
 
