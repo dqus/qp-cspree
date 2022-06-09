@@ -91,7 +91,7 @@ void cmd_ready()
 
 		if (cvar("teamplay"))
 		{
-			if (game_mode == GM_COOP)
+			if (coop)
 				forceinfokey(self, "team", (self.teamname="coop"));
 			else if (self.teamname == "")
 			{

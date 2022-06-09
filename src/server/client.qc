@@ -1916,7 +1916,7 @@ void PlayerDeathThink()
 	if (time < self.death_finished && !self.button2 && !self.button1 && !self.button0)
 		return;
 
-	if (game_mode == GM_COOP && gmapn_coop_respawntokens >= 0)
+	if (coop && gmapn_coop_respawntokens >= 0)
 	{
 		if (!gmapn_coop_respawntokens)
 		{
