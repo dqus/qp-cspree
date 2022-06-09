@@ -1045,9 +1045,6 @@ void gmapn_game_start()
 
 	update_basic_rules();
 
-	if (game_mode == GM_COOP)
-		teamplay = TRUE;
-
 	if (gmapn_ismatchless(game_mode))
 		serverflags |= SV_MATCHLESS;
 	else
