@@ -32,8 +32,6 @@ static float gmapn_teamscores_blue;
 //let clients know the correct time.
 float gmapn_matchstarttimems;
 
-void() gmapn_round_end;
-
 void gmapn_find_teamnames()
 {
 	gmapn_team_red = gmapn_team_blue = string_null;
