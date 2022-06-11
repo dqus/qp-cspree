@@ -1,5 +1,5 @@
 /*
-	gmapn_aliasstuffer.qc
+	aliasstuffer.qc
 
 	Copyright (C) 2007 Mark Olsen
 
@@ -53,57 +53,28 @@ static string stufflist[] =
 	"alias dontcare cmd dontcare\n",
 	"alias rulemaker cmd rulemaker\n",
 	"alias rndmap cmd rndmap\n",
-	"alias shownick cmd shownick\n"
+	"alias shownick cmd shownick\n",
 };
 
-void() gmapn_aliasstuffer_think;
-
-void gmapn_aliasstuffer_start(entity player)
+static void aliasstuffer_think()
 {
-	entity e;
+	entity player = self.owner;
 
-	e = spawn();
-	e.netname = player.netname;
-	e.classname = "gmapn_aliasstuffer";
-	e.solid = SOLID_NOT;
-	e.nextthink = time + 0.2; /* Give a little room for the client to really connect, avoids weird delays when connecting. */
-	e.think = gmapn_aliasstuffer_think;
-	e.owner = player;
-	e.cnt = 0;
-};
-
-void gmapn_aliasstuffer_think()
-{
-	/* A safety check to make sure the client didn't disappear */
-	// FIXME: lame, client can change name which will cause only portion of aliases stuffed.
-	entity player = find(world, classname, "player");
-	while (player && player.netname != self.netname && self.owner != player)
-	{
-		player = find(player, classname, "player");
-	}
-
-	if (!player)
-	{
-		/* OK, client disappeared, so we do too */
-		remove(self);
-		return;
-	}
-
-	while (!isbackbuffered(self.owner))
+	while (!isbackbuffered(player))
 	{
 		if (self.cnt < stufflist.length)
-			stuffcmd(self.owner, stufflist[self.cnt]);
+			stuffcmd(player, stufflist[self.cnt]);
 		else
 		{
 			string name = gmapn_map_pool_readidx(self.cnt - stufflist.length);
 			if (name != "")
 			{
 				string aliascmd = sprintf("alias %s_map cmd votemap %s\n", name, name);
-				stuffcmd(self.owner, aliascmd);
+				stuffcmd(player, aliascmd);
 			}
 			else
 			{
-				sprint(self.owner, PRINT_MEDIUM, "Aliases uploaded.\n");
+				sprint(player, PRINT_MEDIUM, "Aliases uploaded.\n");
 				remove(self);
 				return;
 			}
@@ -113,4 +84,28 @@ void gmapn_aliasstuffer_think()
 	}
 
 	self.nextthink = time + 0.01;
-};
+}
+
+void aliasstuffer_start(entity player)
+{
+	entity e = spawn();
+	e.netname = player.netname;
+	e.classname = "aliasstuffer";
+	e.solid = SOLID_NOT;
+	e.nextthink = time + 0.2; /* Give a little room for the client to really connect, avoids weird delays when connecting. */
+	e.think = aliasstuffer_think;
+	e.owner = player;
+	e.cnt = 0;
+}
+
+void aliasstuffer_stop(entity player)
+{
+	for (entity e = world; (e = find(e, classname, "aliasstuffer"));)
+	{
+		if (e.owner == player)
+		{
+			remove(e);
+			return;
+		}
+	}
+}

@@ -2493,7 +2493,7 @@ void ClientConnect()
 
 	self.is_fully_connected = 1;
 
-	gmapn_aliasstuffer_start(self);
+	aliasstuffer_start(self);
 
 	if (intermission_running)
 	{
@@ -2567,6 +2567,8 @@ void ClientDisconnect()
 	entity e;
 
 	dbgprintln("=== ClientDisconnect() ===");
+
+	aliasstuffer_stop(self);
 
 	// Let everyone else know
 	if (gmapn_serverstate == gmapn_serverstate_playing)

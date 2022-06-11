@@ -43,10 +43,11 @@ void(float flag) client_setweapon;
 void(entity player, string team, float topcolour, float mottomcolour) client_setteamandcolour;
 
 /*
- * gmapn_aliasstuffer.qc
+ * aliasstuffer.qc
  */
 
-void(entity player) gmapn_aliasstuffer_start;
+void aliasstuffer_start(entity player);
+void aliasstuffer_stop(entity player);
 
 /*
  * gmapn_countdown.qc

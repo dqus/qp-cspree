@@ -68,11 +68,12 @@ void SpectatorDisconnect()
 	if (infokey(self, "*spectator") == "2")
 	{
 		ClientDisconnect();
+		return;
 	}
-	else
-	{
-		bprint (PRINT_MEDIUM, sprintf(_("Spectator %s left the game\n"), self.netname));
-	}
+
+	aliasstuffer_stop(self);
+
+	bprint (PRINT_MEDIUM, sprintf(_("Spectator %s left the game\n"), self.netname));
 };
 
 /*
