@@ -32,8 +32,6 @@
  * client.qc
  */
 
-#define client_printf(client, lv, ...) sprint(client, lv, sprintf(__VA_ARGS__))
-
 void(entity targ, entity attacker) client_obituary;
 void() client_pack_throw;
 void(float sameplace) client_spawn;
@@ -95,8 +93,6 @@ void() gmapn_print_welcome;
 void() gmapn_detectserver;
 void() gmapn_init;
 void() gmapn_init_entities;
-void() gmapn_update_defaults_rules;
-void() gmapn_update_defaults_start;
 void() gmapn_init_test;
 void() gmapn_readconfig;
 
@@ -138,12 +134,6 @@ void() gmapn_powerups_toggle;
 void() gmapn_powerups_setitems;
 
 /*
- * gmapn_menu.qc
-*/
-
-float() gmapn_display_rules;
-
-/*
  * gmapn_votefuncs.qc
  */
 void() gmapn_newrulemaker;
@@ -175,6 +165,8 @@ void(float flagstate) ctf_enableflags;
 
 void() gmapn_updatemaxclients;
 void() update_basic_rules;
+
+float() gmapn_display_rules;
 
 /*
  * gmapn_reset.qc
@@ -305,10 +297,10 @@ void() FoundTarget;
 #define brackets(s) sprintf("%s%s%s", chr2str(0x90), s, chr2str(0x91))
 #define disconnected(s) sprintf("%s %s", chr2str(0x87), s)
 
-#define URL_MAPLIST(url, mode, dmm) strcat(url, "maplist?mode=", gmapn_gamemodetostring(mode), "&dmm=", ftos(dmm))
-
 #define SUB_Remove self_destruct
 
+#define client_sprintf(client, lv, ...) sprint(client, lv, sprintf(__VA_ARGS__))
+#define bprintf(lv, ...) bprint(lv, sprintf(__VA_ARGS__))
 void bprintln(float level, string s) { bprint(level, s, "\n"); };
 void sprintln(entity client, float level, string s) { sprint(client, level, s, "\n"); };
 void dprintln(string s) { dprint(s, "\n"); };

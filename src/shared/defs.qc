@@ -1,5 +1,5 @@
 // URL is a shortened link to the project page
-const string URL     = "https://bit.ly/3zj5FcD";
+//const string URL     = "https://bit.ly/3zj5FcD";
 
 typedef enum
 {

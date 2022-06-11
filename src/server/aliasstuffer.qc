@@ -35,6 +35,8 @@ string stufflist[] =
 	"alias dmm3 cmd dmm 3\n",
 	"alias dmm4 cmd dmm 4\n",
 	"alias powerups cmd powerups\n",
+	"alias ffa cmd ffa\n",
+	"alias coop_mode cmd coop\n", // Conflicts with coop cvar so have to call it coop_mode.
 	"alias 1on1 cmd 1on1\n",
 	"alias 2on2 cmd 2on2\n",
 	"alias 3on3 cmd 3on3\n",

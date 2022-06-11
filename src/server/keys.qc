@@ -29,7 +29,6 @@ string NULL = __NULL__;
 	GVS(info_city,			"",	NULL)\
 	GVS(info_state,			"",	NULL)\
 	GVS(info_country,		"",	NULL)\
-	GVS(staturl,			"", "URL to query for statistics.")\
 	GVS(allowedmodes,		"",	"list of allowed modes. blank for any")\
 	GVF(allowbots,			0,	"If set, users are able to enable bots.")\
 	GVF(demo_lowername,		0,	"If set, forces lowercase characters in demo names.") \
@@ -58,7 +57,7 @@ string NULL = __NULL__;
 	GVF(axe_absorb,			1.0,	"Axe armor aborption")\
 	GVF(axe_damage,			80,	NULL)\
 	GVF(axe_push,			1.0,	NULL)\
-	GVF(axe_push_frozen,		3.0,	"Pushback multiplier for axe hits against frozen targets. Applies in freezetag or when the player is staring at mod menus.")\
+	GVF(axe_push_frozen,		3.0,	"Pushback multiplier for axe hits against frozen targets. Applies in freezetag.")\
 	GVF(axe_reload,			0.5,	NULL)\
 	GVF(bullet_damage,		3.0,	NULL)\
 	GVF(bullet_push,		1.0,	NULL)\
@@ -241,16 +240,11 @@ void gmapn_config_load()
 	//map-mode-specific settings...
 	parseconfig("cfgs/maps/%s/%s.conf", mapname, modename);
 
-	if (framecount == 1)
-		gmapn_update_defaults_start();
-
 	localcmd("serverinfo config ", modename, "\n");
 
 	update_basic_rules();
 
 	gmapn_init_entities();
-
-	gmapn_update_defaults_rules(); // FIXME: should it be movedcloser to gmapn_update_defaults_start ?
 
 	gmapn_updatemaxclients(); // FIXME: not sure if it should be here.
 	gmapn_map_pool_init();

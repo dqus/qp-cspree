@@ -473,53 +473,6 @@ typedef enum
 	GM_MODES
 } game_mode_t;
 
-enum
-{
-	URI_GET_MAPLIST
-};
-
-enum
-{
-	MENU_NULL,
-
-	MENU_WELCOME,
-	MENU_DOMINATION,
-	MENU_DUELARENA,
-	MENU_FREEZETAG,
-	MENU_HEADHUNTERS,
-	MENU_KILLTHEKING,
-	MENU_LASTMANSTANDING,
-	MENU_ROVER,
-	MENU_END,
-	MENU_SHOW
-};
-
-const struct
-{
-	int fl;
-	string name;
-} loadouts[] =
-{
-	{0,			"default"},
-	{IT_SUPER_SHOTGUN,	"ssg"},
-	{IT_NAILGUN,		"ng"},
-	{IT_SUPER_NAILGUN,	"sng"},
-	{IT_GRENADE_LAUNCHER,	"gl"},
-	{IT_ROCKET_LAUNCHER,	"rl"},
-	{IT_LIGHTNING_GUN,	"lg"},
-	{IT_RAILGUN,		"rg"},
-	{IT_ARMOR1,		"ga"},
-	{IT_ARMOR2,		"ya"},
-	{IT_ARMOR3,		"ra"},
-#ifdef HAVE_PORTALS
-	{IT_PORTALGUN,		"pg"},
-#endif
-	{IT_RING,		"ring"},
-	{IT_PENT,		"pent"},
-	{IT_SUIT,		"suit"},
-	{IT_QUAD,		"quad"},
-};
-
 const string itemnames[] =
 {
 	"weapon_supershotgun", "weapon_nailgun", "weapon_supernailgun", "weapon_grenadelauncher", "weapon_rocketlauncher", "weapon_lightning", "weapon_railgun",
@@ -527,32 +480,4 @@ const string itemnames[] =
 	"item_artifact_invulnerability", "item_artifact_invisibility",
 	"item_artifact_super_damage",
 	"item_armor1", "item_armor2", "item_armorInv", "item_health",
-};
-
-const string botskillname[] =
-{
-	"No bots",
-	"Clay Pidgin",
-	"Joke",
-	"Noobs",
-	"Mobile Victims"
-};
-
-const string dmmname[] =
-{
-	"Coop",
-	"Normal",
-	"Never played",
-	"Weaponstay",
-	"Stacked (unlimited)",
-	"Stacked (limited)",
-	"Midair",
-	"Instagib"
-};
-
-const string spawnname[] =
-{
-	"N/A",
-	"Fair",
-	"Competitive"
 };

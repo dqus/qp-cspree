@@ -744,24 +744,8 @@ void gmapn_rules_autojointeam()
 
 void gmapn_rules_cliententered()
 {
-	entity p = world;
-	int pcount = 0;
-
 	if (clienttype(self) == CLIENTTYPE_BOT)
 		self.ready = TRUE; // bots are always ready on join
-
-	while ((p = find(p, classname, "player")))
-		pcount++;
-
-	int playersneeded = (gmapn_gamemodeneedsteam(game_mode) ? getkey(minteamsize)*2 : getkey(minplayers));
-
-	playersneeded = max(2,playersneeded);
-	if (pcount >= playersneeded)
-		if (gmapn_serverstate == gmapn_serverstate_prewar)
-			if (!(serverflags & SV_MATCHLESS))
-				gmapn_serverstate = gmapn_serverstate_lockready;
-
-	self.menutime = time;
 
 	client_spawn(FALSE);
 }
@@ -808,11 +792,6 @@ void gmapn_rules_handleconnect()
 		}
 	}
 
-	if (gmapn_serverstate == gmapn_serverstate_prewar)
-	{
-		self.subsel = -1;
-	}
-
 	if (gmapn_serverstate != gmapn_serverstate_playing)
 		return;
 
@@ -855,4 +834,49 @@ void gmapn_rules_handleconnect()
 	}
 
 	self.matchtime = time;
-};
+}
+
+static void display_countdown()
+{
+	string str = sprintf("%s starts in %s\n\n\n\n\n",
+		redify(gmapn_gamemodefullname(game_mode)),
+		goldnmbr(ftos(ceil((gmapn_matchstarttimems/1000) - time))));
+	centerprint(self, str);
+}
+
+float gmapn_display_rules()
+{
+	if (time < 1)	//can do weird things on loading screens
+		return TRUE;
+
+	if (gmapn_serverstate == gmapn_serverstate_countdown)
+	{
+		display_countdown();
+		return FALSE;
+	}
+	else if (gmapn_serverstate == gmapn_serverstate_playing)
+	{
+		if (game_mode == GM_FREEZETAG)
+		{
+			if (self.viewingrules < time && self.deadflag)
+			{
+				self.viewingrules = time + 1;
+				centerprint(self, "YOU ARE FROZEN!\nHARASS A TEAM MATE TO HELP YOU!");
+			}
+		}
+		else if (game_mode == GM_HEADHUNTER)
+		{
+			if (self.viewingrules < time && self.ammo_heads > 0)
+			{
+				self.viewingrules = time + 1;
+				if (self.ammo_heads > 1)
+					centerprint(self, sprintf("YOU HAVE %s HEADS!\nBRING THEM TO THE ALTAR!", goldnmbr(ftos(self.ammo_heads))));
+				else
+					centerprint(self, sprintf("YOU HAVE %s HEAD!\nBRING IT TO THE ALTAR!", goldnmbr(ftos(self.ammo_heads))));
+			}
+		}
+		return FALSE;
+	}
+
+	return FALSE;
+}

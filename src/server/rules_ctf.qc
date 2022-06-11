@@ -317,7 +317,7 @@ void SV_RunClientCommand()
 		input_angles = self.v_angle;
 
 	if (!self.maxspeed)
-	{	//in menus or frozen
+	{	// player movement is frozen
 		input_buttons = 0;
 		input_movevalues = '0 0 0';
 	} 

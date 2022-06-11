@@ -236,36 +236,3 @@ void gmapn_init_entities()
 	if ((serverflags & SV_MATCHLESS) && gmapn_ismatchless(game_mode))
 		gmapn_reset_starttimer();
 }
-
-/*
-  Updates on every rulechange.
-*/
-void gmapn_update_defaults_rules()
-{
-	dbgprintln("=== gmapn_update_defaults_rules() ===");
-
-	cvar_set("init_loadout", ftos(getkey(game_loadout)));
-	cvar_set("init_rounds", ftos(getkey(game_rounds)));
-	cvar_set("init_minplayers", ftos(getkey(minplayers)));
-	cvar_set("init_maxplayers", ftos(getkey(maxplayers)));
-	cvar_set("init_powerups_enabled", ftos(getkey(powerups_enabled)));
-	cvar_set("init_deathmatch", ftos(cvar("deathmatch")));
-	cvar_set("init_timelimit", ftos(cvar("timelimit")));
-}
-
-/*
-  Used for saving settings on server start that should be treated as default.
-*/
-void gmapn_update_defaults_start()
-{
-	dbgprintln("=== gmapn_update_defaults_start() ===");
-
-	if (cvar("initialized") == 0)
-	{
-		cvar_set("init_spawn_mode", ftos(getkey(spawn_mode)));
-		cvar_set("init_botskill", ftos(getkey(game_botskill)));
-		cvar_set("init_antilag", ftos(cvar("sv_antilag")));
-		cvar_set("init_minping", ftos(cvar("sv_minping")));
-		cvar_set("initialized", "1");
-	}
-}

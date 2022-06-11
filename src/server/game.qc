@@ -659,7 +659,7 @@ void gmapn_hideandseek_drop()
 	setsize(docs, VEC_HULL_MIN, VEC_HULL_MAX);
 
 	centerprint(self, "Documents stashed.");
-	self.maxspeed = 320;
+	self.maxspeed = autocvar(sv_maxspeed, 320);
 }
 
 void gmapn_hideandseek_start()
@@ -1061,7 +1061,7 @@ void gmapn_game_start()
 	gmapn_reset_entities("info_controlpoint");
 //	gmapn_reset_entities("item_flag");
 
-	//kill any lingering menus
+	//kill any lingering centerptint
 	for (self = world; (self = find(self, classname, "player")); )
 		centerprint(self, "");
 

@@ -25,7 +25,7 @@
 
 static string tips[] =
 {
-	_("Vote a map by its name FOR NOW, example:\n/dm4\nMap list is not available yet, menu map\nlist is unfinished so don't use it.\n"),
+	_("Vote a map by its name, example:\n/dm4\n"),
 	_("To get a game going with too few players\ntry opening console and type: .qw get in\nhere NOW and play with ME!\n"),
 	_("You can shoot, trigger, open and press.\nAny action you can think of to move\nthrough the map in prewar and exploring\nit. Everything in a map, will reset on\ngame start\n"),
 	_("Since there is no maplist for ALL maps,\ntry to vote a random map with /rndmap\nfor now\n"),

@@ -94,10 +94,13 @@ void gmapn_countdown_think()
 			p = world;
 			while ((p = find(p, classname, "player")))
 			{
-				if (p.viewingrules < time && p.ready)
-					centerprint(p, "Waiting for competitors");
-				if (p.viewingrules < time && !p.ready)
-					centerprint(p, "You are not ready!");
+				if (p.viewingrules < time)
+				{
+					if (p.ready)
+						centerprint(p, "Waiting for competitors");
+					else
+						centerprint(p, "You are not ready!");
+				}
 			}
 
 			return; // do not count down a game when not enough players are available

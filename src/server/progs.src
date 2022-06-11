@@ -69,7 +69,6 @@ help.qc
 game.qc
 rules.qc
 rules_ctf.qc
-menu.qc
 init.qc
 sql.qc
 latency.qc
@@ -79,7 +78,6 @@ reset.qc
 rpickup.qc
 stats.qc
 usercmd.qc
-http.qc
 
 vote.qc
 votefuncs.qc

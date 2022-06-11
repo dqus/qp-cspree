@@ -28,7 +28,6 @@ Differences from KTX
 
 Server side
 
-GUI menu system using your movement keys as arrow keys.
 Built for FTESV. Unfortunately MVDSV cannot be supported due to major usages of FTE
 extensions. There is no plan to support it.
 Written (almost entirely) from scratch in QuakeC.

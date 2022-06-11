@@ -87,7 +87,6 @@ void cmd_ready()
 	{
 	case gmapn_serverstate_prewar:
 	case gmapn_serverstate_forcestart:
-	case gmapn_serverstate_lockready:
 
 		if (cvar("teamplay"))
 		{
@@ -241,7 +240,6 @@ void cmd_break()
 	{
 	case gmapn_serverstate_prewar:
 	case gmapn_serverstate_forcestart:
-	case gmapn_serverstate_lockready:
 
 		if (self.ready)
 		{
@@ -298,7 +296,7 @@ void cmd_break()
 				bprint(PRINT_HIGH, _("The match is stopped!\n"));
 
 				gmapn_game_end();
-				serverflags &= ~SV_MATCHLESS;	//make sure the menus come back
+				serverflags &= ~SV_MATCHLESS;
 			}
 		}
 
@@ -308,7 +306,7 @@ void cmd_break()
 	self.ready = 0;
 
 	if (gmapn_serverstate == gmapn_serverstate_prewar)
-	{	//if they used the menu to switch team, or the game forced their team then reset them back to their preferred team.
+	{	//if the game forced their team then reset them back to their preferred team.
 		self.teamname = self.userteam;
 		forceinfokey(self, "team", self.userteam);
 	}
@@ -472,14 +470,11 @@ void cmd_shownick()
 {
 	if (gmapn_serverstate != gmapn_serverstate_prewar)
 		return;
-	if (self.movetime < time)
-		return; // don't clotter the menu
 
 	makevectors(self.angles);
 	traceline(self.origin, self.origin + v_forward*512, FALSE|MOVE_LAGGED, self);
 	if (trace_fraction != 1.0 && trace_ent.classname == "player")
 	{
-		self.menutime = time + 1; // hide the menu for a short period
 		centerprint(self, trace_ent.netname);
 	}
 }
@@ -585,12 +580,6 @@ void cmd_writeconfig()
 	sprintln(self, PRINT_HIGH, "Wrote config.");
 }
 
-void cmd_menushow()
-{
-	self.menutime = time;
-	self.movetime = time;
-}
-
 float gmapn_handle_setinfo(string key, string value)
 {
 	if (key == "team")
@@ -622,9 +611,6 @@ float gmapn_handle_usercmd(float argc)
 {
 	string cmd;
 	string mapstr;
-	string tempstr;
-
-	float dmm;
 
 	if (argc < 1)
 		return 0;
@@ -797,25 +783,25 @@ float gmapn_handle_usercmd(float argc)
 		}
 		else
 		{
-			dmm = floor(stof(argv(1)));
+			float dmm = floor(stof(argv(1)));
 			if (dmm >= 1 && dmm <= 7 && dmm == stof(argv(1)))
 			{
-				tempstr = ftos(dmm);
-				if (cvar("deathmatch") != dmm)
+				if (deathmatch != dmm)
 				{
 					if (dmm == DMM_INSTAGIB)
 						bprint(PRINT_HIGH, self.netname, " changes deathmatch to instagib.\n");
 					else if (dmm == DMM_MIDAIR)
 						bprint(PRINT_HIGH, self.netname, " changes deathmatch to midair.\n");
 					else
-						bprint(PRINT_HIGH, self.netname, " changes deathmatch to ", tempstr, ".\n");
-					cvar_set("deathmatch", tempstr);
+						bprintf(PRINT_HIGH, "%s changes deathmatch to %g.\n", self.netname, dmm);
+					cvar_setf("deathmatch", dmm);
+					deathmatch = cvar("deathmatch");
 
 					gmapn_powerups_setitems();
 				}
 				else
 				{
-					sprint(self, PRINT_HIGH, "Deathmatch is already ", tempstr, ".\n");
+					client_sprintf(self, PRINT_HIGH, "Deathmatch is already %g.\n", dmm);
 				}
 			}
 			else
@@ -862,13 +848,15 @@ float gmapn_handle_usercmd(float argc)
 	if (cmd == "ffa")
 	{	SV_ParseClientCommand("gamemode ffa"); return 1; }
 	if (cmd == "1on1")
-	{	SV_ParseClientCommand("gamemode duel"); SV_ParseClientCommand("maxplayers 2"); return 1; }
+	{	SV_ParseClientCommand("gamemode duel"); return 1; }
 	if (cmd == "2on2")
-	{	SV_ParseClientCommand("gamemode 2on2"); SV_ParseClientCommand("teamsize 2"); return 1; }
+	{	SV_ParseClientCommand("gamemode 2on2"); return 1; }
 	if (cmd == "3on3")
 	{	SV_ParseClientCommand("gamemode tdm"); SV_ParseClientCommand("teamsize 3"); return 1; }
 	if (cmd == "4on4")
-	{	SV_ParseClientCommand("gamemode tdm"); SV_ParseClientCommand("teamsize 4"); return 1; }
+	{	SV_ParseClientCommand("gamemode tdm"); return 1; }
+	if (cmd == "coop")
+	{	SV_ParseClientCommand("gamemode coop"); return 1; }
 	if (cmd == "time")
 	{
 		if (argc != 2)
@@ -953,19 +941,6 @@ float gmapn_handle_usercmd(float argc)
 //		cmd_writeconfig();
 		return 1;
 	}
-	if (cmd == "menu")
-	{
-		if (argc < 2)
-		{
-			sprint(self, PRINT_HIGH, _("Usage: menu show\n"));
-			return 1;
-		}
-		if (argv(1) == "show")
-		{
-			cmd_menushow();
-			return 1;
-		}
-	}
 	return 0;
 };
 
@@ -1002,31 +977,14 @@ void SV_ParseClientCommand(string str)
 		}
 	}
 
+/*
 	if (gmapn_serverstate == gmapn_serverstate_prewar && self.classname == "player")
 	{
 		if (argv(0) == "say")
 		{
-			string s1, s2;
-
-			if (numargs < 3)
-			{
-				numargs = tokenize(argv(1));
-				s1 = argv(0);
-				s2 = argv(1);
-			}
-			else
-			{
-				s1 = argv(1);
-				s2 = argv(2);
-			}
-			dprint(s1, " ", s2, "\n");
-			if (s1 == ".menu" && s2 == "bind")
-			{
-				stuffcmd(self, "bind enter cmd menu show\n");
-				return;
-			}
 		}
 	}
+*/
 
 	// FIXME: uncomment when LASTMANSTANDING spectating is working
 
