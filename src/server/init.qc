@@ -165,9 +165,10 @@ void gmapn_detectserver()
 		error("Unsupported server - lacks both FRIK_FILE and ZQ_QC_STRINGS\n");
 	if (!checkextension("KRIMZON_SV_PARSECLIENTCOMMAND"))
 		error("Unsupported server - lacks KRIMZON_SV_PARSECLIENTCOMMAND\n");
+	if (!checkextension("FTE_ISBACKBUFFERED"))
+		error("Unsupported server - lacks FTE_ISBACKBUFFERED\n");
 
 	//check for optional extensions.
-	gmapn_qsg_has_fte_isbackbuffered = checkextension("FTE_ISBACKBUFFERED");
 	gmapn_qsg_has_fte_solid_ladder = checkextension("FTE_SOLID_LADDER");
 	gmapn_qsg_has_dp_qc_fs_search = checkextension("DP_QC_FS_SEARCH");
 	gmapn_qsg_has_fte_sql = checkextension("FTE_SQL");

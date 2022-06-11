@@ -57,7 +57,6 @@ float global_items;	//for coop. contains silver/gold keys, so disconnecting play
 //						 G M A P N	 V A R I A B L E S						 //
 ///////////////////////////////////////////////////////////////////////////////
 
-float gmapn_qsg_has_fte_isbackbuffered;
 float gmapn_qsg_has_fte_solid_ladder;
 float gmapn_qsg_has_dp_qc_fs_search;
 float gmapn_qsg_has_dp_sv_playerphysics;

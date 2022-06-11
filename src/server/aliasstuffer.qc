@@ -23,7 +23,7 @@
 
 */
 
-string stufflist[] =
+static string stufflist[] =
 {
 	"alias toggleready cmd toggleready\n",
 	"alias ready cmd ready\n",
@@ -74,12 +74,10 @@ void gmapn_aliasstuffer_start(entity player)
 
 void gmapn_aliasstuffer_think()
 {
-	float ok_to_stuff;
-	entity player;
-
 	/* A safety check to make sure the client didn't disappear */
-	player = find(world, classname, "player");
-	while(player && player.netname != self.netname && self.owner != player)
+	// FIXME: lame, client can change name which will cause only portion of aliases stuffed.
+	entity player = find(world, classname, "player");
+	while (player && player.netname != self.netname && self.owner != player)
 	{
 		player = find(player, classname, "player");
 	}
@@ -91,27 +89,16 @@ void gmapn_aliasstuffer_think()
 		return;
 	}
 
-	if (gmapn_qsg_has_fte_isbackbuffered)
-		ok_to_stuff = !isbackbuffered(self.owner);
-	else
-		ok_to_stuff = 1;
-
-	while(ok_to_stuff)
+	while (!isbackbuffered(self.owner))
 	{
 		if (self.cnt < stufflist.length)
 			stuffcmd(self.owner, stufflist[self.cnt]);
 		else
 		{
-			string name;
-			string aliascmd;
-
-			name = gmapn_map_pool_readidx(self.cnt - stufflist.length);
+			string name = gmapn_map_pool_readidx(self.cnt - stufflist.length);
 			if (name != "")
 			{
-				aliascmd = strcat("alias ", name);
-				aliascmd = strcat(aliascmd, " cmd votemap ");
-				aliascmd = strcat(aliascmd, name);
-				aliascmd = strcat(aliascmd, "\n");
+				string aliascmd = sprintf("alias %s_map cmd votemap %s\n", name, name);
 				stuffcmd(self.owner, aliascmd);
 			}
 			else
@@ -122,24 +109,8 @@ void gmapn_aliasstuffer_think()
 			}
 		}
 
-		self.cnt+= 1;
-
-		if (gmapn_qsg_has_fte_isbackbuffered)
-		{
-			ok_to_stuff = !isbackbuffered(self.owner);
-		}
-		else
-		{
-			ok_to_stuff = 0;
-		}
+		self.cnt += 1;
 	}
 
-	if (gmapn_qsg_has_fte_isbackbuffered)
-	{
-		self.nextthink = time + 0.01;
-	}
-	else
-	{
-		self.nextthink = time + 1;
-	}
+	self.nextthink = time + 0.01;
 };
