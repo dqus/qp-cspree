@@ -989,6 +989,14 @@ void hazard_discharge()
 	self.beam_finished = time + 0.6;
 };
 
+// Fix projectile angles after it bounce since engine does not do it for us.
+static void missile_fix_anlges_think()
+{
+	if (!self.velocity)
+		return;
+	self.angles = vectoangles(self.velocity);
+}
+
 void hazard_missile_touch()
 {
 	entity attacker;
@@ -1123,8 +1131,10 @@ void hazard_missile_touch()
 	}
 	else
 	{
-		self.movetype = MOVETYPE_BOUNCE;
+		self.movetype = MOVETYPE_BOUNCEMISSILE;
 		self.cnt = self.cnt - 1;
+		self.think = missile_fix_anlges_think;
+		self.nextthink = time + 0.001;
 	}
 }
 
