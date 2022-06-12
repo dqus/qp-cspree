@@ -715,7 +715,7 @@ float gmapn_handle_usercmd(float argc)
 				}
 			else
 			{
-				sprint(self, PRINT_HIGH, "Cannot change deathmatch while game is in progress.\n");
+				sprint(self, PRINT_HIGH, "Cannot change gamemode while game is in progress.\n");
 			}
 		}
 
@@ -828,7 +828,7 @@ float gmapn_handle_usercmd(float argc)
 	if (cmd == "maxplayers" || cmd == "minplayers" || cmd == "players" || cmd == "teamsize" || cmd == "maxteamsize" || cmd == "minteamsize")
 	{
 		if (gmapn_serverstate != gmapn_serverstate_prewar)
-			sprint(self, PRINT_HIGH, "Cannot change powerup state while game is in progress.\n");
+			sprint(self, PRINT_HIGH, "Cannot change settings while game is in progress.\n");
 		else
 		{
 			float lim = getkey(game_clientlimit);
