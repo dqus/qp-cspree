@@ -139,7 +139,7 @@ void gmapn_record_demo()
 
 void gmapn_game_beginpregamecountdown(float countdowntime)
 {
-	if (cvar("teamplay"))
+	if (teamplay)
 		gmapn_find_teamnames();
 
 	if (coop == 0 && getkey(game_record))
@@ -727,8 +727,7 @@ void gmapn_round_start()
 			client_setteamandcolour(e, "pleb", 3, 3);
 		}
 		//clear teamplay, so that skin forcing doesn't break things.
-		cvar_set("teamplay", "0");
-		teamplay = 0;
+		cvar_setf("teamplay", teamplay = 0);
 	}
 
 	//duel arena don't allow respawns until the end of the round.
@@ -1075,7 +1074,7 @@ void gmapn_game_start()
 
 	if (getkey(game_botskill) > 0)
 	{
-		if (cvar("teamplay") && coop == 0)
+		if (teamplay && coop == 0)
 			BotBalanceTeams(getkey(minteamsize));
 		else
 			BotEnforceMinimum(getkey(minplayers));

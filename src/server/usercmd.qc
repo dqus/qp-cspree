@@ -88,7 +88,7 @@ void cmd_ready()
 	case gmapn_serverstate_prewar:
 	case gmapn_serverstate_forcestart:
 
-		if (cvar("teamplay"))
+		if (teamplay)
 		{
 			if (coop)
 				forceinfokey(self, "team", (self.teamname="coop"));

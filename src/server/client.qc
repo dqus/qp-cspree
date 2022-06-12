@@ -2615,7 +2615,8 @@ void ClientDisconnect()
 	if (self == gmapn_monarchofthemound)
 	{
 		gmapn_monarchofthemound = world;
-		cvar_set("teamplay", "0");	//need to clear teamplay to rework clientside enemyskin forcing so everyone appears as a valid target.
+		//clear teamplay, so that skin forcing doesn't break things.
+		cvar_setf("teamplay", teamplay = 0);
 	}
 
 	/* Stop match if no players are left */

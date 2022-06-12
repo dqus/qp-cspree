@@ -24,30 +24,6 @@ float gmapn_ismatchless(game_mode_t m)
 	}
 };
 
-float gmapn_gamemodeneedsteam(game_mode_t m)
-{
-	switch(m)
-	{
-	default:
-	case GM_FFA:			return FALSE;
-	case GM_KING:			return FALSE;	//teams are used, but players don't select them. teamplay is enabled after the first frag.
-	case GM_DA:			return FALSE;
-	case GM_COOP:			return FALSE;
-	case GM_HEADHUNTER:		return FALSE;
-	case GM_DUEL:			return FALSE;
-	case GM_TDEATHMATCH:		return TRUE;
-	case GM_2ON2:			return TRUE;
-	case GM_LASTMANSTANDING:	return TRUE;
-	case GM_FREEZETAG:		return TRUE;
-	case GM_DOMINATION:		return TRUE;
-	case GM_ROVER:			return FALSE;	//is a team game, but teams are random.
-	case GM_CTF:			return TRUE;
-	case GM_1FCTF:			return TRUE;
-	case GM_HIDENSEEK:		return TRUE;
-	case GM_COUNTERQUAKE:		return FALSE;
-	}
-};
-
 string gmapn_gamemodetostring(game_mode_t m)
 {
 	switch(m)
@@ -368,7 +344,10 @@ void(entity killer, entity victim, float delta) gmapn_scorefrags =
 				client_setteamandcolour(gmapn_monarchofthemound, "pleb", 3, 3);
 			}
 			else
-				cvar_set("teamplay", "1");	//now that we actually have different teams, we need to enable teamplay so that skin forcing works.
+			{
+				//now that we actually have different teams, we need to enable teamplay so that skin forcing works.
+				cvar_setf("teamplay", teamplay = 1);
+			}
 			gmapn_monarchofthemound = killer;
 			bprint(PRINT_HIGH, gmapn_monarchofthemound.netname, " is now the king!\n");
 			client_setteamandcolour(gmapn_monarchofthemound, "king", 13, 13);
