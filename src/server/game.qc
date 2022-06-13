@@ -694,16 +694,7 @@ void gmapn_round_start()
 {
 	entity e;
 
-	gmapn_reset_entities("func_button");
-	gmapn_reset_entities("func_door");
-	gmapn_reset_entities("func_door_secret");
-	gmapn_reset_entities("func_plat");
-	gmapn_reset_entities("func_train");
-	gmapn_reset_entities("trigger_counter");
-	gmapn_reset_entities("trigger_once");
-	gmapn_reset_entities("trigger_onlyregistered");
-	gmapn_reset_entities("info_controlpoint");
-//	gmapn_reset_entities("item_flag");
+	reset_all_entities();
 
 	gmapn_powerups_setitems();
 
@@ -1035,30 +1026,16 @@ void gmapn_round_end()
 void gmapn_game_start()
 {
 	//entity player;
-	entity oldself;
+	entity oldself = self;
 	gmapn_roundnum = 1;
 	gmapn_roundslimit = 1;
 	global_items = 0;
 
-	oldself = self;
+	gmapn_serverstate = gmapn_serverstate_playing;
 
 	update_basic_rules();
 
-	if (gmapn_ismatchless(game_mode))
-		serverflags |= SV_MATCHLESS;
-	else
-		serverflags &= ~SV_MATCHLESS;
-
-	gmapn_reset_entities("func_button");
-	gmapn_reset_entities("func_door");
-	gmapn_reset_entities("func_door_secret");
-	gmapn_reset_entities("func_plat");
-	gmapn_reset_entities("func_train");
-	gmapn_reset_entities("trigger_counter");
-	gmapn_reset_entities("trigger_once");
-	gmapn_reset_entities("trigger_onlyregistered");
-	gmapn_reset_entities("info_controlpoint");
-//	gmapn_reset_entities("item_flag");
+	reset_all_entities();
 
 	//kill any lingering centerptint
 	for (self = world; (self = find(self, classname, "player")); )
@@ -1069,8 +1046,6 @@ void gmapn_game_start()
 		bprint(PRINT_MEDIUM, _("The game has begun - "), gmapn_gamemodefullname(game_mode), "\n");
 	else
 		bprint(PRINT_MEDIUM, _("The match has begun - "), gmapn_gamemodefullname(game_mode), "\n");
-
-	gmapn_serverstate = gmapn_serverstate_playing;
 
 	if (getkey(game_botskill) > 0)
 	{

@@ -25,36 +25,34 @@
 
 void gmapn_reset_think()
 {
-	self.nextthink = time + 0.1;
-	self.think = gmapn_reset_stoptimer;
-
-	// do not reset when rules are locked since there is nothing to reset
-	if (getkey(game_lockrules) > 0)
-		return;
-
 	serverflags = 0;
 	localcmd("exec cfgs/reset.conf\n");
-};
+
+	remove(self);
+}
 
 void gmapn_reset_starttimer()
 {
-	entity e;
+	dbgprintln("=== gmapn_reset_starttimer ===");
 
-	e = spawn();
+	// Remove previous timer.
+	gmapn_reset_stoptimer();
+
+	// Start new timer.
+	entity e = spawn();
 	e.classname = "gmapn_reset";
 	e.solid = SOLID_NOT;
 	e.nextthink = time + 5;
 	e.think = gmapn_reset_think;
-};
+}
 
 void gmapn_reset_stoptimer()
 {
-	entity e;
+	dbgprintln("=== gmapn_reset_stoptimer ===");
 
-	e = find(world, classname, "gmapn_reset");
-
-	remove(e);
-};
+	for (entity e = world; (e = find(e, classname, "gmapn_reset"));)
+		remove(e);
+}
 
 void gmapn_reset_entities(string classnamestr)
 {
@@ -118,4 +116,18 @@ void gmapn_reset_entities(string classnamestr)
 
 		e = find(e, classname, classnamestr);
 	}
-};
+}
+
+void reset_all_entities()
+{
+	gmapn_reset_entities("func_button");
+	gmapn_reset_entities("func_door");
+	gmapn_reset_entities("func_door_secret");
+	gmapn_reset_entities("func_plat");
+	gmapn_reset_entities("func_train");
+	gmapn_reset_entities("trigger_counter");
+	gmapn_reset_entities("trigger_once");
+	gmapn_reset_entities("trigger_onlyregistered");
+	gmapn_reset_entities("info_controlpoint");
+//	gmapn_reset_entities("item_flag");
+}

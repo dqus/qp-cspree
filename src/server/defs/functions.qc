@@ -176,6 +176,7 @@ float() gmapn_display_rules;
 void() gmapn_reset_starttimer;
 void() gmapn_reset_stoptimer;
 void(string classnamestr) gmapn_reset_entities;
+void reset_all_entities();
 
 /*
  * gmapn_rpickup.qc

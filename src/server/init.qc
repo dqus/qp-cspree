@@ -39,8 +39,11 @@ void gmapn_init()
 	string hostname, geo_city, geo_state, geo_country, modename;
 
 	dbgprintln("=== gmapn_init() ===");
-	game_mode = gmapn_gamemodefromstring(getkey(game_mode));
-	gmapn_apply_gamemode(game_mode);
+	gmapn_apply_gamemode(gmapn_gamemodefromstring(getkey(game_mode)));
+
+	// to stop servers from idling in matchless mode
+	if (serverflags & SV_MATCHLESS)
+		gmapn_reset_starttimer();
 
 	gmapn_detectserver();
 
@@ -130,12 +133,6 @@ void gmapn_init()
 	gmapn_latency_check_init();
 
 	vote_in_progress = FALSE;
-
-	if (getkey(game_lockrules) > 0 && gmapn_ismatchless(game_mode))
-	{
-		// enable the flag so the first connect will start a new game instantly
-		serverflags |= SV_MATCHLESS;
-	}
 
 	if (getkey(runtests) == 1)
 	{
@@ -232,8 +229,4 @@ void gmapn_init_entities()
 	gmapn_powerups_setitems();
 
 	ctf_enableflags(game_mode == GM_CTF);
-
-	// to stop servers from idling in matchless mode
-	if ((serverflags & SV_MATCHLESS) && gmapn_ismatchless(game_mode))
-		gmapn_reset_starttimer();
 }

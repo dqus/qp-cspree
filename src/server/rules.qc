@@ -167,6 +167,20 @@ void update_basic_rules()
 	teamplay = cvar("teamplay");
 	coop = cvar("coop");
 	skill = coop ? cvar("skill") : 0; // Skill is valid only in coop mode.
+
+	if (gmapn_ismatchless(game_mode))
+	{
+		// Does't add SV_MATCHLESS flag if serverstate is't playing, also does't remove it
+		// since it could be a map reload and we waiting for players before changing serverstate to playing.
+		// On the other hand enalbe flag if it a map start and rules are locked so first connect starts the game.
+		if (gmapn_serverstate == gmapn_serverstate_playing
+			|| (framecount == 1 && getkey(game_lockrules) > 0))
+			serverflags |= SV_MATCHLESS;
+	}
+	else
+	{
+		serverflags &= ~SV_MATCHLESS;
+	}
 }
 
 void gmapn_updatemaxclients()
@@ -732,26 +746,16 @@ void gmapn_rules_cliententered()
 //new client just joined the server
 void gmapn_rules_handleconnect()
 {
-	// 0 = join instantly as a player
-	// 1 = join as a spectator
-	// 2 = join as a player spectator
-	float dospec = 0;
-	float totalplayers;
-	entity p;
+	if (self.classname == "player")
+		gmapn_reset_stoptimer();
 
 	//in case they're a VIP really
 	gmapn_evaluategamemaster();
 
-	totalplayers = -1; // subtract the client that is about to join
-	p = find(world, classname, "player");
-	while (p)
-	{
-		totalplayers++;
-		p = find(p, classname, "player");
-	}
+	float totalplayers = countplayers() - 1; // subtract the client that is about to join
 
 	// if not spectating initialize some server settings
-	if (self.classname == "player" && (serverflags & SV_MATCHLESS) && gmapn_ismatchless(game_mode))
+	if (self.classname == "player" && (serverflags & SV_MATCHLESS))
 	{
 		// ready up on matchless games automatically
 		self.ready = TRUE;
@@ -765,7 +769,6 @@ void gmapn_rules_handleconnect()
 		// start the next game when the first player connects
 		if (totalplayers == 0)
 		{
-			gmapn_reset_stoptimer();
 			gmapn_game_start();
 			return;
 		}
@@ -773,6 +776,11 @@ void gmapn_rules_handleconnect()
 
 	if (gmapn_serverstate != gmapn_serverstate_playing)
 		return;
+
+	// 0 = join instantly as a player
+	// 1 = join as a spectator
+	// 2 = join as a player spectator
+	float dospec = 0;
 
 	switch(game_mode)
 	{
