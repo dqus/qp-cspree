@@ -44,6 +44,14 @@ infostring parm_string;
 //health will be 0 if the player has not transferred from the previous coop map
 void SetChangeParms()
 {
+	// Do not transfer bots or "gmapn_disconnected_player" to the next level.
+	// This could happen if someone type "map e1m1" at server console for example.
+	if (clienttype(self) != CLIENTTYPE_REAL)
+	{
+		dropclient(self);
+		return;
+	}
+
 	setspawnparms(self);
 
 	//this function is called on map changes where ClientDisconnect might not be.
