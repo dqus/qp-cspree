@@ -772,47 +772,6 @@ void remove_wall()
 	}
 };
 
-entity is_occupied(vector spot)
-{
-	entity p, list, oldself, fake_player;
-
-	vector tmin;
-	vector pmin;
-
-	fake_player = spawn();
-	setsize(fake_player, VEC_HULL_MIN, VEC_HULL_MAX);
-
-	tmin = spot + fake_player.mins;
-
-	oldself = self;
-	list = spawn();
-	self = list;
-
-	p = find(world, classname, "player");
-	while (p)
-	{
-		if (p != oldself && p.netname != "" && p.health > 0)
-		{
-			pmin = p.origin + p.mins;
-
-			if (pmin_x + p.size_x > tmin_x && pmin_x < tmin_x + fake_player.size_x
-			 && pmin_y + p.size_y > tmin_y && pmin_y < tmin_y + fake_player.size_y
-			 && pmin_z + p.size_z > tmin_z && pmin_z < tmin_z + fake_player.size_z)
-			{
-				// Occupied by p
-				self.enemy = p;
-				self = p;
-			}
-		}
-		p = find(p, classname, "player");
-	}
-
-	self = oldself;
-	remove(fake_player);
-
-	return list;
-};
-
 float weaponnum(float weaponflag)
 {
 	if (weaponflag & IT_AXE)
