@@ -1,6 +1,6 @@
 float gmapn_sendentity(entity to, float sendflags)
 {
-	bprint(PRINT_HIGH, "classname: ", self.classname, "\n");
+	// bprint(PRINT_HIGH, "classname: ", self.classname, "\n");
 	if (self.classname == "info_teleport_destination")
 	{
 		bprint(PRINT_HIGH, "ssqc teleportdest\n");

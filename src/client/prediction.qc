@@ -86,15 +86,15 @@ void teleport_touch()
 
 	if (!destination)
 	{
-		print("targetnum ", ftos(self.targetnum), "\n");
-		print("teleport destination is null\n");
+		// print("targetnum ", ftos(self.targetnum), "\n");
+		// print("teleport destination is null\n");
 		return;
 	}
 	
 	setorigin(other, destination.origin);
 	other.angles = destination.angles;
 
-	print("touch\n");
+	// print("touch\n");
 }
 
 void gmapn_init_teleport()
@@ -102,5 +102,5 @@ void gmapn_init_teleport()
 	self.solid = SOLID_TRIGGER;
 	self.movetype = MOVETYPE_NONE;
 	self.touch = teleport_touch;
-	print("teleport\n");
+	// print("teleport\n");
 }

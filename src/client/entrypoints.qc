@@ -46,7 +46,7 @@ void CSQC_Ent_Update(float isnew)
 {
 	float enttype = readbyte();
 
-	print("entupdate\n");
+//	print("entupdate\n");
 	switch (enttype)
 	{
 	case ENT_TELEPORTDEST:
@@ -65,7 +65,7 @@ void CSQC_Ent_Update(float isnew)
 		self.classname = "gmapn_teleportdest";
 		self.drawmask = MASK_ENGINE;
 
-		print("destination!\n");
+//		print("destination!\n");
 
 		break;
 		
