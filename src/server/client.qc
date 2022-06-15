@@ -252,6 +252,8 @@ void SendIntermissionToPlayer(entity player)
 	player.vw_index = 0;
 	player.model = "";
 	player.takedamage = DAMAGE_NOT;		// No damage during intermissions
+	player.velocity = VEC_ORIGIN;
+	setorigin(player, pos.origin);
 }
 
 /*
