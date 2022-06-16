@@ -52,7 +52,6 @@ entities/ammo.qc
 entities/armor.qc
 entities/health.qc
 entities/keys.qc
-entities/monsters.qc
 entities/powerups.qc
 entities/weapons.qc
 entities/teleports.qc
