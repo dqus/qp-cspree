@@ -312,20 +312,20 @@ void monster_enforcer()
 		remove(self);
 		return;
 	}
-	precache_model2 ("progs/enforcer.mdl");
-	precache_model2 ("progs/h_mega.mdl");
-	precache_model2 ("progs/laser.mdl");
+	safe_precache_model2 ("progs/enforcer.mdl");
+	safe_precache_model2 ("progs/h_mega.mdl");
+	safe_precache_model2 ("progs/laser.mdl");
 
-	precache_sound2 ("enforcer/death1.wav");
-	precache_sound2 ("enforcer/enfire.wav");
-	precache_sound2 ("enforcer/enfstop.wav");
-	precache_sound2 ("enforcer/idle1.wav");
-	precache_sound2 ("enforcer/pain1.wav");
-	precache_sound2 ("enforcer/pain2.wav");
-	precache_sound2 ("enforcer/sight1.wav");
-	precache_sound2 ("enforcer/sight2.wav");
-	precache_sound2 ("enforcer/sight3.wav");
-	precache_sound2 ("enforcer/sight4.wav");
+	safe_precache_sound2 ("enforcer/death1.wav");
+	safe_precache_sound2 ("enforcer/enfire.wav");
+	safe_precache_sound2 ("enforcer/enfstop.wav");
+	safe_precache_sound2 ("enforcer/idle1.wav");
+	safe_precache_sound2 ("enforcer/pain1.wav");
+	safe_precache_sound2 ("enforcer/pain2.wav");
+	safe_precache_sound2 ("enforcer/sight1.wav");
+	safe_precache_sound2 ("enforcer/sight2.wav");
+	safe_precache_sound2 ("enforcer/sight3.wav");
+	safe_precache_sound2 ("enforcer/sight4.wav");
 	
 	self.solid = SOLID_SLIDEBOX;
 	self.movetype = MOVETYPE_STEP;

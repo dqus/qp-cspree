@@ -110,17 +110,23 @@ void walkmonster_start_go()
 	self.nextthink = self.nextthink + random()*0.5;
 };
 
-
 void walkmonster_start()
 {
+	if (remove_monster_if_location_occupied())
+	{
+		return;
+	}
+
 // delay drop to floor to make sure all doors have been spawned
 // spread think times so they don't all happen at same time
 	self.nextthink = self.nextthink + random()*0.5;
 	self.think = walkmonster_start_go;
-	total_monsters = total_monsters + 1;
+	if (game_mode == GM_QP)	{
+		self.think();
+	} else {
+		total_monsters = total_monsters + 1;
+	}
 };
-
-
 
 void flymonster_start_go()
 {
@@ -167,12 +173,20 @@ void flymonster_start_go()
 
 void flymonster_start()
 {
+	if (remove_monster_if_location_occupied())
+	{
+		return;
+	}
+
 // spread think times so they don't all happen at same time
 	self.nextthink = self.nextthink + random()*0.5;
 	self.think = flymonster_start_go;
-	total_monsters = total_monsters + 1;
+	if (game_mode == GM_QP)	{
+		self.think();
+	} else {
+		total_monsters = total_monsters + 1;
+	}
 };
-
 
 void swimmonster_start_go()
 {
@@ -219,10 +233,17 @@ void swimmonster_start_go()
 
 void swimmonster_start()
 {
+	if (remove_monster_if_location_occupied())
+	{
+		return;
+	}
+
 // spread think times so they don't all happen at same time
 	self.nextthink = self.nextthink + random()*0.5;
 	self.think = swimmonster_start_go;
-	total_monsters = total_monsters + 1;
+	if (game_mode == GM_QP)	{
+		self.think();
+	} else {
+		total_monsters = total_monsters + 1;
+	}
 };
-
-

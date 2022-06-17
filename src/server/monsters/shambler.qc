@@ -323,21 +323,21 @@ void monster_shambler()
 		remove(self);
 		return;
 	}
-	precache_model ("progs/shambler.mdl");
-	precache_model ("progs/s_light.mdl");
-	precache_model ("progs/h_shams.mdl");
-	precache_model ("progs/bolt.mdl");
-	precache_model ("progs/zom_gib.mdl");
+	safe_precache_model ("progs/shambler.mdl");
+	safe_precache_model ("progs/s_light.mdl");
+	safe_precache_model ("progs/h_shams.mdl");
+	safe_precache_model ("progs/bolt.mdl");
+	safe_precache_model ("progs/zom_gib.mdl");
 	
-	precache_sound ("shambler/sattck1.wav");
-	precache_sound ("shambler/sboom.wav");
-	precache_sound ("shambler/sdeath.wav");
-	precache_sound ("shambler/shurt2.wav");
-	precache_sound ("shambler/sidle.wav");
-	precache_sound ("shambler/ssight.wav");
-	precache_sound ("shambler/melee1.wav");
-	precache_sound ("shambler/melee2.wav");
-	precache_sound ("shambler/smack.wav");
+	safe_precache_sound ("shambler/sattck1.wav");
+	safe_precache_sound ("shambler/sboom.wav");
+	safe_precache_sound ("shambler/sdeath.wav");
+	safe_precache_sound ("shambler/shurt2.wav");
+	safe_precache_sound ("shambler/sidle.wav");
+	safe_precache_sound ("shambler/ssight.wav");
+	safe_precache_sound ("shambler/melee1.wav");
+	safe_precache_sound ("shambler/melee2.wav");
+	safe_precache_sound ("shambler/smack.wav");
 
 	self.solid = SOLID_SLIDEBOX;
 	self.movetype = MOVETYPE_STEP;

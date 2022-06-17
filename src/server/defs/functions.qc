@@ -143,6 +143,12 @@ void() gmapn_ban;
 void() gmapn_mute;
 
 /*
+ * rules_qp.qc
+ */
+void qp_think(void);
+bool remove_monster_if_location_occupied(void);
+
+/*
  * gmapn_rules.qc
 */
 float(game_mode_t m) gmapn_ismatchless;
@@ -211,8 +217,21 @@ void() gmapn_dropspawn;
 float(entity inflictor, float damage, float push, entity ignore, float dtflag) gmapn_explosion;
 float(entity victim, entity inflictor, float damage, float push) gmapn_impact;
 void(entity victim, entity attacker) gmapn_kill;
+void safe_remove(entity e);
 void() self_destruct;
 void() usetargets;
+// Check if entity would clip with something solid at location. Returns true if clipping detected.
+bool is_location_occupied(entity e, vector loc);
+// Find count of edicts matching particular field value.
+int find_cnt(.string fld, string match);
+// Find edict with particular index number and matching particular field value.
+entity find_idx(.string fld, string match, int idx);
+// Returns integer number in [from, to] range.
+int i_rnd(int from, int to);
+void safe_precache_model(string name);
+void safe_precache_model2(string name);
+void safe_precache_sound(string name);
+void safe_precache_sound2(string name);
 
 /*
  * gmapn_usercmd.qc

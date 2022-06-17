@@ -3,6 +3,7 @@
 //#pragma autoproto // kinda broken in fteqcc
 
 #pragma warning disable F326 // FIXME: Frik bots warnings.
+#pragma warning disable F210 // disable not directly precached warnings.
 
 #define QWSSQC
 
@@ -101,5 +102,8 @@ monsters/shambler.qc
 monsters/hknight.qc
 monsters/shalrath.qc
 monsters/oldone.qc
+
+// We need monsters spawn functions like monster_ogre() and such so we put rules_qp.qc after all monsters files.
+rules_qp.qc
 
 #endlist

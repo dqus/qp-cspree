@@ -7,6 +7,7 @@ float gmapn_ismatchless(game_mode_t m)
 	case GM_KING:			return TRUE;
 	case GM_DA:			return TRUE;
 	case GM_COOP:			return TRUE;
+	case GM_QP:			return FALSE;
 	case GM_DUEL:			return FALSE;
 	case GM_HEADHUNTER:		return TRUE;
 	case GM_TDEATHMATCH:		return FALSE;
@@ -33,6 +34,7 @@ string gmapn_gamemodetostring(game_mode_t m)
 	case GM_KING:			return "king";
 	case GM_DA:			return "darena";
 	case GM_COOP:			return "coop";
+	case GM_QP:			return "qp";
 	case GM_HEADHUNTER:		return "headhunt";
 	case GM_DUEL:			return "duel";
 	case GM_TDEATHMATCH:		return "tdm";
@@ -56,6 +58,7 @@ string gmapn_gamemodefullname(game_mode_t m)
 	case GM_KING:			return _("Kill The King");
 	case GM_DA:			return _("Duel Arena");
 	case GM_COOP:			return _("Co-Operative");
+	case GM_QP:			return _("Q-Operative");
 	case GM_HEADHUNTER:		return _("Head Hunters");
 	case GM_DUEL:			return _("Duel");
 	case GM_TDEATHMATCH:		return _("Team Deathmatch");
@@ -83,6 +86,8 @@ game_mode_t gmapn_gamemodefromstring(string m)
 		return GM_DA;
 	else if (m == "coop")
 		return GM_COOP;
+	else if (m == "qp")
+		return GM_QP;
 	else if (m == "duel")
 		return GM_DUEL;
 	else if (m == "king")
@@ -804,6 +809,7 @@ void gmapn_rules_handleconnect()
 	case GM_CTF:
 	case GM_FREEZETAG:
 	case GM_LASTMANSTANDING:
+	case GM_QP:
 		dospec = 1;
 	case GM_COOP:
 		gmapn_rules_autojointeam();

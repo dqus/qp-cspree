@@ -261,9 +261,25 @@ void worldspawn()
 
 void StartFrame()
 {
+	/*
+	'activator' should be a parameter of *_use(), but it's a global. so it goes.
+
+	this can lead to lots of hard-to-repro bugs in cases where 'activator' isn't set
+	properly, since it just happens to be set to the player anyway *most* of the time.
+
+	for this reason I enforce a global ban on activator ever being 'world' (via a
+	gameplay-ending error() in SUB_UseTargets) and nulling it out every single frame.
+	stale or incorrectly set activators are thus smoked out immediately, and not six
+	months from now the first time a monster touches a door field at a critical but
+	impossible to reproduce moment.
+	*/
+	activator = world;
+
 	BotFrame();
 
 	framecount+=1;
+
+	qp_think();
 };
 
 /*

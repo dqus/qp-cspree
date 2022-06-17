@@ -203,16 +203,16 @@ void monster_shalrath()
 		remove(self);
 		return;
 	}
-	precache_model2 ("progs/shalrath.mdl");
-	precache_model2 ("progs/h_shal.mdl");
-	precache_model2 ("progs/v_spike.mdl");
+	safe_precache_model2 ("progs/shalrath.mdl");
+	safe_precache_model2 ("progs/h_shal.mdl");
+	safe_precache_model2 ("progs/v_spike.mdl");
 	
-	precache_sound2 ("shalrath/attack.wav");
-	precache_sound2 ("shalrath/attack2.wav");
-	precache_sound2 ("shalrath/death.wav");
-	precache_sound2 ("shalrath/idle.wav");
-	precache_sound2 ("shalrath/pain.wav");
-	precache_sound2 ("shalrath/sight.wav");
+	safe_precache_sound2 ("shalrath/attack.wav");
+	safe_precache_sound2 ("shalrath/attack2.wav");
+	safe_precache_sound2 ("shalrath/death.wav");
+	safe_precache_sound2 ("shalrath/idle.wav");
+	safe_precache_sound2 ("shalrath/pain.wav");
+	safe_precache_sound2 ("shalrath/sight.wav");
 	
 	self.solid = SOLID_SLIDEBOX;
 	self.movetype = MOVETYPE_STEP;

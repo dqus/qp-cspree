@@ -420,18 +420,18 @@ void monster_ogre()
 		remove(self);
 		return;
 	}
-	precache_model ("progs/ogre.mdl");
-	precache_model ("progs/h_ogre.mdl");
-	precache_model ("progs/grenade.mdl");
-	precache_model ("progs/zom_gib.mdl");
+	safe_precache_model ("progs/ogre.mdl");
+	safe_precache_model ("progs/h_ogre.mdl");
+	safe_precache_model ("progs/grenade.mdl");
+	safe_precache_model ("progs/zom_gib.mdl");
 
-	precache_sound ("ogre/ogdrag.wav");
-	precache_sound ("ogre/ogdth.wav");
-	precache_sound ("ogre/ogidle.wav");
-	precache_sound ("ogre/ogidle2.wav");
-	precache_sound ("ogre/ogpain1.wav");
-	precache_sound ("ogre/ogsawatk.wav");
-	precache_sound ("ogre/ogwake.wav");
+	safe_precache_sound ("ogre/ogdrag.wav");
+	safe_precache_sound ("ogre/ogdth.wav");
+	safe_precache_sound ("ogre/ogidle.wav");
+	safe_precache_sound ("ogre/ogidle2.wav");
+	safe_precache_sound ("ogre/ogpain1.wav");
+	safe_precache_sound ("ogre/ogsawatk.wav");
+	safe_precache_sound ("ogre/ogwake.wav");
 
 	self.solid = SOLID_SLIDEBOX;
 	self.movetype = MOVETYPE_STEP;

@@ -332,14 +332,14 @@ void monster_dog()
 		remove(self);
 		return;
 	}
-	precache_model ("progs/h_dog.mdl");
-	precache_model ("progs/dog.mdl");
+	safe_precache_model ("progs/h_dog.mdl");
+	safe_precache_model ("progs/dog.mdl");
 
-	precache_sound ("dog/dattack1.wav");
-	precache_sound ("dog/ddeath.wav");
-	precache_sound ("dog/dpain1.wav");
-	precache_sound ("dog/dsight.wav");
-	precache_sound ("dog/idle.wav");
+	safe_precache_sound ("dog/dattack1.wav");
+	safe_precache_sound ("dog/ddeath.wav");
+	safe_precache_sound ("dog/dpain1.wav");
+	safe_precache_sound ("dog/dsight.wav");
+	safe_precache_sound ("dog/idle.wav");
 
 	self.solid = SOLID_SLIDEBOX;
 	self.movetype = MOVETYPE_STEP;

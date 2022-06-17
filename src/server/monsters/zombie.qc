@@ -475,20 +475,20 @@ void monster_zombie()
 		return;
 	}
 
-	precache_model ("progs/zombie.mdl");
-	precache_model ("progs/h_zombie.mdl");
-	precache_model ("progs/zom_gib.mdl");
+	safe_precache_model ("progs/zombie.mdl");
+	safe_precache_model ("progs/h_zombie.mdl");
+	safe_precache_model ("progs/zom_gib.mdl");
 
-	precache_sound ("zombie/z_idle.wav");
-	precache_sound ("zombie/z_idle1.wav");
-	precache_sound ("zombie/z_shot1.wav");
-	precache_sound ("zombie/z_gib.wav");
-	precache_sound ("zombie/z_pain.wav");
-	precache_sound ("zombie/z_pain1.wav");
-	precache_sound ("zombie/z_fall.wav");
-	precache_sound ("zombie/z_miss.wav");
-	precache_sound ("zombie/z_hit.wav");
-	precache_sound ("zombie/idle_w2.wav");
+	safe_precache_sound ("zombie/z_idle.wav");
+	safe_precache_sound ("zombie/z_idle1.wav");
+	safe_precache_sound ("zombie/z_shot1.wav");
+	safe_precache_sound ("zombie/z_gib.wav");
+	safe_precache_sound ("zombie/z_pain.wav");
+	safe_precache_sound ("zombie/z_pain1.wav");
+	safe_precache_sound ("zombie/z_fall.wav");
+	safe_precache_sound ("zombie/z_miss.wav");
+	safe_precache_sound ("zombie/z_hit.wav");
+	safe_precache_sound ("zombie/idle_w2.wav");
 
 	self.solid = SOLID_SLIDEBOX;
 	self.movetype = MOVETYPE_STEP;

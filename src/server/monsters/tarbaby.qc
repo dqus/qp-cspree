@@ -196,12 +196,12 @@ void monster_tarbaby()
 		remove(self);
 		return;
 	}
-	precache_model2 ("progs/tarbaby.mdl");
+	safe_precache_model2 ("progs/tarbaby.mdl");
 
-	precache_sound2 ("blob/death1.wav");
-	precache_sound2 ("blob/hit1.wav");
-	precache_sound2 ("blob/land1.wav");
-	precache_sound2 ("blob/sight1.wav");
+	safe_precache_sound2 ("blob/death1.wav");
+	safe_precache_sound2 ("blob/hit1.wav");
+	safe_precache_sound2 ("blob/land1.wav");
+	safe_precache_sound2 ("blob/sight1.wav");
 	
 	self.solid = SOLID_SLIDEBOX;
 	self.movetype = MOVETYPE_STEP;

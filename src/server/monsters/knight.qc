@@ -241,15 +241,15 @@ void monster_knight()
 		remove(self);
 		return;
 	}
-	precache_model ("progs/knight.mdl");
-	precache_model ("progs/h_knight.mdl");
+	safe_precache_model ("progs/knight.mdl");
+	safe_precache_model ("progs/h_knight.mdl");
 
-	precache_sound ("knight/kdeath.wav");
-	precache_sound ("knight/khurt.wav");
-	precache_sound ("knight/ksight.wav");
-	precache_sound ("knight/sword1.wav");
-	precache_sound ("knight/sword2.wav");
-	precache_sound ("knight/idle.wav");
+	safe_precache_sound ("knight/kdeath.wav");
+	safe_precache_sound ("knight/khurt.wav");
+	safe_precache_sound ("knight/ksight.wav");
+	safe_precache_sound ("knight/sword1.wav");
+	safe_precache_sound ("knight/sword2.wav");
+	safe_precache_sound ("knight/idle.wav");
 
 	self.solid = SOLID_SLIDEBOX;
 	self.movetype = MOVETYPE_STEP;

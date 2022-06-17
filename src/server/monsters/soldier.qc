@@ -268,20 +268,20 @@ void monster_army()
 		remove(self);
 		return;
 	}
-	precache_model ("progs/soldier.mdl");
-	precache_model ("progs/h_guard.mdl");
-	precache_model ("progs/gib1.mdl");
-	precache_model ("progs/gib2.mdl");
-	precache_model ("progs/gib3.mdl");
+	safe_precache_model ("progs/soldier.mdl");
+	safe_precache_model ("progs/h_guard.mdl");
+	safe_precache_model ("progs/gib1.mdl");
+	safe_precache_model ("progs/gib2.mdl");
+	safe_precache_model ("progs/gib3.mdl");
 
-	precache_sound ("soldier/death1.wav");
-	precache_sound ("soldier/idle.wav");
-	precache_sound ("soldier/pain1.wav");
-	precache_sound ("soldier/pain2.wav");
-	precache_sound ("soldier/sattck1.wav");
-	precache_sound ("soldier/sight1.wav");
+	safe_precache_sound ("soldier/death1.wav");
+	safe_precache_sound ("soldier/idle.wav");
+	safe_precache_sound ("soldier/pain1.wav");
+	safe_precache_sound ("soldier/pain2.wav");
+	safe_precache_sound ("soldier/sattck1.wav");
+	safe_precache_sound ("soldier/sight1.wav");
 
-	precache_sound ("player/udeath.wav");		// gib death
+	safe_precache_sound ("player/udeath.wav");		// gib death
 
 
 	self.solid = SOLID_SLIDEBOX;

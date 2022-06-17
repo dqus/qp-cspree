@@ -456,7 +456,8 @@ typedef enum
 	GM_KING,		//frags awarded only for killing (or killing as) the king.
 	GM_DA,		//when someone dies, the victor is respawned, the loser is returned to the spectators, and a new challenger is selected.
 	GM_HEADHUNTER,		//collect heads, take them to the altar to earn frags. suicides still cost.
-	GM_COOP,		//some weird mode that needs to restart the server
+	GM_COOP,		// coop
+	GM_QP,		// coop, horde mode
 	GM_DUEL,		//1on1
 	
 	//team games

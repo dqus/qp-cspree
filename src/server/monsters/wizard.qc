@@ -378,17 +378,17 @@ void monster_wizard()
 		remove(self);
 		return;
 	}
-	precache_model ("progs/wizard.mdl");
-	precache_model ("progs/h_wizard.mdl");
-	precache_model ("progs/w_spike.mdl");
+	safe_precache_model ("progs/wizard.mdl");
+	safe_precache_model ("progs/h_wizard.mdl");
+	safe_precache_model ("progs/w_spike.mdl");
 
-	precache_sound ("wizard/hit.wav");		// used by c code
-	precache_sound ("wizard/wattack.wav");
-	precache_sound ("wizard/wdeath.wav");
-	precache_sound ("wizard/widle1.wav");
-	precache_sound ("wizard/widle2.wav");
-	precache_sound ("wizard/wpain.wav");
-	precache_sound ("wizard/wsight.wav");
+	safe_precache_sound ("wizard/hit.wav");		// used by c code
+	safe_precache_sound ("wizard/wattack.wav");
+	safe_precache_sound ("wizard/wdeath.wav");
+	safe_precache_sound ("wizard/widle1.wav");
+	safe_precache_sound ("wizard/widle2.wav");
+	safe_precache_sound ("wizard/wpain.wav");
+	safe_precache_sound ("wizard/wsight.wav");
 
 	self.solid = SOLID_SLIDEBOX;
 	self.movetype = MOVETYPE_STEP;
