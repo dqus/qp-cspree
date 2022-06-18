@@ -13,7 +13,7 @@ typedef struct
 //	bool boss_able;			// able to be a boss.
 } monster_t;
 
-monster_t monsters[] =
+static monster_t monsters[] =
 {
 	{
 		.classname = "monster_dog",
