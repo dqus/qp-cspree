@@ -34,12 +34,7 @@ inline void DropBackpack()
 {
 	client_pack_throw();
 };
-void ThrowHead(string mdl, float dmg)
-{
-	ThrowGib(mdl, dmg);
-	self.think = self_destruct;
-	self.nextthink = time;
-};
+
 inline void SUB_UseTargets()
 {
 	usetargets();

@@ -193,7 +193,7 @@ void()	knight_die6	=[	$death6,	knight_die7	] {};
 void()	knight_die7	=[	$death7,	knight_die8	] {};
 void()	knight_die8	=[	$death8,	knight_die9	] {};
 void()	knight_die9	=[	$death9,	knight_die10] {};
-void()	knight_die10=[	$death10,	knight_die10] {};
+void()	knight_die10=[	$death10,	knight_die10] { monster_init_fade(self); };
 
 
 void()	knight_dieb1	=[	$deathb1,	knight_dieb2	] {};
@@ -207,7 +207,7 @@ void()	knight_dieb7	=[	$deathb7,	knight_dieb8	] {};
 void()	knight_dieb8	=[	$deathb8,	knight_dieb9	] {};
 void()	knight_dieb9	=[	$deathb9,	knight_dieb10] {};
 void()	knight_dieb10 = [	$deathb10,	knight_dieb11] {};
-void()	knight_dieb11 = [	$deathb11,	knight_dieb11] {};
+void()	knight_dieb11 = [	$deathb11,	knight_dieb11] { monster_init_fade(self); };
 
 
 void knight_die()

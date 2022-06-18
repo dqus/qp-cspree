@@ -143,10 +143,19 @@ void() gmapn_ban;
 void() gmapn_mute;
 
 /*
+ * gibs.qc
+ */
+vector VelocityForDamage(float dm);
+void ThrowGib(string gibname, float dm);
+void ThrowHead(string mdl, float dmg);
+
+/*
  * rules_qp.qc
  */
 void qp_think(void);
 bool remove_monster_if_location_occupied(void);
+// Init body/gib fading in qp mode.
+void monster_init_fade(entity e);
 
 /*
  * gmapn_rules.qc

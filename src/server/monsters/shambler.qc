@@ -291,7 +291,7 @@ void() sham_death7      =[      $death7,       sham_death8     ] {};
 void() sham_death8      =[      $death8,       sham_death9     ] {};
 void() sham_death9      =[      $death9,       sham_death10    ] {};
 void() sham_death10     =[      $death10,      sham_death11    ] {};
-void() sham_death11     =[      $death11,      sham_death11    ] {};
+void() sham_death11     =[      $death11,      sham_death11    ] { monster_init_fade(self); };
 
 void sham_die()
 {

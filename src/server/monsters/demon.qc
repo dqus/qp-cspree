@@ -148,7 +148,7 @@ void()	demon1_die6		=[	$death6,		demon1_die7	]
 {self.solid = SOLID_NOT;};
 void()	demon1_die7		=[	$death7,		demon1_die8	] {};
 void()	demon1_die8		=[	$death8,		demon1_die9	] {};
-void()	demon1_die9		=[	$death9,		demon1_die9 ] {};
+void()	demon1_die9		=[	$death9,		demon1_die9 ] { monster_init_fade(self); };
 
 void demon_die()
 {

@@ -16,6 +16,12 @@ typedef struct
 monster_t monsters[] =
 {
 	{
+		.classname = "monster_dog",
+		.spawn = monster_dog,
+		.hp_for_kill = 1,
+		.armor_for_kill = 1
+	},
+	{
 		.classname = "monster_ogre",
 		.spawn = monster_ogre,
 		.hp_for_kill = 3,
@@ -50,12 +56,6 @@ monster_t monsters[] =
 		.spawn = monster_wizard,
 		.hp_for_kill = 2,
 		.armor_for_kill = 2
-	},
-	{
-		.classname = "monster_dog",
-		.spawn = monster_dog,
-		.hp_for_kill = 1,
-		.armor_for_kill = 1
 	},
 	{
 		.classname = "monster_zombie",
@@ -128,20 +128,30 @@ static void monster_fade(void)
 }
 
 // Init body fading in qp mode.
-void monster_init_fade(void)
+void monster_init_fade(entity e)
 {
-	if (game_mode == GM_QP)
-	{
-		return;
-	}
-	self.alpha = 1;
-	self.think = monster_fade;
-	self.nextthink = time + 2 + random() * 3;
+	e.alpha = 1;
+	e.think = monster_fade;
+	e.nextthink = time + 2 + random() * 3;
 }
 
 void info_monster_start(void)
 {
 	total_spots++;
+}
+
+// Remove monsters if match is not in progress.
+static void remove_monsters(void)
+{
+	if (gmapn_serverstate == gmapn_serverstate_playing)
+		return; // Game in progress, nothing to remove.
+
+	for (entity m = world; (m = nextent(m));)
+	{
+		if (!(m.flags & FL_MONSTER))
+			continue; // not a monster
+		remove(m);
+	}
 }
 
 static entity spawn_one_monster_do(monster_t mon, entity spot)
@@ -192,7 +202,8 @@ static void spawn_monsters(void)
 		precache_monsters();
 	}
 	// Check various conditions if we are ready for spawning monsters.
-	if (time < 3 || framecount < 100 || monsters_alive_count() >= 10)
+	if (gmapn_serverstate != gmapn_serverstate_playing
+		|| time < 3 || framecount < 100 || monsters_alive_count() >= 1)
 	{
 		return;
 	}
@@ -215,4 +226,5 @@ void qp_think(void)
 	}
 
 	spawn_monsters();
+	remove_monsters();
 }

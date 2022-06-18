@@ -23,59 +23,6 @@
 
 */
 
-#if 1
-vector VelocityForDamage(float dm)
-{
-	vector v;
-
-	{
-		v_x = 100 * crandom();
-		v_y = 100 * crandom();
-		v_z = 200 + 100 * random();
-	}
-
-	//v_x = 100 * crandom();
-	//v_y = 100 * crandom();
-	//v_z = 200 + 100 * random();
-
-	if (dm > -50)
-	{
-	//		dprint ("level 1\n");
-		v = v * 0.7;
-	}
-	else if (dm > -200)
-	{
-	//		dprint ("level 3\n");
-		v = v * 2;
-	}
-	else
-		v = v * 10;
-
-	return v;
-};
-
-void ThrowGib(string gibname, float dm)
-{
-	  entity new;
-
-	new = spawn();
-	new.origin = self.origin;
-	setmodel (new, gibname);
-	setsize (new, '0 0 0', '0 0 0');
-	new.velocity = VelocityForDamage (dm);
-	new.movetype = MOVETYPE_BOUNCE;
-	new.solid = SOLID_NOT;
-	new.avelocity_x = random()*600;
-	new.avelocity_y = random()*600;
-	new.avelocity_z = random()*600;
-	new.think = SUB_Remove;
-	new.ltime = time;
-	new.nextthink = time + 10 + random()*10;
-	new.frame = 0;
-	new.flags = 0;
-};
-#endif
-
 void cmd_ready()
 {
 	entity player;

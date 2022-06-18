@@ -476,8 +476,6 @@ void player_ammo_decrease(float ammotype, float amount)
 		self.ammo_cells -= amount;
 }
 
-void(string gibname, float dm) ThrowGib;
-vector(float dm) VelocityForDamage;
 void player_gibbed()
 {
 	self.movetype = MOVETYPE_BOUNCE;
@@ -490,7 +488,7 @@ void player_gibbed()
 	self.origin_z += self.mins_z;
 	setsize (self, '-16 -16 0', '16 16 56');
 	self.velocity = VelocityForDamage(self.health);
-	self.avelocity = randomv('600 600 600');
+	self.avelocity = randomv('0 600 0');
 	//FIXME: use a different model in headhunters, because most qw clients have client-side gib filters enabled by default.
 
 	ThrowGib("progs/gib1.mdl", self.health);

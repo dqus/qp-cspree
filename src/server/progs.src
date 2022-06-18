@@ -62,6 +62,7 @@ client.qc
 spectate.qc
 world.qc
 
+gibs.qc
 aliasstuffer.qc
 countdown.qc
 disconnected.qc
