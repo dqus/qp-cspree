@@ -798,7 +798,7 @@ void client_spawn(float sameplace)
 		client_setweapon(client_bestweapon());			// Starting weapon
 	}
 	// in prewar and dmm4, give everything
-	else if (gmapn_serverstate == gmapn_serverstate_prewar || deathmatch == 4)
+	else if (gmapn_serverstate == gmapn_serverstate_prewar || deathmatch == 4 || game_mode == GM_QP)
 	{
 		giveallweapons();
 

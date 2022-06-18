@@ -463,7 +463,7 @@ void player_headhunter_respawned()
 
 void player_ammo_decrease(float ammotype, float amount)
 {
-	if (deathmatch == 4 || gmapn_serverstate != gmapn_serverstate_playing)
+	if (deathmatch == 4 || gmapn_serverstate != gmapn_serverstate_playing || game_mode == GM_QP)
 		return;
 
 	if (ammotype & IT_SHELLS)
