@@ -887,6 +887,9 @@ float gmapn_handle_usercmd(float argc)
 //	FIXME: should be limited to the admin of the server.
 //		cmd_writeconfig();
 		return 1;
+	} else if (cmd == "pos_show") {
+		client_sprintf(self, PRINT_HIGH, "position: %v\n", self.origin);
+		return 1;
 	}
 	return 0;
 };
