@@ -1686,10 +1686,11 @@ void client_pack_throw()
 	entity pack;
 	string mdl;
 
-	if (gmapn_serverstate != gmapn_serverstate_playing || deathmatch == DMM_LIMITED)
+	if (gmapn_serverstate != gmapn_serverstate_playing
+		|| deathmatch == DMM_LIMITED
+		|| game_mode == GM_QP)
 	{
 		// Only spawn backpacks during games and without dmm5
-
 		return;
 	}
 
