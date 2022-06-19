@@ -776,9 +776,13 @@ void client_spawn(float sameplace)
 	self.watertype = CONTENT_EMPTY;
 
 	self.pent_finished = 0;
+	self.pent_time = 0;
 	self.quad_finished = 0;
+	self.quad_time = 0;
 	self.ring_finished = 0;
+	self.ring_time = 0;
 	self.suit_finished = 0;
+	self.suit_time = 0;
 
 	self.velocity = '0 0 0';			// No speed
 	self.maxspeed = autocvar(sv_maxspeed, 320);
@@ -1455,83 +1459,73 @@ void client_jump()
 
 void client_powerups()
 {
-	if (self.ring_finished && time >= self.ring_finished - 3)
-	{
-		if (self.ring_time == 0)
-		{
-			sprintln(self, PRINT_MEDIUM, _("Ring of Shadows magic is fading"));
-			gmapn_sound(self, CHAN_AUTO, "items/inv2.wav", 1, ATTN_NORM, 0);
+	if (self.ring_finished)	{
+		if (time >= self.ring_finished - 3) {
+			if (self.ring_time == 0) {
+				sprintln(self, PRINT_MEDIUM, _("Ring of Shadows magic is fading"));
+				gmapn_sound(self, CHAN_AUTO, "items/inv2.wav", 1, ATTN_NORM, 0);
+			}
+			if (time >= self.ring_time) {
+				stuffcmd(self, "bf\n");
+				self.ring_time = time + 1;
+			}
 		}
-		if (time >= self.ring_time)
-		{
-			stuffcmd(self, "bf\n");
-			self.ring_time = time + 1;
-		}
-	}
-	if (self.pent_finished && time >= self.pent_finished - 3)
-	{
-		if (self.pent_time == 0)
-		{
-			sprintln(self, PRINT_MEDIUM, _("Protection is almost burned out"));
-			gmapn_sound(self, CHAN_AUTO, "items/protect2.wav", 1, ATTN_NORM, 0);
-		}
-		if (time >= self.pent_time)
-		{
-			stuffcmd(self, "bf\n");
-			self.pent_time = time + 1;
+		if (time >= self.ring_finished)	{
+			setmodel(self, "progs/player.mdl");		// Switch to normal model instantly
+			self.items = self.items - (self.items & IT_RING);
+			self.ring_finished = self.ring_time = 0;
 		}
 	}
-	if (self.suit_finished && time >= self.suit_finished - 3)
-	{
-		if (self.suit_time == 0)
-		{
-			sprintln(self, PRINT_MEDIUM, _("Air supply in Biosuit expiring"));
-			gmapn_sound(self, CHAN_AUTO, "items/suit2.wav", 1, ATTN_NORM, 0);
+	if (self.pent_finished)	{
+		if (time >= self.pent_finished - 3) {
+			if (self.pent_time == 0) {
+				sprintln(self, PRINT_MEDIUM, _("Protection is almost burned out"));
+				gmapn_sound(self, CHAN_AUTO, "items/protect2.wav", 1, ATTN_NORM, 0);
+			}
+			if (time >= self.pent_time) {
+				stuffcmd(self, "bf\n");
+				self.pent_time = time + 1;
+			}
 		}
-		if (time >= self.suit_time)
-		{
-			stuffcmd(self, "bf\n");
-			self.suit_time = time + 1;
-		}
-	}
-	if (self.quad_finished && time >= self.quad_finished - 3)
-	{
-		if (self.quad_time == 0)
-		{
-			sprintln(self, PRINT_MEDIUM, _("Quad Damage is wearing off"));
-			gmapn_sound(self, CHAN_AUTO, "items/damage2.wav", 1, ATTN_NORM, 0);
-		}
-		if (time >= self.quad_time)
-		{
-			stuffcmd(self, "bf\n");
-			self.quad_time = time + 1;
+		if (time >= self.pent_finished)	{
+			self.items = self.items - (self.items & IT_PENT);
+			self.pent_finished = self.pent_time = 0;
+			self.effects = self.effects - (self.effects & EF_RED);
 		}
 	}
-
-	// Remove powerup if time is up
-	if (time >= self.ring_finished)
-	{
-		setmodel(self, "progs/player.mdl");		// Switch to normal model instantly
-		self.items = self.items - (self.items & IT_RING);
-		self.ring_finished = 0;
+	if (self.suit_finished) {
+		if (time >= self.suit_finished - 3) {
+			if (self.suit_time == 0) {
+				sprintln(self, PRINT_MEDIUM, _("Air supply in Biosuit expiring"));
+				gmapn_sound(self, CHAN_AUTO, "items/suit2.wav", 1, ATTN_NORM, 0);
+			}
+			if (time >= self.suit_time)	{
+				stuffcmd(self, "bf\n");
+				self.suit_time = time + 1;
+			}
+		}
+		if (time >= self.suit_finished)	{
+			self.items = self.items - (self.items & IT_SUIT);
+			self.suit_finished = self.suit_time = 0;
+			self.effects = self.effects - (self.effects & EF_GREEN);
+		}
 	}
-	if (time >= self.pent_finished)
-	{
-		self.items = self.items - (self.items & IT_PENT);
-		self.pent_finished = 0;
-		self.effects = self.effects - (self.effects & EF_RED);
-	}
-	if (time >= self.suit_finished)
-	{
-		self.items = self.items - (self.items & IT_SUIT);
-		self.suit_finished = 0;
-		self.effects = self.effects - (self.effects & EF_GREEN);
-	}
-	if (time >= self.quad_finished)
-	{
-		self.items = self.items - (self.items & IT_QUAD);
-		self.quad_finished = 0;
-		self.effects = self.effects - (self.effects & EF_BLUE);
+	if (self.quad_finished)	{
+		if (time >= self.quad_finished - 3) {
+			if (self.quad_time == 0) {
+				sprintln(self, PRINT_MEDIUM, _("Quad Damage is wearing off"));
+				gmapn_sound(self, CHAN_AUTO, "items/damage2.wav", 1, ATTN_NORM, 0);
+			}
+			if (time >= self.quad_time)	{
+				stuffcmd(self, "bf\n");
+				self.quad_time = time + 1;
+			}
+		}
+		if (time >= self.quad_finished)	{
+			self.items = self.items - (self.items & IT_QUAD);
+			self.quad_finished = self.quad_time = 0;
+			self.effects = self.effects - (self.effects & EF_BLUE);
+		}
 	}
 
 	if (self.items2 & IT2_RUNE_REGEN)
