@@ -89,6 +89,52 @@ static monster_t monsters[] =
 	},
 };
 
+// Interate client entities only (players/bots/spectators).
+entity nextclient(entity from)
+{
+	for (entity e = from; (e = nextent(e));) {
+		float cltype = clienttype(e);
+		if (cltype == CLIENTTYPE_NOTACLIENT)
+			break; // End of client entities.
+		if (cltype != CLIENTTYPE_REAL && cltype != CLIENTTYPE_BOT)
+			continue; // Not a client or bot, probably disconnected slot.
+		return e; // Found someone.
+	}
+	return __NULL__;
+}
+
+// Interate players/bots entities only.
+entity nextplayer(entity from)
+{
+	for (entity e = from; (e = nextclient(e));) {
+		if (e.classname != "player")
+			continue;
+		return e;
+	}
+	return __NULL__;
+}
+
+// Find best enemy for monster.
+entity qp_checkclient(void)
+{
+	if (game_mode != GM_QP)
+		return checkclient(); // If not a qp mode then use plain checkclient() from the engine.
+
+	entity best = __NULL__;
+	float best_distance = 0;
+	for (entity e = world; (e = nextplayer(e));) {
+		if (isDead(e))
+			continue;
+		vector dir = e.origin - self.origin;
+		float distance = dir * dir;
+		if (distance < best_distance || best == __NULL__) {
+			best = e;
+			best_distance = distance;
+		}
+	}
+	return best;
+}
+
 int monsters_alive_count(void)
 {
 	int count = 0;

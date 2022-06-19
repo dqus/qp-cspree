@@ -384,7 +384,6 @@ slower noticing monsters.
 float FindTarget()
 {
 	entity	client;
-	float		r;
 
 // if the first spawnflag bit is set, the monster will only wake up on
 // really seeing the player, not another monster getting angry
@@ -400,7 +399,7 @@ float FindTarget()
 	}
 	else
 	{
-		client = checkclient ();
+		client = qp_checkclient();
 		if (!client)
 			return FALSE;	// current check entity isn't in PVS
 	}
@@ -413,22 +412,25 @@ float FindTarget()
 	if (client.items & IT_RING)
 		return FALSE;
 
-	r = range (client);
-	if (r == RANGE_FAR)
-		return FALSE;
-		
-	if (!visible (client))
-		return FALSE;
+	// Detect client as enemy faster in qp mode.
+	if (game_mode != GM_QP) {
+		float r = range (client);
+		if (r == RANGE_FAR)
+			return FALSE;
 
-	if (r == RANGE_NEAR)
-	{
-		if (client.show_hostile < time && !infront (client))
+		if (!visible (client))
 			return FALSE;
-	}
-	else if (r == RANGE_MID)
-	{
-		if ( /* client.show_hostile < time || */ !infront (client))
-			return FALSE;
+
+		if (r == RANGE_NEAR)
+		{
+			if (client.show_hostile < time && !infront (client))
+				return FALSE;
+		}
+		else if (r == RANGE_MID)
+		{
+			if ( /* client.show_hostile < time || */ !infront (client))
+				return FALSE;
+		}
 	}
 	
 //
@@ -709,11 +711,12 @@ void ai_run(float dist)
 {	
 	movedist = dist;
 // see if the enemy is dead
-	if (self.enemy.health <= 0)
+	if (isDead(self.enemy))
 	{
 		self.enemy = world;
+		self.search_time = 0; // Attempt to search for enemy faster.
 	// FIXME: look all around for other targets
-		if (self.oldenemy.health > 0)
+		if (isAlive(self.oldenemy))
 		{
 			self.enemy = self.oldenemy;
 			HuntTarget ();
@@ -730,17 +733,27 @@ void ai_run(float dist)
 
 	self.show_hostile = time + 1;		// wake up other monsters
 
-// check knowledge of enemy
-	enemy_vis = visible(self.enemy);
-	if (enemy_vis)
-		self.search_time = time + 5;
-
 // look for other coop players
 	if (coop && self.search_time < time)
 	{
-		if (FindTarget ())
+		if (FindTarget()) {
+			// New enemy found, do not try to search for quite some time so monster does not change enemy from one player to another.
+			self.search_time = time + 10 + random() * 5;
 			return;
+		} else if (isDead(self.enemy)) {
+			// New enemy was not found and current enemy is gone.
+			self.search_time = 0; // Attempt to search for enemy faster.
+			return;
+		} else {
+			// New enemy was not found and current enemy is alive.
+			self.search_time = time + 1 + random() * 1; // Attempt to search for new enemy after short time.
+		}
 	}
+
+// check knowledge of enemy
+	enemy_vis = visible(self.enemy);
+	if (enemy_vis && clienttype(self) == CLIENTTYPE_BOT)
+		self.search_time = time + 5;
 
 	enemy_infront = infront(self.enemy);
 	enemy_range = range(self.enemy);

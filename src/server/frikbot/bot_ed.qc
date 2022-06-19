@@ -225,10 +225,12 @@ void bot_menu_display()
 			}
 			else if (self.impulse == 7)
 			{
+#if 0 /* disabled since it does not check sv_cheats */
 				if (self.flags & FL_GODMODE)
 					self.flags = self.flags - FL_GODMODE;
 				else
 					self.flags = self.flags | FL_GODMODE;
+#endif
 				self.b_menu_time = time;
 
 			}

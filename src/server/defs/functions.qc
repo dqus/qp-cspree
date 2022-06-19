@@ -156,6 +156,12 @@ void qp_think(void);
 bool remove_monster_if_location_occupied(void);
 // Init body/gib fading in qp mode.
 void monster_init_fade(entity e);
+// Interate client entities only (players/bots/spectators).
+entity nextclient(entity from);
+// Interate players/bots entities only.
+entity nextplayer(entity from);
+// Find best enemy for monster.
+entity qp_checkclient(void);
 
 /*
  * gmapn_rules.qc
@@ -241,6 +247,8 @@ void safe_precache_model(string name);
 void safe_precache_model2(string name);
 void safe_precache_sound(string name);
 void safe_precache_sound2(string name);
+bool isAlive(entity e);
+bool isDead(entity e);
 
 /*
  * gmapn_usercmd.qc

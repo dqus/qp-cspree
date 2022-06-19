@@ -421,7 +421,10 @@ float gmapn_impact(entity victim, entity inflictor, float damage, float push)
 		victim.velocity = victim.velocity + vel;
 	}
 
-	if (victim.takedamage == DAMAGE_INVINCIBLE && victim.deathtype != DT_TELEFRAG && victim.deathtype != DT_TELEFRAG_PENT && victim.deathtype != DT_TELEFRAG_PENT_BOTH)
+	if (victim.takedamage == DAMAGE_INVINCIBLE
+		&& victim.deathtype != DT_TELEFRAG
+		&& victim.deathtype != DT_TELEFRAG_PENT
+		&& victim.deathtype != DT_TELEFRAG_PENT_BOTH)
 		return 0;	//frozen players can be pushed around, but you can't otherwise hurt them.
 
 	if (deathmatch == DMM_MIDAIR)
@@ -435,7 +438,7 @@ float gmapn_impact(entity victim, entity inflictor, float damage, float push)
 
 	pentmod = 1;
 
-	if (victim.items & IT_PENT)
+	if ((victim.items & IT_PENT) || (victim.flags & FL_GODMODE))
 	{
 		gmapn_sound(victim, CHAN_ITEM, "items/protect3.wav", 1, ATTN_NORM, 0);
 		pentmod = 0;
@@ -904,4 +907,14 @@ void safe_precache_sound2(string name)
 	if (framecount > 2)
 		return;
 	precache_sound2(name);
+}
+
+bool isAlive(entity e)
+{
+	return (e.health > 0);
+}
+
+bool isDead(entity e)
+{
+	return !isAlive(e);
 }

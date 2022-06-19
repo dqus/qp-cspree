@@ -989,6 +989,8 @@ void client_spawn(float sameplace)
 
 	if (spectatormode)
 	{
+		self.health = 0; // So isDead() will work properly.
+
 		setmodel(self, "");
 		setsize(self, VEC_HULL_MIN, VEC_HULL_MAX);	// Set the player size
 		self.view_ofs = '0 0 0';
@@ -2605,6 +2607,7 @@ void ClientDisconnect()
 	self.touch = 0;
 	self.model = 0;
 	self.modelindex = 0;
+	self.health = 0; // So isDead() will work properly.
 	ClientDisconnected();
 
 	gmapn_mapvote_removevote();
