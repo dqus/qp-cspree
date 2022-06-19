@@ -382,7 +382,7 @@ float gmapn_impact(entity victim, entity inflictor, float damage, float push)
 	if (inflictor.items & IT_QUAD)
 	{
 		// Inflicting object is quaded
-		quadmod = 4;
+		quadmod = getkey(quad_factor);
 	}
 	else
 	{

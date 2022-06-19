@@ -103,6 +103,7 @@ string NULL = __NULL__;
 	GVF(respawn_mega,		20,	NULL)\
 	GVF(respawn_pent,		300,	"Default to 300 seconds (5 minutes)")\
 	GVF(respawn_quad,		60,	"Default to 60 seconds (1 minute)")\
+	GVF(quad_factor,		4,	"Quad damage factor") \
 	GVF(respawn_ring,		300,	"Default to 300 seconds (5 minutes)")\
 	GVF(respawn_suit,		60,	"Default to 60 seconds (1 minute)")\
 	GVF(respawn_weapon_dmm1,	30,	NULL)\
