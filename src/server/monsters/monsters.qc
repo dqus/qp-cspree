@@ -69,7 +69,9 @@ void monster_death_use()
 void walkmonster_start_go()
 {
 	self.origin_z = self.origin_z + 1;	// raise off floor a bit
-	droptofloor();
+	if (!droptofloor()) {
+		dbgprintf("walkmonster:%s droptofloor failed at:%v\n", self.classname, self.origin);
+	}
 	
 	if (!walkmove(0,0))
 	{
@@ -107,7 +109,7 @@ void walkmonster_start_go()
 	self.th_stand ();
 
 // spread think times so they don't all happen at same time
-	self.nextthink = self.nextthink + random()*0.5;
+	self.nextthink = time + random()*0.5;
 };
 
 void walkmonster_start()
@@ -119,7 +121,7 @@ void walkmonster_start()
 
 // delay drop to floor to make sure all doors have been spawned
 // spread think times so they don't all happen at same time
-	self.nextthink = self.nextthink + random()*0.5;
+	self.nextthink = time + random()*0.5;
 	self.think = walkmonster_start_go;
 	if (game_mode == GM_QP)	{
 		self.think();
@@ -179,7 +181,7 @@ void flymonster_start()
 	}
 
 // spread think times so they don't all happen at same time
-	self.nextthink = self.nextthink + random()*0.5;
+	self.nextthink = time + random()*0.5;
 	self.think = flymonster_start_go;
 	if (game_mode == GM_QP)	{
 		self.think();
@@ -228,7 +230,7 @@ void swimmonster_start_go()
 	}
 
 // spread think times so they don't all happen at same time
-	self.nextthink = self.nextthink + random()*0.5;
+	self.nextthink = time + random()*0.5;
 };
 
 void swimmonster_start()
@@ -239,7 +241,7 @@ void swimmonster_start()
 	}
 
 // spread think times so they don't all happen at same time
-	self.nextthink = self.nextthink + random()*0.5;
+	self.nextthink = time + random()*0.5;
 	self.think = swimmonster_start_go;
 	if (game_mode == GM_QP)	{
 		self.think();
