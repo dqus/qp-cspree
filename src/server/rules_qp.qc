@@ -205,8 +205,9 @@ static entity spawn_one_monster_do(monster_t mon, entity spot)
 	entity oself = self; // Remember self.
 	entity spawned = spawn();
 	self = spawned; // Changed self.
+	self.classname = mon.classname;
 	self.angles = spot.angles;
-	self.origin = spot.origin;
+	setorigin(self, spot.origin);
 	mon.spawn();
 	self = oself; // Restore self.
 	if (wasfreed(spawned))

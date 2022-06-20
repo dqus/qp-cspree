@@ -142,11 +142,10 @@ void ShalMissile()
 
 	missile.solid = SOLID_BBOX;
 	missile.movetype = MOVETYPE_FLYMISSILE;
+	setorigin(missile, self.origin + '0 0 10');
 	setmodel (missile, "progs/v_spike.mdl");
+	setsize (missile, '0 0 0', '0 0 0');
 
-	setsize (missile, '0 0 0', '0 0 0');		
-
-	missile.origin = self.origin + '0 0 10';
 	missile.velocity = dir * 400;
 	missile.avelocity = '300 300 300';
 	missile.nextthink = flytime + time;

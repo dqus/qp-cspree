@@ -79,7 +79,7 @@ void()	demon1_jump4	=[	$leap4,		demon1_jump5	]
 	
 	self.touch = Demon_JumpTouch;
 	makevectors (self.angles);
-	self.origin_z = self.origin_z + 1;
+	setorigin(self, self.origin + [0, 0, 1]); // FIXME: Could stuck.
 	self.velocity = v_forward * 600 + '0 0 250';
 	if (self.flags & FL_ONGROUND)
 		self.flags = self.flags - FL_ONGROUND;

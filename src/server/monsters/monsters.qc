@@ -68,7 +68,7 @@ void monster_death_use()
 
 void walkmonster_start_go()
 {
-	self.origin_z = self.origin_z + 1;	// raise off floor a bit
+	setorigin(self, self.origin + [0, 0, 1]); // raise off floor a bit
 	if (!droptofloor()) {
 		dbgprintf("walkmonster:%s droptofloor failed at:%v\n", self.classname, self.origin);
 	}

@@ -157,7 +157,7 @@ void() dog_leap2	=[	$leap2,		dog_leap3	]
 	
 	self.touch = Dog_JumpTouch;
 	makevectors (self.angles);
-	self.origin_z = self.origin_z + 1;
+	setorigin(self, self.origin + [0, 0, 1]); // FIXME: Could stuck.
 	self.velocity = v_forward * 300 + '0 0 200';
 	if (self.flags & FL_ONGROUND)
 		self.flags = self.flags - FL_ONGROUND;

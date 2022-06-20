@@ -151,7 +151,7 @@ void()	tbaby_jump5		=[	$jump5,	tbaby_jump6		]
 	self.movetype = MOVETYPE_BOUNCE;
 	self.touch = Tar_JumpTouch;
 	makevectors (self.angles);
-	self.origin_z = self.origin_z + 1;
+	setorigin(self, self.origin + [0, 0, 1]); // FIXME: Could stuck.
 	self.velocity = v_forward * 600 + '0 0 200';
 	self.velocity_z = self.velocity_z + random()*150;
 	if (self.flags & FL_ONGROUND)

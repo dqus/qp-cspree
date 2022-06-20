@@ -22,12 +22,12 @@ vector VelocityForDamage(float dmg)
 static void ThrowGibEx(string gibname, float dmg, bool head)
 {
 	entity gib = spawn();
-	gib.origin = self.origin; // <<< Using self!!!
-	setmodel(gib, gibname);
-	setsize(gib, '0 0 0', '0 0 0');
-	gib.velocity = VelocityForDamage(dmg);
 	gib.movetype = MOVETYPE_BOUNCE;
 	gib.solid = SOLID_NOT;
+	setmodel(gib, gibname);
+	setorigin(gib, self.origin); // <<< Using self!!!
+	setsize(gib, '0 0 0', '0 0 0');
+	gib.velocity = VelocityForDamage(dmg);
 	gib.avelocity = randomv(head ? '0 600 0' : '600 600 600');
 
 	monster_init_fade(gib);

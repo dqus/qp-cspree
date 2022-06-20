@@ -764,7 +764,7 @@ void item_drop()
 {
 	self.movetype = MOVETYPE_TOSS;
 
-	self.origin_z = self.origin_z + 6;
+	setorigin(self, self.origin + [0, 0, 6]);
 	if (!droptofloor())
 	{
 		dprint(self.classname);
