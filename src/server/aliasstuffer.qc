@@ -54,6 +54,7 @@ static string stufflist[] =
 	"alias rulemaker cmd rulemaker\n",
 	"alias rndmap cmd rndmap\n",
 	"alias shownick cmd shownick\n",
+	"alias giveme cmd giveme\n",
 };
 
 static void aliasstuffer_think()

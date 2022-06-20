@@ -23,6 +23,71 @@
 
 */
 
+static bool CheatsAllowed(void)
+{
+	return cvar("sv_cheats");
+}
+
+static bool CheatsAllowedForClient(entity client)
+{
+	if (CheatsAllowed())
+		return true;
+	client_sprintf(client, PRINT_HIGH, "Cheats are not allowed on this server\n");
+	return false;
+}
+
+static void GiveMeUsage(void)
+{
+	client_sprintf(self, PRINT_HIGH, "giveme <q|p|r|s> [seconds]\n");
+}
+
+static void GiveMe(int argc)
+{
+	if (!CheatsAllowedForClient(self))
+		return;
+	if (argc < 2) {
+		GiveMeUsage();
+		return;
+	}
+
+	string got = "BUG";
+	string what = argv(1);
+	float seconds = max(0, stof(argv(2)));
+	if (!seconds)
+		seconds = 30;
+
+	if (what == "q") {
+		self.quad_time = 0;
+		self.quad_finished = time + seconds;
+		self.items |= IT_QUAD;
+		self.flags |= EF_BLUE;
+		got = "quad";
+	} else if (what == "p")	{
+		self.pent_time = 0;
+		self.pent_finished = time + seconds;
+		self.items |= IT_PENT;
+		self.flags |= EF_RED;
+		got = "pent";
+	} else if (what == "r")	{
+		setmodel(self, "progs/eyes.mdl");	// Switch to invisible model instantly
+		self.ring_time = 0;
+		self.ring_finished = time + seconds;
+		self.items |= IT_RING;
+		got = "ring";
+	} else if (what == "s")	{
+		self.suit_time = 0;
+		self.suit_finished = time + seconds;
+		self.items |= IT_SUIT;
+		self.flags |= EF_GREEN;
+		got = "suit";
+	} else {
+		GiveMeUsage();
+		return;
+	}
+
+	client_sprintf(self, PRINT_HIGH, "You got %s for %.1fs\n", got, seconds);
+}
+
 void cmd_ready()
 {
 	entity player;
@@ -889,6 +954,9 @@ float gmapn_handle_usercmd(float argc)
 		return 1;
 	} else if (cmd == "pos_show") {
 		client_sprintf(self, PRINT_HIGH, "position: %v\n", self.origin);
+		return 1;
+	} else if (cmd == "giveme") {
+		GiveMe(argc);
 		return 1;
 	}
 	return 0;
