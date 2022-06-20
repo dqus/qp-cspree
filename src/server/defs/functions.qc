@@ -249,6 +249,7 @@ void safe_precache_sound(string name);
 void safe_precache_sound2(string name);
 bool isAlive(entity e);
 bool isDead(entity e);
+float argvf(int n);
 
 /*
  * gmapn_usercmd.qc

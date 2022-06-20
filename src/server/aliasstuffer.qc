@@ -55,6 +55,8 @@ static string stufflist[] =
 	"alias rndmap cmd rndmap\n",
 	"alias shownick cmd shownick\n",
 	"alias giveme cmd giveme\n",
+	"alias pos_show cmd pos_show\n",
+	"alias pos_set cmd pos_set\n",
 };
 
 static void aliasstuffer_think()

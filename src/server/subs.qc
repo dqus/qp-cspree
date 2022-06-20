@@ -918,3 +918,8 @@ bool isDead(entity e)
 {
 	return !isAlive(e);
 }
+
+float argvf(int n)
+{
+	return stof(argv(n));
+}

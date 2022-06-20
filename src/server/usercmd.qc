@@ -955,6 +955,12 @@ float gmapn_handle_usercmd(float argc)
 	} else if (cmd == "pos_show") {
 		client_sprintf(self, PRINT_HIGH, "position: %v\n", self.origin);
 		return 1;
+	} else if (cmd == "pos_set") {
+		if (CheatsAllowedForClient(self)) {
+			vector org = [argvf(1), argvf(2), argvf(3)];
+			setorigin(self, org); // Unsafe, could stuck in a wall and such, but it is intentionall.
+		}
+		return 1;
 	} else if (cmd == "giveme") {
 		GiveMe(argc);
 		return 1;
